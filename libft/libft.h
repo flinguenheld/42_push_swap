@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 17:46:57 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/04 12:20:47 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/04 21:30:02 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,30 @@ typedef struct s_list
 
 /* ****************************************************************************/
 /* ******************************************************************* IS *****/
+/**
+ * @brief
+ * Check if the given str is an integer.
+ * Valids:
+ * "123"
+ * " -123"
+ * " +123"
+ * "       +0"
+ * Non valid
+ * ""
+ * "--123"
+ * "123a"
+ * "+ 12"
+ * "-"
+ * @return
+ * 1 if str is a valid number otherwise 0.
+ */
+int			ft_is_integer(char *str);
 int			ft_isalnum(int c);
 int			ft_isalpha(int c);
 int			ft_isascii(int c);
 int			ft_isdigit(int c);
 int			ft_isprint(int c);
+int			ft_isspace(int c);
 
 /* ****************************************************************************/
 /* ***************************************************************** LIST *****/
@@ -50,6 +69,14 @@ void		ft_lst_clear(t_list **lst, void (*del)(void *));
  * Wrapper of 'ft_lst_clear' which deletes all contents with the free fuction.
  */
 void		ft_lst_clear_basic(t_list **lst);
+
+/**
+ * @brief
+ * Loop in the list and apply the comparison on each node.
+ * @return
+ * 1 if one node's comparison is valid.
+ */
+int			ft_lst_contains(t_list *lst, int (*comparison)(void *));
 
 /**
  * @brief

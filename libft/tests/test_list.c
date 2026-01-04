@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 17:14:54 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/04 12:20:47 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/04 21:30:02 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,73 @@ int *new_content(int value)
 void print_node(void *content)
 {
 	ft_printf("value -> %d\n", *(int *)(content));
+}
+
+int comparison_int_eq_hundred(void *content)
+{
+	return (content != NULL && *((int *)content) == 100);
+}
+
+void test_list_comparison()
+{
+	ft_printf("-----------------------------------------------------------\n");
+	ft_printf("-------------------------------------- TEST COMPARISON ----\n");
+
+	t_list *start = NULL;
+
+	ft_printf("Test empty list --\n");
+	if (!ft_lst_contains(start, comparison_int_eq_hundred))
+		ft_printf("Do not contains\n");
+
+	ft_printf("\n");
+	ft_printf("Fill and test --\n");
+	for (int i=0; i<110; i++)
+	{
+		ft_lst_push_back(&start, ft_lst_new(new_content(i)));
+		switch (ft_lst_contains(start, comparison_int_eq_hundred))
+		{
+			case 1: 
+				ft_printf("iteration: %d -> The list does contain 100\n", i);
+				break;
+			case 0:
+				// ft_printf("iteration: %d -> The list does NOT contain 100\n", i);
+				break;
+		}
+	}
+
+	ft_lst_clear_basic(&start);
+}
+
+void test_list_push_back()
+{
+	ft_printf("-----------------------------------------------------------\n");
+	ft_printf("--------------------------------------- TEST PUSH BACK ----\n");
+
+	t_list *start = NULL;
+	ft_lst_push_back(&start, ft_lst_new(new_content(1)));
+	ft_lst_push_back(&start, ft_lst_new(new_content(2)));
+	ft_lst_push_back(&start, ft_lst_new(new_content(3)));
+	ft_lst_push_back(&start, ft_lst_new(new_content(4)));
+	ft_lst_push_back(&start, ft_lst_new(new_content(5)));
+
+	ft_lst_iter(start, print_node);
+	ft_lst_clear_basic(&start);
+}
+
+void test_list_push_front()
+{
+	ft_printf("-----------------------------------------------------------\n");
+	ft_printf("-------------------------------------- TEST PUSH FRONT ----\n");
+
+	t_list *start = NULL;
+	ft_lst_push_front(&start, ft_lst_new(new_content(1)));
+	ft_lst_push_front(&start, ft_lst_new(new_content(2)));
+	ft_lst_push_front(&start, ft_lst_new(new_content(3)));
+	ft_lst_push_front(&start, ft_lst_new(new_content(4)));
+	ft_lst_push_front(&start, ft_lst_new(new_content(5)));
+
+	ft_lst_iter(start, print_node);
+	ft_lst_clear_basic(&start);
 }
 
 void test_list_pop_back()
@@ -145,13 +212,17 @@ void test_list_swap()
 
 int main()
 {
-	ft_printf("MAIN TEST --\n");
+	ft_printf("LIST TESTS --\n");
 	// ------------------------------------------------------------------------
 	// ------------------------------------------------------- TEST LISTS -----
+	test_list_push_back();
+	test_list_push_front();
+
 	test_list_swap();
 	test_list_pop_back();
 	test_list_pop_front();
 	test_list_rotate();
 
+	test_list_comparison();
 	return 0;
 }

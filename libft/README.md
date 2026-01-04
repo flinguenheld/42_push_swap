@@ -3,11 +3,13 @@
 My beautifull libft that I lovely use and complete with all 42 C projects 😘  
 
 - is
+  - [int			ft_is_integer(char *str);](https://github.com/flinguenheld/42_libft/blob/master/ft_is/ft_is_integer.c)
   - [int			ft_isalnum(int c);](https://github.com/flinguenheld/42_libft/blob/master/ft_is/ft_isalnum.c)
   - [int			ft_isalpha(int c);](https://github.com/flinguenheld/42_libft/blob/master/ft_is/ft_isalpha.c)
   - [int			ft_isascii(int c);](https://github.com/flinguenheld/42_libft/blob/master/ft_is/ft_isascii.c)
   - [int			ft_isdigit(int c);](https://github.com/flinguenheld/42_libft/blob/master/ft_is/ft_isdigit.c)
   - [int			ft_isprint(int c);](https://github.com/flinguenheld/42_libft/blob/master/ft_is/ft_isprint.c)
+  - [int			ft_isspace(int c);](https://github.com/flinguenheld/42_libft/blob/master/ft_is/ft_isspace.c)
 - list
   - [void		ft_lst_clear(t_list **lst, void (*del)(void *));](https://github.com/flinguenheld/42_libft/blob/master/ft_list/ft_lst_clear.c)
   - [void		ft_lst_clear_basic(t_list **lst);](https://github.com/flinguenheld/42_libft/blob/master/ft_list/ft_lst_clear.c)
@@ -17,8 +19,8 @@ My beautifull libft that I lovely use and complete with all 42 C projects 😘
   - [t_list	*ft_lst_last(t_list *lst);](https://github.com/flinguenheld/42_libft/blob/master/ft_list/ft_lstlast.c)
   - [t_list	*ft_lst_map(t_list *lst, void *(*f)(void *), void (*del)(void *));](https://github.com/flinguenheld/42_libft/blob/master/ft_list/ft_lst_map.c)
   - [t_list	*ft_lst_new(void *content);](https://github.com/flinguenheld/42_libft/blob/master/ft_list/ft_lst_new.c)
-  - [void		ft_lst_pop_back(t_list **lst, t_list *new_node);](https://github.com/flinguenheld/42_libft/blob/master/ft_list/ft_lst_pop_back.c)
-  - [void		ft_lst_pop_front(t_list **lst, t_list *new_node);](https://github.com/flinguenheld/42_libft/blob/master/ft_list/ft_lst_pop_front.c)
+  - [t_list	*ft_lst_pop_back(t_list **lst, t_list *new_node);](https://github.com/flinguenheld/42_libft/blob/master/ft_list/ft_lst_pop_back.c)
+  - [t_list	*ft_lst_pop_front(t_list **lst, t_list *new_node);](https://github.com/flinguenheld/42_libft/blob/master/ft_list/ft_lst_pop_front.c)
   - [void		ft_lst_push_back(t_list **lst, t_list *new_node);](https://github.com/flinguenheld/42_libft/blob/master/ft_list/ft_lst_push_back.c)
   - [void		ft_lst_push_front(t_list **lst, t_list *new_node);](https://github.com/flinguenheld/42_libft/blob/master/ft_list/ft_lst_push_front.c)
   - [void		ft_lst_rotate_left(t_list **lst);](https://github.com/flinguenheld/42_libft/blob/master/ft_list/ft_lst_rotate_left.c)

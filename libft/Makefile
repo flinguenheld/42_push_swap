@@ -4,13 +4,16 @@ NAME = libft.a
 TEST = tests/main_test
 
 SRC =  \
+		ft_is/ft_is_integer.c \
 		ft_is/ft_isalnum.c \
 		ft_is/ft_isalpha.c \
 		ft_is/ft_isascii.c \
 		ft_is/ft_isdigit.c \
 		ft_is/ft_isprint.c \
+		ft_is/ft_isspace.c \
 		\
 		ft_list/ft_lst_clear.c \
+		ft_list/ft_lst_contains.c \
 		ft_list/ft_lst_delone.c \
 		ft_list/ft_lst_iter.c \
 		ft_list/ft_lst_last.c \
@@ -90,6 +93,10 @@ test_list: all
 	$(CC) tests/test_list.c $(NAME) -o $(TEST)
 	./$(TEST)
 
+test_is: all
+	$(CC) tests/test_is.c $(NAME) -o $(TEST)
+	./$(TEST)
+
 test_no_flag: CFLAGS =
 test_no_flag: test_list
 
@@ -102,4 +109,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all $(NAME) test_list test_no_flag clean fclean re
+.PHONY: all $(NAME) test_list test_is test_no_flag clean fclean re
