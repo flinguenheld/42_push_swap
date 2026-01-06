@@ -102,8 +102,12 @@ test_to: all
 	$(CC) tests/test_to.c $(NAME) -o $(TEST)
 	./$(TEST)
 
+test_printf: all
+	$(CC) tests/test_printf.c $(NAME) -o $(TEST)
+	./$(TEST)
+
 test_no_flag: CFLAGS =
-test_no_flag: test_list
+test_no_flag: test_printf
 
 clean:
 	@rm -vf $(OBJS)
@@ -114,4 +118,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all $(NAME) test_list test_is test_no_flag clean fclean re
+.PHONY: all $(NAME) test_printf test_list test_is test_no_flag clean fclean re

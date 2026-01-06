@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 22:27:30 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/03 17:16:55 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/06 18:22:26 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	print_char(char value, t_flags flags)
 	total = 0;
 	flags.width.val--;
 	while (!flags.width.after && flags.width.val-- > 0)
-		total += putchar_count(' ');
-	total += putchar_count(value);
+		total += putchar_count(' ', flags);
+	total += putchar_count(value, flags);
 	while (flags.width.after && flags.width.val-- > 0)
-		total += putchar_count(' ');
+		total += putchar_count(' ', flags);
 	return (total);
 }

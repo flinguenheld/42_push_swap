@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 00:21:27 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/03 17:16:55 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/06 18:22:26 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,24 @@ int	print_number(char negative, char *unsigned_value, t_flags flags)
 	total = 0;
 	while (flags.width.on && !flags.width.after && flags.width.filler == ' '
 		&& flags.width.val-- > 0)
-		total += putchar_count(' ');
+		total += putchar_count(' ', flags);
 	if (flags.plus && !negative)
-		total += putchar_count('+');
+		total += putchar_count('+', flags);
 	else if (flags.space && !negative)
-		total += putchar_count(' ');
+		total += putchar_count(' ', flags);
 	if (*flags.hexa != '\0')
 		total += ft_printf(flags.hexa);
 	if (negative)
-		total += putchar_count('-');
+		total += putchar_count('-', flags);
 	while (flags.prec.on && flags.prec.val-- > 0)
-		total += putchar_count('0');
+		total += putchar_count('0', flags);
 	while (flags.width.on && flags.width.after == 0
 		&& flags.width.filler == '0' && flags.width.val-- > 0)
-		total += putchar_count('0');
+		total += putchar_count('0', flags);
 	if (flags.prec.on >= 0)
 		total += ft_printf(unsigned_value);
 	while (flags.width.on && flags.width.after && flags.width.val-- > 0)
-		total += putchar_count(' ');
+		total += putchar_count(' ', flags);
 	free(unsigned_value);
 	return (total);
 }

@@ -1,17 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/06 11:29:08 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/06 11:29:09 by flinguen         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 #include "libft/libft.h"
-#include <limits.h>
-#include <stdlib.h>
 
 static void	print_node(void *content)
 {
@@ -69,14 +56,13 @@ int	main(int argc, char **argv)
 		if (check_and_push(&a, *argv) == 0)
 		{
 			ft_lst_clear_basic(&a);
-			// TODO: Print in the STDERR !!!!!!!!!!!!!!!!!!!!!!!!!!!
-			ft_printf("Error\n");
-			return (0);
+			ft_printf_err("Error\n");
+			return (1);
 		}
 	}
 
 	ft_lst_iter(a, print_node);
 	ft_lst_clear_basic(&a);
-
 	ft_printf("end\n");
+	return (0);
 }

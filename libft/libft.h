@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 17:46:57 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/06 01:37:53 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/06 18:28:47 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <stdlib.h>
 # include <stdint.h>
 # include <unistd.h>
-# include <limits.h>
 # include <stdarg.h>
 
 /**
@@ -332,8 +331,18 @@ void		ft_swap(void **a, void **b);
  *             spaces for numeric types
  *  . -> Precision specifies the minimum number of digits to be written
  *  # -> for %x & % X -> 0x, 0X, respectively, is prepended to non-zero numbers
+ * @return
+ * The amount of printed char or -1 if error
  */
 int			ft_printf(const char *str, ...);
+
+/**
+ * @brief
+ * Same as ft_printf but in the standard output error.
+ * @return
+ * The amount of printed char or -1 if error
+ */
+int			ft_printf_err(const char *str, ...);
 
 /* ****************************************************************************/
 /* ****************************************************************** PUT *****/

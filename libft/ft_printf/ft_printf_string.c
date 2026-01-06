@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 10:22:02 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/03 17:16:55 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/06 18:22:26 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ int	print_string(char *value, t_flags flags)
 	else
 		flags.width.val -= ft_strlen(value);
 	while (flags.width.on && !flags.width.after && flags.width.val-- > 0)
-		total += putchar_count(' ');
+		total += putchar_count(' ', flags);
 	while (*value != '\0' && (!flags.prec.on || flags.prec.val-- > 0))
-		total += putchar_count(*value++);
+		total += putchar_count(*value++, flags);
 	while (flags.width.on && flags.width.after && flags.width.val-- > 0)
-		total += putchar_count(' ');
+		total += putchar_count(' ', flags);
 	return (total);
 }

@@ -6,15 +6,15 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 18:55:27 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/03 17:16:55 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/06 18:22:26 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	putchar_count(char c)
+int	putchar_count(char c, t_flags flags)
 {
-	ft_putchar_fd(c, 1);
+	ft_putchar_fd(c, flags.file_descriptor);
 	return (1);
 }
 
