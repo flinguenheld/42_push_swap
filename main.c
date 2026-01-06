@@ -6,10 +6,11 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:04:31 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/06 21:06:33 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/06 21:45:23 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
+# include "commands/commands.h"
 
 static void	print_node(void *content)
 {
