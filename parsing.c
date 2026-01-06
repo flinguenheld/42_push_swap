@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                       :::      ::::::::    */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -9,32 +9,43 @@
 /*   Updated: 2026/01/06 21:06:33 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "push_swap.h"
 
-static void	print_node(void *content)
+static int	contains(void *a, void *b)
 {
-	ft_printf("value -> %d\n", *(int *)(content));
+	return (a != NULL && b != NULL && *(int *)a == *(int *)b);
 }
 
-int	main(int argc, char **argv)
+/**
+ * @brief
+ * Convert str into an int and push it at the end of 'a'
+ * Except if:
+ * - str is not a digit
+ * - str overflowesint limits
+ * - 'a' already contains str
+ * @return
+ * 1 if ok
+ */
+int	check_and_push_argv(t_list **a, char *str)
 {
-	t_list	*a;
+	int	*new_value;
 
-	a = NULL;
-	if (argc <= 1)
-		return (0);
-	while (argc-- > 1)
+	if (ft_is_integer(str))
 	{
-		argv++;
-		if (check_and_push_argv(&a, *argv) == 0)
+		new_value = malloc(sizeof(int));
+		if (new_value != NULL)
 		{
-			ft_lst_clear_basic(&a);
-			ft_printf_err("Error\n");
+			*new_value = ft_atoi(str);
+			if (*new_value != ft_atol(str)
+				|| ft_lst_contains_key(*a, new_value, contains))
+			{
+				free(new_value);
+				return (0);
+			}
+			ft_lst_push_back(a, ft_lst_new(new_value));
 			return (1);
 		}
 	}
-	ft_lst_iter(a, print_node);
-	ft_lst_clear_basic(&a);
-	ft_printf("end\n");
 	return (0);
 }
