@@ -1,41 +1,59 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                       :::      ::::::::    */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/06 11:29:08 by flinguen          #+#    #+#             */
+/*   Updated: 2026/01/06 11:29:09 by flinguen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "libft/libft.h"
+#include <limits.h>
+#include <stdlib.h>
+
+static void	print_node(void *content)
+{
+	ft_printf("value -> %d\n", *(int *)(content));
+}
+
+static int	contains(void *a, void *b)
+{
+	return (a != NULL && b != NULL && *(int *)a == *(int *)b);
+}
 
 /**
  * @brief
- * Check if all argv values are integers. 
- * And if there is at least one value.
+ * Convert str into an int and push it at the end of 'a'
+ * Except if:
+ * - str is not a digit
+ * - str overflowesint limits
+ * - 'a' already contains str
  * @return
  * 1 if ok
  */
-int	are_arguments_ok(int argc, char **argv)
+static int	check_and_push(t_list **a, char *str)
 {
-	if (argc <= 0)
-		return (0);
-	while (argc--)
+	int	*new_value;
+
+	if (ft_is_integer(str))
 	{
-		if (!ft_is_integer(*argv))
-			return (0);
-		argv++;
+		new_value = malloc(sizeof(int));
+		if (new_value != NULL)
+		{
+			*new_value = ft_atoi(str);
+			if (*new_value != ft_atol(str)
+				|| ft_lst_contains_key(*a, new_value, contains))
+			{
+				free(new_value);
+				return (0);
+			}
+			ft_lst_push_back(a, ft_lst_new(new_value));
+			return (1);
+		}
 	}
-	return (1);
-}
-
-/**
- * @brief
- * Malloc a int to set the value 
- */
-int *new_content(int value)
-{
-	int	*content;
-
-	content = malloc(sizeof(int));
-	*content = value;
-	return (content);
-}
-
-void print_node(void *content)
-{
-	ft_printf("value -> %d\n", *(int *)(content));
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -43,17 +61,18 @@ int	main(int argc, char **argv)
 	t_list	*a;
 
 	a = NULL;
-	ft_printf("value of argc: %d\n", argc);
-	if (are_arguments_ok(--argc, ++argv) == 0)
+	if (argc <= 1)
+		return (0);
+	while (argc-- > 1)
 	{
-		ft_printf("ERROR\n");
-		return (1);
-	}
-	// Build A
-	while (argc--)
-	{
-		ft_lst_push_back(&a, ft_lst_new(new_content(ft_atoi(*argv))));
 		argv++;
+		if (check_and_push(&a, *argv) == 0)
+		{
+			ft_lst_clear_basic(&a);
+			// TODO: Print in the STDERR !!!!!!!!!!!!!!!!!!!!!!!!!!!
+			ft_printf("Error\n");
+			return (0);
+		}
 	}
 
 	ft_lst_iter(a, print_node);

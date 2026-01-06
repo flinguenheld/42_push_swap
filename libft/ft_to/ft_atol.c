@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                       :::      ::::::::    */
-/*   ft_lst_contains.c                                  :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/04 20:59:10 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/04 22:13:00 by flinguen         ###   ########.fr       */
+/*   Created: 2025/11/08 16:33:26 by flinguen          #+#    #+#             */
+/*   Updated: 2026/01/06 01:37:53 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	ft_lst_contains(t_list *lst, int (*comparison)(void *))
+long	ft_atol(const char *str)
 {
-	if (lst == NULL)
-		return (0);
-	if (comparison(lst->content))
-		return (1);
-	return (ft_lst_contains(lst->next, comparison));
-}
+	int		is_neg;
+	long	value;
 
-int	ft_lst_contains_key(t_list *lst, void *key, int (*comp)(void *, void *))
-{
-	if (lst == NULL)
-		return (0);
-	if (comp(lst->content, key))
-		return (1);
-	return (ft_lst_contains_key(lst->next, key, comp));
+	value = 0;
+	is_neg = 0;
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-' || *str == '+')
+		is_neg = (*str++ == '-');
+	while (ft_isdigit(*str))
+		value = value * 10 + (*str++ - '0');
+	if (is_neg)
+		value = -value;
+	return (value);
 }

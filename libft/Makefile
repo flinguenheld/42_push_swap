@@ -72,6 +72,7 @@ SRC =  \
 		ft_str/ft_substr.c \
 		\
 		ft_to/ft_atoi.c \
+		ft_to/ft_atol.c \
 		ft_to/ft_itoa.c \
 		ft_to/ft_itohex.c \
 		ft_to/ft_ltoa.c \
@@ -95,6 +96,10 @@ test_list: all
 
 test_is: all
 	$(CC) tests/test_is.c $(NAME) -o $(TEST)
+	./$(TEST)
+
+test_to: all
+	$(CC) tests/test_to.c $(NAME) -o $(TEST)
 	./$(TEST)
 
 test_no_flag: CFLAGS =

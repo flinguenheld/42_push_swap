@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 17:46:57 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/04 21:30:02 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/06 01:37:53 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,15 @@ void		ft_lst_clear_basic(t_list **lst);
  * 1 if one node's comparison is valid.
  */
 int			ft_lst_contains(t_list *lst, int (*comparison)(void *));
+
+/**
+ * @brief
+ * Loop in the list and apply the comparison on each node.
+ * @return
+ * 1 if one node's comparison is valid.
+ */
+int			ft_lst_contains_key(t_list *lst, void *key,
+				int (*comp)(void *, void *));
 
 /**
  * @brief
@@ -523,17 +532,21 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 /* ******************************************************************* TO *****/
 /**
  * @brief
- * The atoi() function converts the initial portion of the string pointed to by 
- * nptr to int.  The behavior is the same as 'strtol(nptr, NULL, 10);'
- * except that atoi() does not detect errors.
- * 
- * The atol() and atoll() functions behave the same as atoi(),
- * except that they convert the initial portion of the string to their return 
- * type of long or long long.
+ * Converts the initial portion of str to int.
+ * Do not detect errors.
  * @return
  * The converted value or 0 on error.
  */
-int			ft_atoi(const char *nptr);
+int			ft_atoi(const char *str);
+
+/**
+ * @brief
+ * Converts the initial portion of str to long.
+ * Do not detect errors.
+ * @return
+ * The converted value or 0 on error.
+ */
+long		ft_atol(const char *str);
 
 /**
  * @brief

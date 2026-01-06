@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 17:14:54 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/04 21:30:02 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/04 22:13:00 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ void print_node(void *content)
 int comparison_int_eq_hundred(void *content)
 {
 	return (content != NULL && *((int *)content) == 100);
+}
+
+int comparison_int_eq_to_key(void *key, void *content)
+{
+	return (content != NULL && key != NULL &&
+		*((int *)content) == *((int *)key));
 }
 
 void test_list_comparison()
@@ -57,6 +63,39 @@ void test_list_comparison()
 	}
 
 	ft_lst_clear_basic(&start);
+}
+
+void test_list_comparison_key()
+{
+	ft_printf("-----------------------------------------------------------\n");
+	ft_printf("---------------------------------- TEST COMPARISON KEY ----\n");
+
+	t_list *start = NULL;
+
+	int *value_to_compare = new_content(555);
+
+	ft_printf("Test empty list --\n");
+	if (!ft_lst_contains_key(start, value_to_compare, comparison_int_eq_to_key))
+		ft_printf("Do not contains %d\n", *value_to_compare);
+
+	ft_printf("\n");
+	ft_printf("Fill and test --\n");
+	for (int i=0; i<560; i++)
+	{
+		ft_lst_push_back(&start, ft_lst_new(new_content(i)));
+		switch (ft_lst_contains_key(start, value_to_compare, comparison_int_eq_to_key))
+		{
+			case 1: 
+				ft_printf("iteration: %d -> The list does contain %d\n", i, *value_to_compare);
+				break;
+			case 0:
+				// ft_printf("iteration: %d -> The list does NOT contain %d\n", i, *value_to_compare);
+				break;
+		}
+	}
+
+	ft_lst_clear_basic(&start);
+	free(value_to_compare);
 }
 
 void test_list_push_back()
@@ -224,5 +263,6 @@ int main()
 	test_list_rotate();
 
 	test_list_comparison();
+	test_list_comparison_key();
 	return 0;
 }
