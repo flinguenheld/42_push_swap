@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
-# include "commands/commands.h"
+// # include "commands/commands.h"
 
 static void	print_node(void *content)
 {

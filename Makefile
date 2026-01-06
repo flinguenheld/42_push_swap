@@ -4,6 +4,7 @@ CFLAGS = -Wall -Wextra -Werror
 NAME = push_swap
 LIBFT_FOLDER = ./libft/
 LIBFT_FILE = $(LIBFT_FOLDER)libft.a
+TEST = tests/main_test
 
 SRC = main.c \
       parsing.c \
@@ -22,8 +23,9 @@ $(NAME): libft $(OBJS)
 libft:
 	make -C $(LIBFT_FOLDER)
 
-test: all
-	./$(NAME)
+test_commands: all
+	$(CC) tests/test_commands.c commands/*.c $(LIBFT_FILE) -o $(TEST)
+	./$(TEST)
 
 test_no_flag: CFLAGS =
 test_no_flag: test
