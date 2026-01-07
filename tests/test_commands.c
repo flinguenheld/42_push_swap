@@ -90,6 +90,10 @@ void test_push()
 	print_both(a, b, "after ---\n", "\n------\n");
 	ft_lst_clear_basic(&a);
 	ft_lst_clear_basic(&b);
+
+	ft_printf("Has to print nothing with empty lists:\n");
+	push_b(&a, &b);
+	push_a(&a, &b);
 }
 
 void test_swap()
@@ -128,6 +132,11 @@ void test_swap()
 	print_both(a, b, "after ---\n", "\n------\n");
 	ft_lst_clear_basic(&a);
 	ft_lst_clear_basic(&b);
+
+	ft_printf("Has to print nothing with empty lists:\n");
+	swap_a(a);
+	swap_b(b);
+	swap_ab(a, b);
 }
 
 void test_rotate()
@@ -171,6 +180,14 @@ void test_rotate()
 	print_both(a, b, "after ---\n", "\n------\n");
 	ft_lst_clear_basic(&a);
 	ft_lst_clear_basic(&b);
+
+	ft_printf("Has to print nothing with empty lists:\n");
+	rotate_a(&a);
+	rotate_b(&b);
+	rotate_ab(&a, &b);
+	reverse_rotate_a(&a);
+	reverse_rotate_b(&b);
+	reverse_rotate_ab(&a, &b);
 }
 
 int	main(void)
