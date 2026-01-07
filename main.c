@@ -6,11 +6,11 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:04:31 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/06 21:45:23 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/07 19:46:07 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
-# include "commands/commands.h"
+#include "commands/commands.h"
 
 static void	print_node(void *content)
 {
@@ -20,8 +20,10 @@ static void	print_node(void *content)
 int	main(int argc, char **argv)
 {
 	t_list	*a;
+	t_list	*b;
 
 	a = NULL;
+	b = NULL;
 	if (argc <= 1)
 		return (0);
 	while (argc-- > 1)
@@ -35,6 +37,12 @@ int	main(int argc, char **argv)
 		}
 	}
 	ft_lst_iter(a, print_node);
+	push_b(&a, &b);
+	push_b(&a, &b);
+	print_ab(a, b, "before\n", "after\n");
+
+
+	
 	ft_lst_clear_basic(&a);
 	ft_printf("end\n");
 	return (0);
