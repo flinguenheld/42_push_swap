@@ -6,18 +6,13 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:04:31 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/06 21:45:23 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/07 19:46:07 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft/libft.h"
 #include "push_swap.h"
-# include "commands/commands.h"
+#include "commands/commands.h"
 #include <limits.h>
-
-static void	print_node(void *content)
-{
-	ft_printf("value -> %d\n", *(int *)(content));
-}
 
 // Who is the lowest ?
 static int get_lowest_position(t_list *a)
@@ -62,34 +57,24 @@ int	main(int argc, char **argv)
 			return (1);
 		}
 	}
-	ft_printf("base vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n");
-	ft_lst_iter(a, print_node);
-	ft_printf("base ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n");
+	print_ab(a, b, "Original --\n", "\n");
 
 	while (a->next != NULL)
 	{
-		// Get the highest
 		int to_rotate = get_lowest_position(a);
 
 		while (to_rotate--)
 			rotate_a(&a);
 		push_b(&a, &b);
 	}
-
 	while (b != NULL)
 	{
 		push_a(&a, &b);
 	}
 
-	
-	ft_printf("a vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n");
-	ft_lst_iter(a, print_node);
-	ft_printf("a ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n");
-	ft_printf("b vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n");
-	ft_lst_iter(b, print_node);
-	ft_printf("b ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n");
+	print_ab(a, b, "Sorted --\n", "\n");
 
+	// --
 	ft_lst_clear_basic(&a);
-	ft_printf("end\n");
 	return (0);
 }

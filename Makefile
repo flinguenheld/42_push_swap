@@ -8,6 +8,7 @@ LIBFT_FILE = $(LIBFT_FOLDER)libft.a
 
 SRC = main.c \
       parsing.c \
+      print.c \
       commands/push.c \
       commands/reverse_rotate.c \
       commands/rotate.c \
