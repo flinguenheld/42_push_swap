@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:04:31 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/07 19:46:07 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/07 21:09:25 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -39,7 +39,7 @@ int	main(int argc, char **argv)
 	ft_lst_iter(a, print_node);
 	push_b(&a, &b);
 	push_b(&a, &b);
-	print_ab(a, b, "before\n", "after\n");
+	print_ab(a, b, "before", "after");
 
 
 	
