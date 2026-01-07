@@ -12,13 +12,15 @@
 
 #include "commands.h"
 
-static void	rotate(t_list **start, char *to_print)
+static int	rotate(t_list **start, char *to_print)
 {
 	if (*start != NULL)
 	{
 		ft_lst_rotate_left(start);
 		ft_printf(to_print);
+		return (1);
 	}
+	return (0);
 }
 
 void	rotate_a(t_list **a)
@@ -33,6 +35,6 @@ void	rotate_b(t_list **b)
 
 void	rotate_ab(t_list **a, t_list **b)
 {
-	rotate_a(a);
-	rotate_b(b);
+	if (rotate(a, "") || rotate(b, ""))
+		ft_printf("rr\n");
 }
