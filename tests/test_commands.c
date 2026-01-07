@@ -13,6 +13,7 @@
 #include "../commands/commands.h"
 #include "../libft/libft.h"
 
+// vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv Utils vv
 int *new_content(int value)
 {
 	int *content = malloc(sizeof(int));
@@ -20,23 +21,7 @@ int *new_content(int value)
 	return content;
 }
 
-void print_node(void *content)
-{
-	ft_printf("value -> %d\n", *(int *)(content));
-}
-
-size_t max_length(t_list *a, t_list *b)
-{
-	size_t length_a = ft_lst_size(a);
-	size_t length_b = ft_lst_size(b);
-
-	if (length_a >= length_b)
-		return length_a;
-	else
-		return length_b;
-}
-
-int print_one(t_list **a, t_list **b)
+int print_one_line(t_list **a, t_list **b)
 {
 	int still_one = 0;
 
@@ -63,16 +48,17 @@ void print_both(t_list *a, t_list *b, char *before, char *after)
 	ft_printf(before);
 	t_list *tmp_a = a;
 	t_list *tmp_b = b;
-	while (print_one(&tmp_a, &tmp_b))
+	ft_printf("        a             b\n");
+	while (print_one_line(&tmp_a, &tmp_b))
 		ft_printf("\n");
 
 	ft_printf(after);
 }
-
-int	main(void)
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Utils ^^
+void test_push()
 {
-	ft_printf("--------------------------------------------------------------");
-	ft_printf("--------------------------------------------- Test commands --");
+	ft_printf("-------------------------------------------------");
+	ft_printf("------------------------------------ Test push --");
 	ft_printf("\n");
 
 	t_list *a = NULL;
@@ -100,8 +86,56 @@ int	main(void)
 	push_a(&a, &b);
 	push_a(&a, &b);
 	push_a(&a, &b);
-	
+
 	print_both(a, b, "after ---\n", "\n------\n");
 	ft_lst_clear_basic(&a);
 	ft_lst_clear_basic(&b);
+}
+
+void test_swap()
+{
+	ft_printf("-------------------------------------------------");
+	ft_printf("------------------------------------ Test swap --");
+	ft_printf("\n");
+
+	t_list *a = NULL;
+	ft_lst_push_back(&a, ft_lst_new(new_content(1)));
+	ft_lst_push_back(&a, ft_lst_new(new_content(2)));
+	ft_lst_push_back(&a, ft_lst_new(new_content(3)));
+	ft_lst_push_back(&a, ft_lst_new(new_content(4)));
+	ft_lst_push_back(&a, ft_lst_new(new_content(5)));
+
+	t_list *b = NULL;
+	ft_lst_push_back(&b, ft_lst_new(new_content(111)));
+	ft_lst_push_back(&b, ft_lst_new(new_content(222)));
+	ft_lst_push_back(&b, ft_lst_new(new_content(333)));
+	ft_lst_push_back(&b, ft_lst_new(new_content(444)));
+	ft_lst_push_back(&b, ft_lst_new(new_content(555)));
+	print_both(a, b, "base ---\n", "\n------\n");
+
+	swap_a(a);
+	swap_b(b);
+
+	print_both(a, b, "after ---\n", "\n------\n");
+
+	swap_ab(a, b);
+
+	print_both(a, b, "after ---\n", "\n------\n");
+
+	for (int i=0; i<10; i++)
+		swap_ab(a, b);
+
+	print_both(a, b, "after ---\n", "\n------\n");
+	ft_lst_clear_basic(&a);
+	ft_lst_clear_basic(&b);
+}
+
+int	main(void)
+{
+	ft_printf("--------------------------------------------------------------");
+	ft_printf("--------------------------------------------- Test commands --");
+	ft_printf("\n");
+
+	test_push();
+	test_swap();
 }

@@ -41,4 +41,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all $(NAME) libft test test_no_flag clean fclean re
+.PHONY: all $(NAME) libft test test_commands test_no_flag clean fclean re
