@@ -130,6 +130,49 @@ void test_swap()
 	ft_lst_clear_basic(&b);
 }
 
+void test_rotate()
+{
+	ft_printf("-------------------------------------------------");
+	ft_printf("---------------------------------- Test rotate --");
+	ft_printf("\n");
+
+	t_list *a = NULL;
+	ft_lst_push_back(&a, ft_lst_new(new_content(1)));
+	ft_lst_push_back(&a, ft_lst_new(new_content(2)));
+	ft_lst_push_back(&a, ft_lst_new(new_content(3)));
+	ft_lst_push_back(&a, ft_lst_new(new_content(4)));
+	ft_lst_push_back(&a, ft_lst_new(new_content(5)));
+
+	t_list *b = NULL;
+	ft_lst_push_back(&b, ft_lst_new(new_content(111)));
+	ft_lst_push_back(&b, ft_lst_new(new_content(222)));
+	ft_lst_push_back(&b, ft_lst_new(new_content(333)));
+	ft_lst_push_back(&b, ft_lst_new(new_content(444)));
+	ft_lst_push_back(&b, ft_lst_new(new_content(555)));
+	print_both(a, b, "base ---\n", "\n------\n");
+
+	rotate_a(&a);
+	rotate_b(&b);
+
+	print_both(a, b, "rotate one ---\n", "\n------\n");
+
+	reverse_rotate_a(&a);
+	reverse_rotate_b(&b);
+
+	print_both(a, b, "reverse rotate one ---\n", "\n------\n");
+
+	ft_printf("Rotate 10 times ----\n");
+	for (int i=0; i<10; i++)
+		rotate_ab(&a, &b);
+	ft_printf("And reverse rotate 10 times ----\n");
+	for (int i=0; i<10; i++)
+		reverse_rotate_ab(&a, &b);
+
+	print_both(a, b, "after ---\n", "\n------\n");
+	ft_lst_clear_basic(&a);
+	ft_lst_clear_basic(&b);
+}
+
 int	main(void)
 {
 	ft_printf("--------------------------------------------------------------");
@@ -138,4 +181,5 @@ int	main(void)
 
 	test_push();
 	test_swap();
+	test_rotate();
 }
