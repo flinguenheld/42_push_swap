@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 		}
 	}
 	// print_ab(a, NULL, "Original");
-	lowest_sort(&a);
+	selection_sort(&a);
 	// print_ab(a, NULL, "Sorted");
 
 	// --

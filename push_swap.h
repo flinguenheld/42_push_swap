@@ -28,8 +28,8 @@ void	print_ab(t_list *a, t_list *b, char *title);
 
 /**
  * @brief
- * Simple sort
+ * Selection sort
  */
-void	lowest_sort(t_list **a);
+void	selection_sort(t_list **a);
 
 #endif

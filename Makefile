@@ -9,7 +9,7 @@ LIBFT_FILE = $(LIBFT_FOLDER)libft.a
 SRC = main.c \
       parsing.c \
       print.c \
-      lowest_sort.c \
+      selection_sort.c \
       commands/push.c \
       commands/reverse_rotate.c \
       commands/rotate.c \

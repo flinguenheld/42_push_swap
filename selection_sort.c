@@ -42,7 +42,7 @@ static t_lowests	get_lowest_position(t_list *a)
 	return (positions);
 }
 
-void	lowest_sort(t_list **a)
+void	selection_sort(t_list **a)
 {
 	t_list		*b;
 	t_lowests	lowests;
