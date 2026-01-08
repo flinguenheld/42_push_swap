@@ -10,6 +10,7 @@ SRC = main.c \
       parsing.c \
       print.c \
       selection_sort.c \
+      swap_swap.c \
       commands/push.c \
       commands/reverse_rotate.c \
       commands/rotate.c \

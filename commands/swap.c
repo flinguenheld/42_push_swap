@@ -35,6 +35,10 @@ void	swap_b(t_list *b)
 
 void	swap_ab(t_list *a, t_list *b)
 {
-	if (swap(a, "") || swap(b, ""))
+	int	done;
+
+	done = swap(a, "");
+	done += swap(b, "");
+	if (done)
 		ft_printf("ss\n");
 }

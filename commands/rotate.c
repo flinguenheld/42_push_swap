@@ -35,6 +35,10 @@ void	rotate_b(t_list **b)
 
 void	rotate_ab(t_list **a, t_list **b)
 {
-	if (rotate(a, "") || rotate(b, ""))
+	int	done;
+
+	done = rotate(a, "");
+	done += rotate(b, "");
+	if (done)
 		ft_printf("rr\n");
 }

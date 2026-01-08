@@ -32,4 +32,9 @@ void	print_ab(t_list *a, t_list *b, char *title);
  */
 void	selection_sort(t_list **a);
 
+void	swap_swap(t_list **a, t_list **b, int blah);
+
+int		is_sorted(t_list *a, int amount);
+int	is_sorteddddd(t_list *node, int rev);
+
 #endif
