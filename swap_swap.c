@@ -14,10 +14,55 @@
 #include "commands/commands.h"
 #include "libft/libft.h"
 #include "push_swap.h"
+#include <limits.h>
 
 int	content(t_list *node)
 {
 	return (*(int *)node->content);
+}
+
+static int	get_highest_position(t_list *b)
+{
+	int			index;
+	int			highest;
+	int			position;
+	t_list		*current_node;
+
+	index = 0;
+	position = 0;
+	highest = INT_MIN;
+	current_node = b;
+	while (current_node != NULL)
+	{
+		if (content(current_node) >= highest)
+		{
+			highest = content(current_node);
+			position = index;
+		}
+		current_node = current_node->next;
+		index++;
+	}
+	return (position);
+}
+
+static int	get_turn_position(t_list *b, int to)
+{
+	int			index;
+	int			highest;
+	int			position;
+	t_list		*current_node;
+
+	index = 0;
+	position = 0;
+	highest = INT_MIN;
+	current_node = b;
+	while (current_node != NULL && content(current_node) > to)
+	{
+		position = index;
+		current_node = current_node->next;
+		index++;
+	}
+	return (position);
 }
 
 int	is_sorteddddd(t_list *node, int reverse)
@@ -31,25 +76,60 @@ int	is_sorteddddd(t_list *node, int reverse)
 	return (is_sorteddddd(node->next, reverse));
 }
 
-void	replace_b(t_list **b)
+void	prepare_b(t_list **b, int to)
 {
-	// Swap the two firsts
-	while (content(*b) < content((*b)->next))
+	// if (*b == NULL)
+	// 	return;
+	// while (content(*b) > to)
+	// 	rotate_b(b);
+
+	int	size;
+	int	position;
+
+	if (*b == NULL)
+		return;
+	position = get_turn_position(*b, to);
+	if (position > size / 2)
 	{
-		swap_b(*b);
+		position = size - position;
+		while (position-- > 0)
+			reverse_rotate_b(b);
 	}
-	// Rotate
-	// Again until next < current
-
-	// Reverse rotations
-
-	
+	else
+	{
+		while (position-- > 0)
+			rotate_b(b);
+	}
 }
+
+void	turn_turn_b(t_list **b)
+{
+	int	size;
+	int	highest_postion;
+
+	if (*b == NULL || (*b)->next == NULL)
+		return;
+	size = ft_lst_size(*b);
+	highest_postion = get_highest_position(*b);
+
+	if (highest_postion > size / 2)
+	{
+		highest_postion = size - highest_postion;
+		while (highest_postion--)
+			reverse_rotate_b(b);
+	}
+	else
+	{
+		while (highest_postion--)
+			rotate_b(b);
+	}
+}
+
 
 
 void	swap_swap(t_list **a, t_list **b, int blah)
 {
-	print_ab(*a, *b, "swap swap");
+	// print_ab(*a, *b, "swap swap");
 	if (is_sorteddddd(*a, 0) && *b == NULL)
 		return;
 
@@ -57,6 +137,9 @@ void	swap_swap(t_list **a, t_list **b, int blah)
 	{
 		if ((*a)->next == NULL)
 		{
+
+			turn_turn_b(b);
+			// print_ab(*a, *b, "Ready to fill the other side");
 			swap_swap(a, b, 1);
 			return;
 		}
@@ -66,26 +149,27 @@ void	swap_swap(t_list **a, t_list **b, int blah)
 			{
 				// if (*b != NULL && (*b)->next != NULL)
 				// 	ft_printf("on b: %d  %d \n", content(*b), content((*b)->next));
-				if (*b != NULL && (*b)->next != NULL
-					&& content(*b) < content((*b)->next))
-				{
-					swap_ab(*a, *b);
-				}
-				else
-				{
+				// if (*b != NULL && (*b)->next != NULL
+				// 	&& content(*b) < content((*b)->next))
+				// {
+				// 	swap_ab(*a, *b);
+				// }
+				// else
+				// {
 					swap_a(*a);
-				}
+				// }
 
 				// HERE, TURN B TO PLACE THE NEW MEMBER !!!
-				while (!is_sorteddddd(*b, 1))
-				{
-					print_ab(*a, *b, "rotate");
-					reverse_rotate_b(b);
+				// while (!is_sorteddddd(*b, 1))
+				// {
+				// 	print_ab(*a, *b, "rotate");
+				// 	reverse_rotate_b(b);
 					
-				}
+				// }
 			}
 			else
 			{
+				prepare_b(b, content(*a));
 				push_b(a, b);
 			}
 		}
