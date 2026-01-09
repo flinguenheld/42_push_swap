@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:04:31 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/07 23:02:34 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/09 18:48:36 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,10 @@ int	main(int argc, char **argv)
 			return (1);
 		}
 	}
+	if (is_sorted(a, 0))
+		return (0);
 	print_ab(a, NULL, "Original");
-	// selection_sort(&a);
-	swap_swap(&a, &b, 0);
+	selection_sort(&a);
 	print_ab(a, NULL, "Sorted");
 
 	// --

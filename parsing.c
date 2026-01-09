@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:04:31 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/06 21:06:33 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/09 18:48:36 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,6 @@ static int	contains(void *a, void *b)
 	return (a != NULL && b != NULL && *(int *)a == *(int *)b);
 }
 
-/**
- * @brief
- * Convert str into an int and push it at the end of 'a'
- * Except if:
- * - str is not a digit
- * - str overflowesint limits
- * - 'a' already contains str
- * @return
- * 1 if ok
- */
 int	check_and_push_argv(t_list **a, char *str)
 {
 	int	*new_value;

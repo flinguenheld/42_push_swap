@@ -1,157 +1,83 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                       :::      ::::::::    */
-/*   lowest_sort.c                                      :+:      :+:    :+:   */
+/*   selection_sort.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 22:57:27 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/07 23:02:34 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/09 18:48:36 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "commands/commands.h"
-#include "libft/libft.h"
 #include "push_swap.h"
 #include <limits.h>
 
-static int	get_lowest(t_list *a, int exclude, int nb_nodes)
-{
-	int			index;
-	int			lowest;
-	t_list		*current_node;
-	int			position;
-
-	index = 0;
-	position = 0;
-	lowest = INT_MAX;
-	current_node = a;
-	while (current_node != NULL && index < nb_nodes)
-	{
-		if (index != exclude && *(int *)current_node->content <= lowest)
-		{
-			lowest = *(int *)current_node->content;
-			position = index;
-		}
-		current_node = current_node->next;
-		index++;
-	}
-	return (position);
-}
 /**
  * @brief
- * Get the positions of the two lowests values
+ * Specific case when only three values left in 'a'
+ *    1 1    2 2    3 3
+ *    2 3    1 3    1 2
+ *    3 2    3 1    2 1
  */
-static t_lowests	get_lowest_position(t_list *a)
+static void	three_left_sort_a(t_list **a)
 {
-	t_lowests	positions;
+	int		start;
+	int		middle;
+	int		end;
 
-	positions.first = get_lowest(a, -1, INT_MAX);
-	positions.second = get_lowest(a, positions.first, INT_MAX);
-	return (positions);
+	start = content(*a);
+	middle = content((*a)->next);
+	end = content((*a)->next->next);
+	if (is_sorted(*a, 0))
+		return ;
+	else if (start < middle && middle > end && start < end)
+		return (swap_a(*a), rotate_a(a));
+	else if (middle < start && middle < end && end > start)
+		return (swap_a(*a));
+	else if (end < middle && end < start && middle > start)
+		return (reverse_rotate_a(a));
+	else if (middle < start && middle < end && end < start)
+		return (reverse_rotate_a(a), reverse_rotate_a(a));
+	else
+		return (swap_a(*a), reverse_rotate_a(a));
 }
 
-static void	three(t_list **a)
+/**
+ * @brief
+ * Wrapper for two
+ */
+static void	two_left_sort_a(t_list **a)
 {
-	t_lowests	lowests;
-
-	lowests = get_lowest_position(*a);
-	// ft_printf("lowest: %d %d\n", lowests.first, lowests.second);
-
-	if (lowests.first == 0 && lowests.second == 1)
-	{
-	}
-	else if (lowests.first == 0 && lowests.second == 2)
-	{
+	if (!is_sorted(*a, 0))
 		swap_a(*a);
-		rotate_a(a);
-	}
-	else if (lowests.first == 1 && lowests.second == 0)
-	{
-		swap_a(*a);
-	}
-	else if (lowests.first == 1 && lowests.second == 2)
-	{
-		rotate_a(a);
-	}
-	else if (lowests.first == 2 && lowests.second == 0)
-	{
-		swap_a(*a);
-		rotate_a(a);
-	}
-	else
-	{
-		rotate_a(a);
-	}
 }
 
 void	selection_sort(t_list **a)
 {
 	t_list		*b;
-	t_lowests	lowests;
+	int			a_size;
+	t_point		lowest;
 
 	b = NULL;
+	a_size = ft_lst_size(*a);
 	while ((*a)->next != NULL)
 	{
-		lowests = get_lowest_position(*a);
-		if (lowests.first == 1 && lowests.second == 0)
-			swap_a((*a));
-		else if (lowests.first > ft_lst_size(*a) / 2)
+		if (a_size == 2)
 		{
-			lowests.first = ft_lst_size(*a) - lowests.first;
-			while (lowests.first--)
-				reverse_rotate_a(a);
-		}
-		else
-			while (lowests.first--)
-				rotate_a(a);
-		if (ft_lst_size((*a)) == 3)
-		{
-			three(a);
-			break;
-		}
-		if (ft_lst_size((*a)) == 2)
+			two_left_sort_a(a);
 			break ;
+		}
+		if (a_size-- == 3)
+		{
+			three_left_sort_a(a);
+			break ;
+		}
+		lowest = get_lowest(*a, INT_MAX);
+		rotate(a, lowest.index, lowest.value);
 		push_b(a, &b);
 		print_ab(*a, b, "Current");
 	}
 	while (b != NULL)
 		push_a(a, &b);
 }
-
-int		is_sorted(t_list *a, int amount)
-{
-	int		index;
-	t_list	*node;
-
-	node = a;
-	while (amount-- > 1)
-	{
-		if (node == NULL || node->next == NULL)
-			return (0);
-		if (*(int *)node->content > *(int *)(node->next->content))
-			return (0);
-		else
-			node = node->next;
-	}
-	return (1);
-}
-
-void	swap_push_only_sort(t_list **a, t_list **b, int amount)
-{
-	int	done;
-
-	done = 0;
-	while (done < amount)
-	{
-		if (*(int *)(*a)->content > *(int *)(*b)->content)
-		{
-			swap_a(*a);
-		}
-		push_b(a, b);
-
-		// if (*(int *)(*a)->content == amount)
-	}
-}
-
-
