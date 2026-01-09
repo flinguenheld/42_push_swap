@@ -26,6 +26,9 @@ $(NAME): libft $(OBJS)
 libft:
 	make -C $(LIBFT_FOLDER)
 
+debug: CFLAGS = -DDEBUG
+debug: all
+
 test: all
 	./$(NAME)
 
@@ -43,4 +46,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all $(NAME) libft test test_no_flag clean fclean re
+.PHONY: all $(NAME) libft debug test test_no_flag clean fclean re

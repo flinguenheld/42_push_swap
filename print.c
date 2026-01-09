@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 19:34:30 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/07 23:02:34 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/09 19:03:59 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static int	print_one_line(t_list **a, t_list **b)
 
 void	print_ab(t_list *a, t_list *b, char *title)
 {
+# ifdef DEBUG
 	ft_printf("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n");
 	ft_printf("┃% 25s    ┃\n", title);
 	ft_printf("┣━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┫\n");
@@ -47,4 +48,5 @@ void	print_ab(t_list *a, t_list *b, char *title)
 		ft_printf("\n");
 	ft_printf("\n");
 	ft_printf("┗━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━┛\n");
+# endif
 }
