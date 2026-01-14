@@ -25,26 +25,32 @@ $(NAME): libft $(OBJS)
 	$(CC) -o $(NAME) $(OBJS) $(LIBFT_FILE)
 
 libft:
-	make -C $(LIBFT_FOLDER)
+	@make -C $(LIBFT_FOLDER) --no-print-directory
 
 debug: CFLAGS = -DDEBUG
 debug: all
 
 test: all
+	@make -C tests/ --no-print-directory
+
+test_dev: all
 	./$(NAME)
 
 test_no_flag: CFLAGS =
 test_no_flag: test
 
 clean:
-	@rm -vf $(OBJS)
-	make -C $(LIBFT_FOLDER) clean
+	@rm -f $(OBJS)
+	@make -C $(LIBFT_FOLDER) clean --no-print-directory
+	@make -C tests/ clean --no-print-directory
 
 fclean: clean
-	@rm -vf $(NAME)
-	@rm -vf $(TEST)
-	make -C $(LIBFT_FOLDER) fclean
+	@rm -f $(NAME)
+	@rm -f $(TEST)
+	@make -C $(LIBFT_FOLDER) fclean --no-print-directory
+	@make -C tests/ fclean --no-print-directory
 
 re: fclean all
 
-.PHONY: all $(NAME) libft debug test test_no_flag clean fclean re
+.SILENT: $(NAME)
+.PHONY: all libft debug test test_dev test_no_flag clean fclean re
