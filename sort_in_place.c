@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "commands/commands.h"
+// #include "commands/commands.h"
 #include "libft/libft.h"
 #include "push_swap.h"
 #include <stddef.h>
@@ -18,8 +18,8 @@
 void	sort_in_place(t_list **a, t_list **b, size_t amount)
 {
 
-	if (amount <= ft_lst_size(*b))
-		selection_sort(b);
+	// if (amount <= ft_lst_size(*b))
+	// 	selection_sort(b);
 	
 
 }

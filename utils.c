@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "push_swap.h"
+#include <limits.h>
 
 int	content(t_list *node)
 {
@@ -52,16 +54,62 @@ t_point	get_lowest(t_list *list, int nb_nodes_max)
 	return (lowest_found);
 }
 
-void	rotate(t_list **list, int index, int value_in_first)
+int	get_lowest_index(t_list *list, int nb_nodes_max)
+{
+	int			index;
+	t_list		*current_node;
+	int			lowest_value_index;
+	int			lowest_value_found;
+
+	index = 0;
+	current_node = list;
+	lowest_value_index = 0;
+	lowest_value_found = INT_MAX;
+	// while (current_node != NULL && index < nb_nodes_max)
+	while (current_node != NULL && index < nb_nodes_max)
+	{
+		if (content(current_node) < lowest_value_found)
+		{
+			lowest_value_found = content(current_node);
+			lowest_value_index = index;
+		}
+		current_node = current_node->next;
+		index++;
+	}
+	ft_printf("Lowest value index found: %d   and the value -> %d \n", lowest_value_index, lowest_value_found);
+	return (lowest_value_index);
+}
+
+// TODO SIMPLIFY THAT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// TODO SIMPLIFY THAT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void	rotate_shorter_side(t_list **list, char who, int index, int value_in_first)
 {
 	if (index > ft_lst_size(*list) / 2)
 	{
 		while (content(*list) != value_in_first)
-			reverse_rotate_a(list);
+			reverse_rotate(list, who);
 	}
 	else
 	{
 		while (content(*list) != value_in_first)
-			rotate_a(list);
+			rotate(list, who);
+	}
+}
+
+void	rotate_shorter_side_NEW(t_list **list, char who, int index)
+{
+	int	size;
+
+	size = ft_lst_size(*list);
+	if (index > size / 2)
+	{
+		index = size - index;
+		while(index--)
+			reverse_rotate(list, who);
+	}
+	else
+	{
+		while (index--)
+			rotate(list, who);
 	}
 }

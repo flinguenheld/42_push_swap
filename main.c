@@ -56,9 +56,9 @@ int	main(int argc, char **argv)
 	}
 	if (is_sorted(a, 0))
 		return (0);
-	print_ab(a, NULL, "Original");
-	selection_sort(&a);
-	print_ab(a, NULL, "Sorted");
+	print_ab(a, b, "Original");
+	selection_sort(&a, &b, 'a', 'b', 6);
+	print_ab(a, b, "Sorted");
 
 	// --
 	ft_lst_clear_basic(&a);

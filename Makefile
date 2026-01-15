@@ -29,16 +29,10 @@ libft:
 
 debug: CFLAGS = -DDEBUG
 debug: all
+	./$(NAME) 7 -222 3 4 55 1 10 8
 
 test: all
 	@make -C tests/ --no-print-directory
-
-test_dev: libft $(OBJS)
-	$(CC) -D DEBUG -o $(NAME) $(OBJS) $(LIBFT_FILE)
-	./$(NAME) 7 3 5 1
-
-test_no_flag: CFLAGS =
-test_no_flag: test
 
 clean:
 	@rm -f $(OBJS)

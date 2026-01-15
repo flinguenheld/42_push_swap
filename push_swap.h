@@ -36,7 +36,7 @@ void	sort_in_place(t_list **a, t_list **b, size_t amount);
  * Selection sort O(n²)
  * Great with a small amount of data
  */
-void	selection_sort(t_list **a);
+void	selection_sort(t_list **list, t_list **temp_list, char who, char temp, size_t amount);
 
 // ----------------------------------------------------------------------------
 // ------------------------------------------------------------------ UTILS ---
@@ -62,13 +62,15 @@ int		is_sorted(t_list *node, int reverse);
  * The lowest or {0, 0}
  */
 t_point	get_lowest(t_list *list, int nb_nodes_max);
+int	get_lowest_index(t_list *list, int nb_nodes_max);
 
 /**
  * @brief
  * Put the value in first by using rotation.
  * According to the value of index and list length, use reverse rotation.
  */
-void	rotate(t_list **list, int index, int value_in_first);
+void	rotate_shorter_side(t_list **list, char who, int index, int value_in_first);
+void	rotate_shorter_side_NEW(t_list **list, char who, int index);
 
 // ----------------------------------------------------------------------------
 // ---------------------------------------------------------------- PARSING ---

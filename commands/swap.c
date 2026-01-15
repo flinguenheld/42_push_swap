@@ -12,33 +12,27 @@
 
 #include "commands.h"
 
-int	swap(t_list *start, char *to_print)
+int	swap(t_list *start, char to_print)
 {
 	if (start != NULL && start->next != NULL)
 	{
 		ft_lst_swap_content(start, start->next);
-		ft_printf(to_print);
+		if (to_print != '\0')
+		{
+			ft_printf("s");
+			ft_printf("%c\n", to_print);
+		}
 		return (1);
 	}
 	return (0);
-}
-
-void	swap_a(t_list *a)
-{
-	swap(a, "sa\n");
-}
-
-void	swap_b(t_list *b)
-{
-	swap(b, "sb\n");
 }
 
 void	swap_ab(t_list *a, t_list *b)
 {
 	int	done;
 
-	done = swap(a, "");
-	done += swap(b, "");
+	done = swap(a, '\0');
+	done += swap(b, '\0');
 	if (done)
 		ft_printf("ss\n");
 }

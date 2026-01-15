@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "commands/commands.h"
+// #include "commands/commands.h"
 #include "libft/libft.h"
 #include "push_swap.h"
 
@@ -20,7 +20,7 @@ typedef struct s_data
 	int in_a;
 } t_data;
 
-void	swap(t_list **a, t_list **b)
+void	swap_rename(t_list **a, t_list **b)
 {
 	int	on_a;
 	int	on_b;
@@ -28,8 +28,8 @@ void	swap(t_list **a, t_list **b)
 	on_a = *a != NULL && (*a)->next != NULL && content(*a) < content((*a)->next); 
 	on_b = *b != NULL && (*b)->next != NULL && content(*b) > content((*b)->next); 
 
-	if (on_a && on_b)
-		swap_b(*b);
+	// if (on_a && on_b)
+	// 	swap_b(*b);
 }
 
 void is_ok(t_list *b, int amount)

@@ -12,12 +12,16 @@
 
 #include "commands.h"
 
-static int	rotate(t_list **start, char *to_print)
+int	rotate(t_list **start, char to_print)
 {
 	if (*start != NULL)
 	{
 		ft_lst_rotate_left(start);
-		ft_printf(to_print);
+		if (to_print != '\0')
+		{
+			ft_printf("r");
+			ft_printf("%c\n", to_print);
+		}
 		return (1);
 	}
 	return (0);
@@ -25,20 +29,20 @@ static int	rotate(t_list **start, char *to_print)
 
 void	rotate_a(t_list **a)
 {
-	rotate(a, "ra\n");
+	// rotate(a, "ra\n");
 }
 
 void	rotate_b(t_list **b)
 {
-	rotate(b, "rb\n");
+	// rotate(b, "rb\n");
 }
 
 void	rotate_ab(t_list **a, t_list **b)
 {
 	int	done;
 
-	done = rotate(a, "");
-	done += rotate(b, "");
+	done = rotate(a, '\0');
+	done += rotate(b, '\0');
 	if (done)
 		ft_printf("rr\n");
 }

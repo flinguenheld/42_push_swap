@@ -12,29 +12,27 @@
 
 #include "commands.h"
 
-static int	reverse_rotate(t_list **start, char *to_print)
+int	reverse_rotate(t_list **start, char to_print)
 {
 	if (*start != NULL)
 	{
 		ft_lst_rotate_right(start);
-		ft_printf(to_print);
+		if (to_print != '\0')
+		{
+			ft_printf("rr");
+			ft_printf("%c\n", to_print);
+		}
 		return (1);
 	}
 	return (0);
 }
 
-void	reverse_rotate_a(t_list **a)
-{
-	reverse_rotate(a, "rra\n");
-}
-
-void	reverse_rotate_b(t_list **b)
-{
-	reverse_rotate(b, "rrb\n");
-}
-
 void	reverse_rotate_ab(t_list **a, t_list **b)
 {
-	if (reverse_rotate(a, "") || reverse_rotate(b, ""))
+	int	done;
+
+	done = reverse_rotate(a, '\0');
+	done += reverse_rotate(b, '\0');
+	if (done)
 		ft_printf("rrr\n");
 }
