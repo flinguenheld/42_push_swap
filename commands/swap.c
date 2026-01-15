@@ -12,7 +12,7 @@
 
 #include "commands.h"
 
-static int	swap(t_list *start, char *to_print)
+int	swap(t_list *start, char *to_print)
 {
 	if (start != NULL && start->next != NULL)
 	{

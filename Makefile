@@ -33,8 +33,9 @@ debug: all
 test: all
 	@make -C tests/ --no-print-directory
 
-test_dev: all
-	./$(NAME)
+test_dev: libft $(OBJS)
+	$(CC) -D DEBUG -o $(NAME) $(OBJS) $(LIBFT_FILE)
+	./$(NAME) 7 3 5 1
 
 test_no_flag: CFLAGS =
 test_no_flag: test

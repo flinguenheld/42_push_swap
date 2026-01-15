@@ -17,6 +17,14 @@
 
 // ----------------------------------------------------------------------------
 // ------------------------------------------------------------------- SWAP ---
+
+/**
+ * @brief
+ * Swap the two first nodes at the top of the given list and print "to_print"
+ * Do nothing if there is less than two nodes.
+ */
+int	swap(t_list *start, char *to_print);
+
 /**
  * @brief
  * Swap the two first nodes at the top of the stack a and print "sa"
@@ -33,13 +41,22 @@ void	swap_b(t_list *b);
 
 /**
  * @brief
- * Launch swap_a & swap_b
- * Print "ss" if one swap was effective
+ * Launch swap a & swap b
+ * Print "ss" if at least one swap was effective
  */
 void	swap_ab(t_list *a, t_list *b);
 
 // ----------------------------------------------------------------------------
 // ------------------------------------------------------------------- PUSH ---
+
+/**
+ * @brief
+ * Take the first element at the top of 'from' and put it at the top of 'to'.
+ * And print the message;
+ * Do nothing if 'from' is empty
+ */
+void	push(t_list **from, t_list **to, char *to_print);
+
 /**
  * @brief
  * Take the first element at the top of b and put it at the top of a.
@@ -58,6 +75,15 @@ void	push_b(t_list **a, t_list **b);
 
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------- ROTATE ---
+
+/**
+ * @brief
+ * Shift up all elements of the given list by one and print "to_print".
+ * The first element becomes the last one.
+ * Do nothing if a is empty
+ */
+int	rotate(t_list **start, char *to_print);
+
 /**
  * @brief
  * Shift up all elements of list a by one and print "ra".
@@ -76,13 +102,22 @@ void	rotate_b(t_list **b);
 
 /**
  * @brief
- * Launch rotate_a & rotate_b
- * Print "rr" if one rotate was effective
+ * Launch rotate a & rotate b
+ * Print "rr" if at least one rotate was effective
  */
 void	rotate_ab(t_list **a, t_list **b);
 
 // ----------------------------------------------------------------------------
 // --------------------------------------------------------- REVERSE_ROTATE ---
+
+/**
+ * @brief
+ * Shift down all elements of the given list by one and print "to_print".
+ * The last element becomes the first one.
+ * Do nothing if a is empty
+ */
+int	reverse_rotate(t_list **start, char *to_print);
+
 /**
  * @brief
  * Shift down all elements of list a by one and print "rra".
@@ -101,8 +136,8 @@ void	reverse_rotate_b(t_list **b);
 
 /**
  * @brief
- * Launch reverse_rotate_a & reverse_rotate_b
- * Print "rrr" if one rotate was effective
+ * Launch reverse_rotate a & reverse_rotate b
+ * Print "rrr" if at least one reverse_rotate was effective
  */
 void	reverse_rotate_ab(t_list **a, t_list **b);
 

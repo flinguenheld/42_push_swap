@@ -27,6 +27,8 @@ typedef struct s_point
 	int	index;
 }	t_point;
 
+void	sort_in_place(t_list **a, t_list **b, size_t amount);
+
 // ----------------------------------------------------------------------------
 // --------------------------------------------------------- SELECTION SORT ---
 /**
