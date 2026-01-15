@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 22:57:27 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/15 21:47:24 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/15 21:56:57 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	selection_sort(t_stack *from, t_stack *to)
 		lowest = get_lowest_index(from->start, INT_MAX);
 		rotate_shorter_side(&from->start, from->name, lowest);
 		push(&from->start, &to->start, to->name);
-		print_ab(from->start, to->start, "Current");
 	}
 	while (to->start != NULL)
 		push(&to->start, &from->start, from->name);

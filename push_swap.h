@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:04:31 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/15 21:47:24 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/15 21:54:27 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,21 @@ void	sort_in_place(t_list **a, t_list **b, size_t amount);
  * Selection sort O(n²)
  * Great with a small amount of data
  */
-void	selection_sort_range(t_stack *from, t_stack *to, size_t amount);
 void	selection_sort(t_stack *from, t_stack *to);
+/**
+ * @brief
+ * Same as selection sort but only on 0 to range values
+ * (preserve the stack below)
+ */
+void	selection_sort_range(t_stack *from, t_stack *to, size_t amount);
+
+// ----------------------------------------------------------------------------
+// ------------------------------------------------------------- GROUP SORT ---
+/**
+ * @brief
+ * Group
+ */
+void	group_sort(t_stack *from, t_stack *to);
 
 // ----------------------------------------------------------------------------
 // ------------------------------------------------------------------ UTILS ---
@@ -59,6 +72,14 @@ void	selection_sort(t_stack *from, t_stack *to);
  * The index
  */
 int	get_lowest_index(t_list *list, int nb_nodes_max);
+
+/**
+ * @brief
+ * Find the highest value in the given range and return its index
+ * @return
+ * The index
+ */
+int	get_highest_index(t_list *list, int nb_nodes_max);
 
 /**
  * @brief

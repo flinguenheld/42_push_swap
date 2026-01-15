@@ -36,6 +36,30 @@ int	get_lowest_index(t_list *list, int nb_nodes_max)
 	return (lowest_value_index);
 }
 
+int	get_highest_index(t_list *list, int nb_nodes_max)
+{
+	int			index;
+	t_list		*current_node;
+	int			highest_value_index;
+	int			highest_value_found;
+
+	index = 0;
+	current_node = list;
+	highest_value_index = 0;
+	highest_value_found = INT_MIN;
+	while (current_node != NULL && index < nb_nodes_max)
+	{
+		if (content(current_node) > highest_value_found)
+		{
+			highest_value_found = content(current_node);
+			highest_value_index = index;
+		}
+		current_node = current_node->next;
+		index++;
+	}
+	return (highest_value_index);
+}
+
 int	get_index(t_list *list, int to_find)
 {
 	int			index;
