@@ -13,13 +13,6 @@
 #include "libft/libft.h"
 #include "push_swap.h"
 
-int *new_content(int v)
-{
-	int *blah = malloc(sizeof(int));
-	*blah = v;
-	return blah;
-}
-
 int	main(int argc, char **argv)
 {
 	// t_list	*a;

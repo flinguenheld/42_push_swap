@@ -10,6 +10,7 @@ SRC = main.c \
       parsing.c \
       print.c \
       utils.c \
+      utils_list.c \
       selection_sort.c \
       sort_ten.c \
       commands/push.c \

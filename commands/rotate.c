@@ -27,16 +27,6 @@ int	rotate(t_list **start, char to_print)
 	return (0);
 }
 
-void	rotate_a(t_list **a)
-{
-	// rotate(a, "ra\n");
-}
-
-void	rotate_b(t_list **b)
-{
-	// rotate(b, "rb\n");
-}
-
 void	rotate_ab(t_list **a, t_list **b)
 {
 	int	done;

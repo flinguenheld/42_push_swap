@@ -10,30 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "commands/commands.h"
-#include "libft/libft.h"
 #include "push_swap.h"
-#include <limits.h>
-#include <stdint.h>
-#include <stdlib.h>
-
-/**
- * @brief
- * Wrapper for two
- */
-static void	two_left_sort(t_list **list, char who)
-{
-	if (!is_sorted(*list, 0))
-		swap(*list, who);
-}
-
-// PUT THAT IN UTILS ???????????????????????????????????
-static int	*new_content(int v)
-{
-	int *blah = malloc(sizeof(int));
-	*blah = v;
-	return blah;
-}
 
 static t_list	*get_temp_values(t_list *list, size_t amount)
 {
@@ -51,7 +28,6 @@ static t_list	*get_temp_values(t_list *list, size_t amount)
 	return (temp_list);
 }
 
-
 /**
  * @brief
  * Create a temporary list with all values form 0 to amount
@@ -63,7 +39,7 @@ static t_list	*get_temp_values(t_list *list, size_t amount)
  *
  * Then put the last value at the top of the first list
  */
-static void	first_part(t_stack *from, t_stack *to, size_t amount)
+static void	push_in_the_second(t_stack *from, t_stack *to, size_t amount)
 {
 	int			lowest_to_push;
 	t_list		*temp_list;
@@ -75,7 +51,6 @@ static void	first_part(t_stack *from, t_stack *to, size_t amount)
 		lowest_to_push = get_lowest_index(temp_list, INT_MAX);
 		rotate_shorter_side(&temp_list, '\0', lowest_to_push);
 		temp_node = ft_lst_pop_front(&temp_list);
-
 		lowest_to_push = get_index(from->start, content(temp_node));
 		ft_lst_clear_basic(&temp_node);
 		rotate_shorter_side(&from->start, from->name, lowest_to_push);
@@ -88,19 +63,9 @@ static void	first_part(t_stack *from, t_stack *to, size_t amount)
 
 void	selection_sort(t_stack *from, t_stack *to, size_t amount)
 {
-	int			real_amount;
-	int			a_size;
-	int			amount_in_temp;
-	int			lowest;
-	int			value_after;
-	t_list		*blah_blah;
-
-	// GET ALL VALUES IN ANOTHER TEMP LIST
-	first_part(from, to, amount);
-
+	push_in_the_second(from, to, amount);
 	while (amount--)
 	{
 		push(&to->start, &from->start, from->name);
 	}
-
 }

@@ -13,8 +13,8 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "libft/libft.h"
 # include "commands/commands.h"
+# include "libft/libft.h"
 # include "limits.h"
 
 
@@ -53,21 +53,6 @@ void	selection_sort(t_stack *from, t_stack *to, size_t amount);
 // ------------------------------------------------------------------ UTILS ---
 /**
  * @brief
- * Wrapper to cast the node contend
- * The node cannot be NULL
- */
-int		content(t_list *node);
-
-/**
- * @brief
- * Check if the list is sorted
- * @return
- * 1 if true
- */
-int		is_sorted(t_list *node, int reverse);
-
-/**
- * @brief
  * Find the lowest value in the given range and return its index
  * @return
  * The index
@@ -88,6 +73,28 @@ int	get_index(t_list *list, int to_find);
  * (According to the value of index and list length, use reverse rotation)
  */
 void	rotate_shorter_side(t_list **list, char who, int index);
+
+// ----------------------------------------------------------------------------
+// ------------------------------------------------------------- UTILS LIST ---
+/**
+ * @brief
+ * Wrapper to cast the node contend
+ * The node cannot be NULL
+ */
+int		content(t_list *node);
+/**
+ * @brief
+ * Malloc and set a int to value;
+ */
+int		*new_content(int value);
+
+/**
+ * @brief
+ * Check if the list is sorted
+ * @return
+ * 1 if true
+ */
+int		is_sorted(t_list *node, int reverse);
 
 // ----------------------------------------------------------------------------
 // ---------------------------------------------------------------- PARSING ---

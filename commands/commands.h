@@ -17,13 +17,12 @@
 
 // ----------------------------------------------------------------------------
 // ------------------------------------------------------------------- SWAP ---
-
 /**
  * @brief
  * Swap the two first nodes at the top of the given list and print "to_print"
  * Do nothing if there is less than two nodes.
  */
-int	swap(t_list *start, char to_print);
+int		swap(t_list *start, char to_print);
 
 /**
  * @brief
@@ -34,7 +33,6 @@ void	swap_ab(t_list *a, t_list *b);
 
 // ----------------------------------------------------------------------------
 // ------------------------------------------------------------------- PUSH ---
-
 /**
  * @brief
  * Take the first element at the top of 'from' and put it at the top of 'to'.
@@ -45,7 +43,6 @@ void	push(t_list **from, t_list **to, char to_print);
 
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------- ROTATE ---
-
 /**
  * @brief
  * Shift up all elements of the given list by one.
@@ -53,7 +50,7 @@ void	push(t_list **from, t_list **to, char to_print);
  * The first element becomes the last one.
  * Do nothing if a is empty
  */
-int	rotate(t_list **start, char to_print);
+int		rotate(t_list **start, char to_print);
 
 /**
  * @brief
@@ -64,7 +61,6 @@ void	rotate_ab(t_list **a, t_list **b);
 
 // ----------------------------------------------------------------------------
 // --------------------------------------------------------- REVERSE_ROTATE ---
-
 /**
  * @brief
  * Shift down all elements of the given list by one.
@@ -72,7 +68,7 @@ void	rotate_ab(t_list **a, t_list **b);
  * The last element becomes the first one.
  * Do nothing if a is empty
  */
-int	reverse_rotate(t_list **start, char to_print);
+int		reverse_rotate(t_list **start, char to_print);
 
 /**
  * @brief
