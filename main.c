@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:04:31 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/09 19:03:59 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/15 21:47:24 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ int	main(int argc, char **argv)
 	if (is_sorted(a.start, 0))
 		return (0);
 	print_ab(a.start, b.start, "Original");
-	selection_sort(&a, &b, 6);
+	selection_sort(&a, &b);
+	// selection_sort(&a, &b, 6);
 	print_ab(a.start, b.start, "Sorted");
 
 	// --

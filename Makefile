@@ -12,6 +12,7 @@ SRC = main.c \
       utils.c \
       utils_list.c \
       selection_sort.c \
+      selection_sort_range.c \
       sort_ten.c \
       commands/push.c \
       commands/reverse_rotate.c \
@@ -30,7 +31,7 @@ libft:
 
 debug: CFLAGS = -DDEBUG
 debug: all
-	./$(NAME) 7 -222 3 4 55 1 10 8
+	./$(NAME) 7 -222 3 4
 
 test: all
 	@make -C tests/ --no-print-directory

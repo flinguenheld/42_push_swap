@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:04:31 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/09 19:03:59 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/15 21:47:24 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	sort_in_place(t_list **a, t_list **b, size_t amount);
  * Selection sort O(n²)
  * Great with a small amount of data
  */
-void	selection_sort(t_stack *from, t_stack *to, size_t amount);
+void	selection_sort_range(t_stack *from, t_stack *to, size_t amount);
+void	selection_sort(t_stack *from, t_stack *to);
 
 // ----------------------------------------------------------------------------
 // ------------------------------------------------------------------ UTILS ---

@@ -6,66 +6,79 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 22:57:27 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/09 18:48:36 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/15 21:47:24 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <limits.h>
 
-static t_list	*get_temp_values(t_list *list, size_t amount)
+/**
+ * @brief
+ * Specific case when only three values left in 'a'
+ *    1 1    2 2    3 3
+ *    2 3    1 3    1 2
+ *    3 2    3 1    2 1
+ */
+// static void	three_left_sort_a(t_list **a)
+static int	three_left_sort_a(t_stack *stack)
 {
-	t_list	*temp_list;
-	t_list	*current_node;
+	int		start;
+	int		middle;
+	int		end;
 
-	temp_list = NULL;
-	current_node = list;
-	while (amount-- && current_node != NULL)
-	{
-		ft_lst_push_front(&temp_list,
-			ft_lst_new(new_content(content(current_node))));
-		current_node = current_node->next;
-	}
-	return (temp_list);
+	start = content(stack->start);
+	middle = content((stack->start)->next);
+	end = content((stack->start)->next->next);
+	if (is_sorted(stack->start, 0))
+		return (0);
+	else if (start < middle && middle > end && start < end)
+		return (swap(stack->start, stack->name), rotate(&stack->start, stack->name));
+	else if (middle < start && middle < end && end > start)
+		return (swap(stack->start, stack->name));
+	else if (end < middle && end < start && middle > start)
+		return (reverse_rotate(&stack->start, stack->name));
+	else if (middle < start && middle < end && end < start)
+		return (reverse_rotate(&stack->start, stack->name),
+			reverse_rotate(&stack->start, stack->name));
+	else
+		return (swap(stack->start, stack->name),
+			reverse_rotate(&stack->start, stack->name));
 }
 
 /**
  * @brief
- * Create a temporary list with all values form 0 to amount
- * Then in a loop until temp list size != 1
- *  - get the lowest value in the temp
- *  - find it in the real list
- *  - rotate to put first
- *  - push to the second list
- *
- * Then put the last value at the top of the first list
+ * Wrapper for two
  */
-static void	push_in_the_second(t_stack *from, t_stack *to, size_t amount)
+static void	two_left_sort_a(t_stack *stack)
 {
-	int			lowest_to_push;
-	t_list		*temp_list;
-	t_list		*temp_node;
-
-	temp_list = get_temp_values(from->start, amount);
-	while (temp_list->next != NULL)
-	{
-		lowest_to_push = get_lowest_index(temp_list, INT_MAX);
-		rotate_shorter_side(&temp_list, '\0', lowest_to_push);
-		temp_node = ft_lst_pop_front(&temp_list);
-		lowest_to_push = get_index(from->start, content(temp_node));
-		ft_lst_clear_basic(&temp_node);
-		rotate_shorter_side(&from->start, from->name, lowest_to_push);
-		push(&from->start, &to->start, to->name);
-	}
-	lowest_to_push = get_index(from->start, content(temp_list));
-	rotate_shorter_side(&from->start, from->name, lowest_to_push);
-	ft_lst_clear_basic(&temp_list);
+	if (!is_sorted(stack->start, 0))
+		swap(stack->start, stack->name);
 }
 
-void	selection_sort(t_stack *from, t_stack *to, size_t amount)
+void	selection_sort(t_stack *from, t_stack *to)
 {
-	push_in_the_second(from, to, amount);
-	while (amount--)
+	int	a_size;
+	int	lowest;
+
+	a_size = ft_lst_size(from->start);
+	while (from->start->next != NULL)
 	{
-		push(&to->start, &from->start, from->name);
+		if (a_size == 2)
+		{
+			two_left_sort_a(from);
+			break ;
+		}
+		if (a_size-- == 3)
+		{
+			three_left_sort_a(from);
+			break ;
+		}
+		lowest = get_lowest_index(from->start, INT_MAX);
+		rotate_shorter_side(&from->start, from->name, lowest);
+		push(&from->start, &to->start, to->name);
+		print_ab(from->start, to->start, "Current");
 	}
+	while (to->start != NULL)
+		push(&to->start, &from->start, from->name);
 }
