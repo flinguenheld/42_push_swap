@@ -17,6 +17,17 @@
 # include "commands/commands.h"
 # include "limits.h"
 
+
+/**
+ * @brief
+ * Associate a list with its name
+ */
+typedef struct s_stack
+{
+	t_list	*start;
+	char	name;
+}	t_stack;
+
 /**
  * @brief
  * Allow you to store a node value with its index in the list
@@ -36,7 +47,7 @@ void	sort_in_place(t_list **a, t_list **b, size_t amount);
  * Selection sort O(n²)
  * Great with a small amount of data
  */
-void	selection_sort(t_list **list, t_list **temp_list, char who, char temp, size_t amount);
+void	selection_sort(t_stack *from, t_stack *to, size_t amount);
 
 // ----------------------------------------------------------------------------
 // ------------------------------------------------------------------ UTILS ---
@@ -57,20 +68,26 @@ int		is_sorted(t_list *node, int reverse);
 
 /**
  * @brief
- * Find the lowest value and return its index and the value itself
+ * Find the lowest value in the given range and return its index
  * @return
- * The lowest or {0, 0}
+ * The index
  */
-t_point	get_lowest(t_list *list, int nb_nodes_max);
 int	get_lowest_index(t_list *list, int nb_nodes_max);
 
 /**
  * @brief
- * Put the value in first by using rotation.
- * According to the value of index and list length, use reverse rotation.
+ * Find the value 'to_find' in the list and return its index
+ * @return
+ * The index or -1 if not found
  */
-void	rotate_shorter_side(t_list **list, char who, int index, int value_in_first);
-void	rotate_shorter_side_NEW(t_list **list, char who, int index);
+int	get_index(t_list *list, int to_find);
+
+/**
+ * @brief
+ * Rotate the given list with 'index' rotations
+ * (According to the value of index and list length, use reverse rotation)
+ */
+void	rotate_shorter_side(t_list **list, char who, int index);
 
 // ----------------------------------------------------------------------------
 // ---------------------------------------------------------------- PARSING ---

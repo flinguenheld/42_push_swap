@@ -19,36 +19,6 @@
 
 /**
  * @brief
- * Specific case when only three values left in 'list'
- *    1 1    2 2    3 3
- *    2 3    1 3    1 2
- *    3 2    3 1    2 1
- */
-static int	three_left_sort(t_list **list, char who)
-{
-	int		start;
-	int		middle;
-	int		end;
-
-	start = content(*list);
-	middle = content((*list)->next);
-	end = content((*list)->next->next);
-	if (is_sorted(*list, 0))
-		return (0);
-	else if (start < middle && middle > end && start < end)
-		return (swap(*list, who), rotate(list, who));
-	else if (middle < start && middle < end && end > start)
-		return (swap(*list, who));
-	else if (end < middle && end < start && middle > start)
-		return (reverse_rotate(list, who));
-	else if (middle < start && middle < end && end < start)
-		return (reverse_rotate(list, who), reverse_rotate(list, who));
-	else
-		return (swap(*list, who), reverse_rotate(list, who));
-}
-
-/**
- * @brief
  * Wrapper for two
  */
 static void	two_left_sort(t_list **list, char who)
@@ -74,66 +44,49 @@ static t_list	*get_temp_values(t_list *list, size_t amount)
 	current_node = list;
 	while (amount-- && current_node != NULL)
 	{
-		ft_printf("add this value: %d\n", content(current_node));
-		ft_lst_push_front(&temp_list, ft_lst_new(new_content(content(current_node))));
+		ft_lst_push_front(&temp_list,
+			ft_lst_new(new_content(content(current_node))));
 		current_node = current_node->next;
 	}
 	return (temp_list);
 }
 
-int	get_position(t_list *list, int to_find)
-{
-	int			index;
-	t_list		*current_node;
 
-	index = 0;
-	current_node = list;
-	while (current_node != NULL)
-	{
-		if (content(current_node) == to_find)
-			return (index);
-		current_node = current_node->next;
-		index++;
-	}
-	return (-1);
-}
-
-void	first_part(t_list **list, t_list **temp_list, char who, char temp, size_t amount)
+/**
+ * @brief
+ * Create a temporary list with all values form 0 to amount
+ * Then in a loop until temp list size != 1
+ *  - get the lowest value in the temp
+ *  - find it in the real list
+ *  - rotate to put first
+ *  - push to the second list
+ *
+ * Then put the last value at the top of the first list
+ */
+static void	first_part(t_stack *from, t_stack *to, size_t amount)
 {
-	int			real_amount;
-	int			a_size;
-	int			amount_in_temp;
-	int			lowest;
-	int			value_after;
-	t_list		*temp_only_values_to_sort;
+	int			lowest_to_push;
+	t_list		*temp_list;
 	t_list		*temp_node;
 
-	// GET ALL VALUES IN ANOTHER TEMP LIST
-	temp_only_values_to_sort = get_temp_values(*list, amount);
-		ft_printf("------------------------------------------------------ %d\n", ft_lst_size(temp_only_values_to_sort));
-	while (temp_only_values_to_sort != NULL)
+	temp_list = get_temp_values(from->start, amount);
+	while (temp_list->next != NULL)
 	{
-		// Remove the lowest value from blablah
-		lowest = get_lowest_index(temp_only_values_to_sort, INT_MAX);
-		ft_printf("lowest: %d\n", lowest);
-		rotate_shorter_side_NEW(&temp_only_values_to_sort, '\0', lowest);
-		temp_node = ft_lst_pop_front(&temp_only_values_to_sort);
+		lowest_to_push = get_lowest_index(temp_list, INT_MAX);
+		rotate_shorter_side(&temp_list, '\0', lowest_to_push);
+		temp_node = ft_lst_pop_front(&temp_list);
 
-		// Push the lowest value from temp_list to list
-		ft_printf("deal with this value: %d\n", content(temp_node));
-		lowest = get_position(*list, content(temp_node));
+		lowest_to_push = get_index(from->start, content(temp_node));
 		ft_lst_clear_basic(&temp_node);
-		ft_printf("lowest position in the real list: %d\n", lowest);
-		rotate_shorter_side_NEW(list, who, lowest);
-		push(list, temp_list, who);
+		rotate_shorter_side(&from->start, from->name, lowest_to_push);
+		push(&from->start, &to->start, to->name);
 	}
-	// Use the shortcut with three to sort
-
-	// Get back all values
-
+	lowest_to_push = get_index(from->start, content(temp_list));
+	rotate_shorter_side(&from->start, from->name, lowest_to_push);
+	ft_lst_clear_basic(&temp_list);
 }
 
-void	selection_sort(t_list **list, t_list **temp_list, char who, char temp, size_t amount)
+void	selection_sort(t_stack *from, t_stack *to, size_t amount)
 {
 	int			real_amount;
 	int			a_size;
@@ -143,11 +96,11 @@ void	selection_sort(t_list **list, t_list **temp_list, char who, char temp, size
 	t_list		*blah_blah;
 
 	// GET ALL VALUES IN ANOTHER TEMP LIST
-	first_part(list, temp_list, who, temp, amount);
+	first_part(from, to, amount);
 
 	while (amount--)
 	{
-		push(temp_list, list, 'b');
+		push(&to->start, &from->start, from->name);
 	}
 
 }

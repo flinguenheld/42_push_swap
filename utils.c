@@ -65,7 +65,6 @@ int	get_lowest_index(t_list *list, int nb_nodes_max)
 	current_node = list;
 	lowest_value_index = 0;
 	lowest_value_found = INT_MAX;
-	// while (current_node != NULL && index < nb_nodes_max)
 	while (current_node != NULL && index < nb_nodes_max)
 	{
 		if (content(current_node) < lowest_value_found)
@@ -76,27 +75,27 @@ int	get_lowest_index(t_list *list, int nb_nodes_max)
 		current_node = current_node->next;
 		index++;
 	}
-	ft_printf("Lowest value index found: %d   and the value -> %d \n", lowest_value_index, lowest_value_found);
 	return (lowest_value_index);
 }
 
-// TODO SIMPLIFY THAT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// TODO SIMPLIFY THAT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-void	rotate_shorter_side(t_list **list, char who, int index, int value_in_first)
+int	get_index(t_list *list, int to_find)
 {
-	if (index > ft_lst_size(*list) / 2)
+	int			index;
+	t_list		*current_node;
+
+	index = 0;
+	current_node = list;
+	while (current_node != NULL)
 	{
-		while (content(*list) != value_in_first)
-			reverse_rotate(list, who);
+		if (content(current_node) == to_find)
+			return (index);
+		current_node = current_node->next;
+		index++;
 	}
-	else
-	{
-		while (content(*list) != value_in_first)
-			rotate(list, who);
-	}
+	return (-1);
 }
 
-void	rotate_shorter_side_NEW(t_list **list, char who, int index)
+void	rotate_shorter_side(t_list **list, char who, int index)
 {
 	int	size;
 
