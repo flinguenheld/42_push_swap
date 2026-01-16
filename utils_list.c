@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 21:20:32 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/15 21:47:24 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/16 23:03:55 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ int	content(t_list *node)
 
 int	*new_content(int value)
 {
-	int *new_content = malloc(sizeof(int));
+	int	*new_content;
+
+	new_content = malloc(sizeof(int));
 	*new_content = value;
-	return new_content;
+	return (new_content);
 }
 
 int	is_sorted(t_list *node, int reverse)

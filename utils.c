@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 11:32:25 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/15 21:47:24 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/16 23:03:54 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	rotate_shorter_side(t_list **list, char who, int index)
 	if (index > size / 2)
 	{
 		index = size - index;
-		while(index--)
+		while (index--)
 			reverse_rotate(list, who);
 	}
 	else

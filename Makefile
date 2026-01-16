@@ -32,7 +32,7 @@ libft:
 
 debug: CFLAGS = -DDEBUG
 debug: all
-	./$(NAME) 7 -222 3 4
+	./$(NAME) 10 2 6 8 19 1 0 9 15 5 7 55 33
 
 test: all
 	@make -C tests/ --no-print-directory

@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:04:31 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/15 21:54:27 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/16 23:03:54 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "commands/commands.h"
 # include "libft/libft.h"
 # include "limits.h"
-
 
 /**
  * @brief
@@ -38,8 +37,6 @@ typedef struct s_point
 	int	index;
 }	t_point;
 
-void	sort_in_place(t_list **a, t_list **b, size_t amount);
-
 // ----------------------------------------------------------------------------
 // --------------------------------------------------------- SELECTION SORT ---
 /**
@@ -53,7 +50,8 @@ void	selection_sort(t_stack *from, t_stack *to);
  * Same as selection sort but only on 0 to range values
  * (preserve the stack below)
  */
-void	selection_sort_range(t_stack *from, t_stack *to, size_t amount);
+void	selection_sort_range(t_stack *from, t_stack *to,
+			size_t amount, int rev);
 
 // ----------------------------------------------------------------------------
 // ------------------------------------------------------------- GROUP SORT ---
@@ -71,7 +69,7 @@ void	group_sort(t_stack *from, t_stack *to);
  * @return
  * The index
  */
-int	get_lowest_index(t_list *list, int nb_nodes_max);
+int		get_lowest_index(t_list *list, int nb_nodes_max);
 
 /**
  * @brief
@@ -79,7 +77,7 @@ int	get_lowest_index(t_list *list, int nb_nodes_max);
  * @return
  * The index
  */
-int	get_highest_index(t_list *list, int nb_nodes_max);
+int		get_highest_index(t_list *list, int nb_nodes_max);
 
 /**
  * @brief
@@ -87,7 +85,7 @@ int	get_highest_index(t_list *list, int nb_nodes_max);
  * @return
  * The index or -1 if not found
  */
-int	get_index(t_list *list, int to_find);
+int		get_index(t_list *list, int to_find);
 
 /**
  * @brief

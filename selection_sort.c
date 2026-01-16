@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 22:57:27 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/15 21:56:57 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/16 23:03:54 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static int	three_left_sort_a(t_stack *stack)
 	if (is_sorted(stack->start, 0))
 		return (0);
 	else if (start < middle && middle > end && start < end)
-		return (swap(stack->start, stack->name), rotate(&stack->start, stack->name));
+		return (swap(stack->start, stack->name),
+			rotate(&stack->start, stack->name));
 	else if (middle < start && middle < end && end > start)
 		return (swap(stack->start, stack->name));
 	else if (end < middle && end < start && middle > start)
