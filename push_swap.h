@@ -65,19 +65,21 @@ void	group_sort(t_stack *from, t_stack *to);
 // ------------------------------------------------------------------ UTILS ---
 /**
  * @brief
- * Find the lowest value in the given range and return its index
+ * Find the lowest value in the given range and return its index/value
+ * You can give a list to ignore values
  * @return
- * The index
+ * A point with index/value
  */
-t_point		get_lowest_point(t_list *list, int nb_nodes_max);
+t_point	get_lowest_point(t_list *list, int nb_nodes_max, t_list *to_ignore);
 
 /**
  * @brief
- * Find the highest value in the given range and return its index
+ * Find the highest value in the given range and return its index/value
+ * You can give a list to ignore values
  * @return
- * The index
+ * A point with index/value
  */
-t_point		get_highest_point(t_list *list, int nb_nodes_max);
+t_point	get_highest_point(t_list *list, int nb_nodes_max, t_list *to_ignore);
 
 /**
  * @brief

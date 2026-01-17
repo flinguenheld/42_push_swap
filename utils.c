@@ -13,7 +13,12 @@
 #include "push_swap.h"
 #include <limits.h>
 
-t_point	get_lowest_point(t_list *list, int nb_nodes_max)
+static int	are_equal(void *a, void *b)
+{
+	return (*(int *)a == *(int *)b);
+}
+
+t_point	get_lowest_point(t_list *list, int nb_nodes_max, t_list *to_ignore)
 {
 	int			index;
 	t_point		lowest_point;
@@ -24,7 +29,8 @@ t_point	get_lowest_point(t_list *list, int nb_nodes_max)
 	lowest_point = (t_point){.index = 0, .value = INT_MAX};
 	while (current_node != NULL && index < nb_nodes_max)
 	{
-		if (content(current_node) < lowest_point.value)
+		if (content(current_node) < lowest_point.value &&
+			!ft_lst_contains_key(to_ignore, current_node->content, are_equal))
 		{
 			lowest_point.value = content(current_node);
 			lowest_point.index = index;
@@ -32,10 +38,11 @@ t_point	get_lowest_point(t_list *list, int nb_nodes_max)
 		current_node = current_node->next;
 		index++;
 	}
+			ft_printf("lowest found -> %d\n", lowest_point.value);
 	return (lowest_point);
 }
 
-t_point	get_highest_point(t_list *list, int nb_nodes_max)
+t_point	get_highest_point(t_list *list, int nb_nodes_max, t_list *to_ignore)
 {
 	int			index;
 	t_point		highest_point;
@@ -46,7 +53,8 @@ t_point	get_highest_point(t_list *list, int nb_nodes_max)
 	highest_point = (t_point){.index = 0, .value = INT_MIN};
 	while (current_node != NULL && index < nb_nodes_max)
 	{
-		if (content(current_node) > highest_point.value)
+		if (content(current_node) > highest_point.value &&
+			!ft_lst_contains_key(to_ignore, current_node->content, are_equal))
 		{
 			highest_point.value = content(current_node);
 			highest_point.index = index;

@@ -48,9 +48,9 @@ static int	pop_lowest(t_stack *temp, char reverse)
 	t_point		popped_point;
 
 	if (reverse)
-		popped_point = get_highest_point(temp->start, INT_MAX);
+		popped_point = get_highest_point(temp->start, INT_MAX, NULL);
 	else
-		popped_point = get_lowest_point(temp->start, INT_MAX);
+		popped_point = get_lowest_point(temp->start, INT_MAX, NULL);
 	rotate_shorter_side(&temp->start, temp->name, popped_point.index);
 	popped_node = ft_lst_pop_front(&temp->start);
 	popped_point.value = content(popped_node);

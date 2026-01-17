@@ -75,7 +75,7 @@ void	selection_sort(t_stack *from, t_stack *to)
 			three_left_sort_a(from);
 			break ;
 		}
-		lowest = get_lowest_point(from->start, INT_MAX);
+		lowest = get_lowest_point(from->start, INT_MAX, NULL);
 		rotate_shorter_side(&from->start, from->name, lowest.index);
 		push(&from->start, &to->start, to->name);
 	}

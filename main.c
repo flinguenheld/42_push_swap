@@ -56,7 +56,7 @@ int	main(int argc, char **argv)
 	// selection_sort(&a, &b);
 	// selection_sort_range(&a, &b, 6);
 	group_sort(&a, &b);
-	print_ab(a.start, b.start, "Sorted");
+	// print_ab(a.start, b.start, "Sorted");
 
 	// --
 	ft_lst_clear_basic(&a.start);
