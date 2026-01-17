@@ -13,7 +13,7 @@
 #include "push_swap.h"
 #include <limits.h>
 
-static int	are_equal(void *a, void *b)
+int	are_equal(void *a, void *b)
 {
 	return (*(int *)a == *(int *)b);
 }

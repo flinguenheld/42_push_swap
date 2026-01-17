@@ -45,7 +45,7 @@ int	main(int argc, char **argv)
 		argv++;
 		if (check_and_push_argv(&a.start, *argv) == 0)
 		{
-			ft_lst_clear_basic(&a.start);
+			ft_lst_clear(&a.start, free);
 			ft_printf_err("Error\n");
 			return (1);
 		}
@@ -56,9 +56,9 @@ int	main(int argc, char **argv)
 	// selection_sort(&a, &b);
 	// selection_sort_range(&a, &b, 6);
 	group_sort(&a, &b);
-	// print_ab(a.start, b.start, "Sorted");
+	print_ab(a.start, b.start, "Sorted");
 
 	// --
-	ft_lst_clear_basic(&a.start);
+	ft_lst_clear(&a.start, free);
 	return (0);
 }

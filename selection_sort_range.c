@@ -54,7 +54,7 @@ static int	pop_lowest(t_stack *temp, char reverse)
 	rotate_shorter_side(&temp->start, temp->name, popped_point.index);
 	popped_node = ft_lst_pop_front(&temp->start);
 	popped_point.value = content(popped_node);
-	ft_lst_clear_basic(&popped_node);
+	ft_lst_clear(&popped_node, free);
 	return (popped_point.value);
 }
 
@@ -92,7 +92,7 @@ static int	push_values_in_the_second_stack_in_order(t_stack *from,
 	}
 	value_to_push = get_index(from->start, content(temp_stack.start));
 	rotate_shorter_side(&from->start, from->name, value_to_push);
-	ft_lst_clear_basic(&temp_stack.start);
+	ft_lst_clear(&temp_stack.start, free);
 	return (amount_pushed);
 }
 

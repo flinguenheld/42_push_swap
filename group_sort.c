@@ -42,29 +42,69 @@ static int	push_all_values_lower_than(t_stack *from, t_stack *to, int pivot)
  * @return
  * The amount of added values
  */
-t_stack	get_next_values_to_push(t_stack *stack, int amount)
+static t_list	*get_next_values_to_push(t_stack *stack, int amount)
 {
-	t_stack	values;
+	t_list	*values;
 	int		values_len;
 	int		stack_len;
 	t_point	current_lowest;
 	
+	values = NULL;
 	values_len = 0;
 	stack_len = ft_lst_size(stack->start);
-	values = (t_stack){.start = NULL, .name = '\0'};
 	while (amount-- && values_len < stack_len)
 	{
 		// Get the lowest value in stack which is not already in values
-		current_lowest = get_lowest_point(stack->start, INT_MAX, values.start);
+		current_lowest = get_lowest_point(stack->start, INT_MAX, values);
 		ft_printf("add this one: %d\n",current_lowest.value);
-		ft_lst_push_front(&values.start, ft_lst_new(new_content(current_lowest.value)));
+		ft_lst_push_front(&values, ft_lst_new(new_content(current_lowest.value)));
 		values_len++;
 	}
-	print_ab(values.start, NULL, "VALUES TO DEAL WITH");
+	print_ab(values, NULL, "VALUES TO DEAL WITH");
 
-	return values;
+	return (values);
 }
 
+/**
+ * @brief
+ * Rotate to check the first node
+ * If 'values' contains the node, push it in the second stack and remove it from
+ * 'values'.
+ * Continue until 'values' is empty
+ */
+static void	rotate_and_push_to_secondary(t_stack *from, t_stack *to, t_list **values)
+{
+
+	while (1)
+	{
+
+		// print_ab(from->start, to->start, "rotate & push");
+		// print_ab(*values, NULL, "rotate & push");
+		
+		if (ft_lst_contains_key(*values, from->start->content, are_equal))
+		{
+			ft_lst_remove_if(values, from->start->content, are_equal, free);
+			push(&from->start, &to->start, to->name);
+		}
+
+		if (*values == NULL)
+			return;
+		rotate(&from->start, from->name);
+	}
+}
+
+// LOGIC
+//
+// AS LONG AS THERE ARE MORE THAN 3 VALUES IN THE FIRST STACK :
+//
+//    - GET THE N NEXT VALUES TO DEAL WITH IN A TEMP LIST
+//    - ROTATE THE STACK TO PUSH THESE VALUES IN THE SECOND STACK
+//         - (COULD BE OPTIMISED THAT TO CHECK IF REVERSE ROTATION IS SHORTER ??)
+//    - SORT THESE VALUES IN THE SECOND STACK
+
+// THEN
+//    - SORT VALUES IN THE FIRST STACK (3 MAX)
+//    - PUSH ALL VALUES FROM THE SECOND STACK IN THE FIRST ONE
 void	group_sort(t_stack *from, t_stack *to)
 {
 	// Find a value to split
@@ -74,9 +114,22 @@ void	group_sort(t_stack *from, t_stack *to)
 
 	pivot = 10;
 
+	int aaaa = 0;
+	// while (from->start != NULL)
+	while (aaaa < 3)
+	{
+		t_list *blah = get_next_values_to_push(from, 3);
+		print_ab(blah, NULL, "VALUES TO DEAL WITH");
 
-	t_stack blah = get_next_values_to_push(from, 10);
-	print_ab(blah.start, NULL, "VALUES TO DEAL WITH");
+		rotate_and_push_to_secondary(from, to, &blah);
+		// while (blah != NULL)
+		// {
+		// 	t_list *node = ft_lst_pop_back(&blah);
+		// 	ft_printf("value: %d\n", content(node));
+		// 	ft_lst_delone(node, free);
+		// }
+		aaaa++;
+	}
 
 
 	return;

@@ -63,6 +63,16 @@ void	group_sort(t_stack *from, t_stack *to);
 
 // ----------------------------------------------------------------------------
 // ------------------------------------------------------------------ UTILS ---
+
+/**
+ * @brief
+ * Cast a & b in int to compare them
+ * @return
+ * 1 if they are equal
+ */
+int	are_equal(void *a, void *b);
+
+
 /**
  * @brief
  * Find the lowest value in the given range and return its index/value
