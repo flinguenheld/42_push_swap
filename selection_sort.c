@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 22:57:27 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/16 23:03:54 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/17 11:33:38 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ static void	two_left_sort_a(t_stack *stack)
 
 void	selection_sort(t_stack *from, t_stack *to)
 {
-	int	a_size;
-	int	lowest;
+	int		a_size;
+	t_point	lowest;
 
 	a_size = ft_lst_size(from->start);
 	while (from->start->next != NULL)
@@ -75,8 +75,8 @@ void	selection_sort(t_stack *from, t_stack *to)
 			three_left_sort_a(from);
 			break ;
 		}
-		lowest = get_lowest_index(from->start, INT_MAX);
-		rotate_shorter_side(&from->start, from->name, lowest);
+		lowest = get_lowest_point(from->start, INT_MAX);
+		rotate_shorter_side(&from->start, from->name, lowest.index);
 		push(&from->start, &to->start, to->name);
 	}
 	while (to->start != NULL)

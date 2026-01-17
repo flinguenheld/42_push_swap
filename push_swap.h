@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:04:31 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/16 23:03:54 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/17 11:33:38 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	group_sort(t_stack *from, t_stack *to);
  * @return
  * The index
  */
-int		get_lowest_index(t_list *list, int nb_nodes_max);
+t_point		get_lowest_point(t_list *list, int nb_nodes_max);
 
 /**
  * @brief
@@ -77,7 +77,7 @@ int		get_lowest_index(t_list *list, int nb_nodes_max);
  * @return
  * The index
  */
-int		get_highest_index(t_list *list, int nb_nodes_max);
+t_point		get_highest_point(t_list *list, int nb_nodes_max);
 
 /**
  * @brief

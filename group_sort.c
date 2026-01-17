@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 21:57:04 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/16 23:03:54 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/17 11:33:39 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft/libft.h"
 #include "push_swap.h"
 
-static int	loop_and_push_to(t_stack *from, t_stack *to, int pivot)
+static int	push_all_values_lower_than(t_stack *from, t_stack *to, int pivot)
 {
 	int	len;
 	int	amount;
@@ -31,8 +31,39 @@ static int	loop_and_push_to(t_stack *from, t_stack *to, int pivot)
 		}
 		rotate(&from->start, from->name);
 	}
-	// print_ab(from->start, to->start, "loop and push to done");
+	print_ab(from->start, to->start, "push all values lower");
 	return (0);
+}
+
+static int	compare_value(void *a, void *b)
+{
+	return (*(int *)a == *(int *)b);
+}
+
+/**
+ * @brief
+ * Loop in the stack to fill 'values' with the lowest values
+ * @return
+ * The amount of added values
+ */
+int	next_pivot(t_stack *stack, int amount)
+{
+	t_stack	values;
+	int		values_len;
+	int		stack_len;
+	
+	values_len = 0;
+	stack_len = ft_lst_size(stack->start);
+	values = (t_stack){.start = NULL, .name = '\0'};
+	while (amount-- && values_len < stack_len)
+	{
+		// Get the lowest value in stack which is not already in values
+
+
+	}
+
+
+	return 0;
 }
 
 void	group_sort(t_stack *from, t_stack *to)
@@ -42,14 +73,14 @@ void	group_sort(t_stack *from, t_stack *to)
 	int	pivot;
 	int	amount_pushed;
 
-	pivot = 8;
+	pivot = 10;
 
 	while (1)
 	{
 		// Push in b all values which are higher than the pivot
-		amount_pushed = loop_and_push_to(from,to, pivot);
+		amount_pushed = push_all_values_lower_than(from,to, pivot);
 		if (to->start != NULL)
-			pivot = content(to->start) + 8;
+			pivot = content(to->start) + 10;
 		else
 			exit(1000);
 
@@ -59,10 +90,10 @@ void	group_sort(t_stack *from, t_stack *to)
 		// Sort b in the range and in reverse side
 		selection_sort_range(to, from, 10, 1);
 
-		if (ft_lst_size(from->start) <= 10)
+		if (ft_lst_size(from->start) <= 3)
 		{
-			// print_ab(from->start, to->start, "amount sorted");
-			selection_sort(from, to);
+			print_ab(from->start, to->start, "before last sort");
+			// selection_sort(from, to);
 			return;
 		}
 

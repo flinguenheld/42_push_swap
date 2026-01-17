@@ -6,58 +6,55 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 11:32:25 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/16 23:03:54 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/17 11:33:38 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <limits.h>
 
-int	get_lowest_index(t_list *list, int nb_nodes_max)
+t_point	get_lowest_point(t_list *list, int nb_nodes_max)
 {
 	int			index;
+	t_point		lowest_point;
 	t_list		*current_node;
-	int			lowest_value_index;
-	int			lowest_value_found;
 
 	index = 0;
 	current_node = list;
-	lowest_value_index = 0;
-	lowest_value_found = INT_MAX;
+	lowest_point = (t_point){.index = 0, .value = INT_MAX};
 	while (current_node != NULL && index < nb_nodes_max)
 	{
-		if (content(current_node) < lowest_value_found)
+		if (content(current_node) < lowest_point.value)
 		{
-			lowest_value_found = content(current_node);
-			lowest_value_index = index;
+			lowest_point.value = content(current_node);
+			lowest_point.index = index;
 		}
 		current_node = current_node->next;
 		index++;
 	}
-	return (lowest_value_index);
+	return (lowest_point);
 }
 
-int	get_highest_index(t_list *list, int nb_nodes_max)
+t_point	get_highest_point(t_list *list, int nb_nodes_max)
 {
 	int			index;
+	t_point		highest_point;
 	t_list		*current_node;
-	int			highest_value_index;
-	int			highest_value_found;
 
 	index = 0;
 	current_node = list;
-	highest_value_index = 0;
-	highest_value_found = INT_MIN;
+	highest_point = (t_point){.index = 0, .value = INT_MIN};
 	while (current_node != NULL && index < nb_nodes_max)
 	{
-		if (content(current_node) > highest_value_found)
+		if (content(current_node) > highest_point.value)
 		{
-			highest_value_found = content(current_node);
-			highest_value_index = index;
+			highest_point.value = content(current_node);
+			highest_point.index = index;
 		}
 		current_node = current_node->next;
 		index++;
 	}
-	return (highest_value_index);
+	return (highest_point);
 }
 
 int	get_index(t_list *list, int to_find)

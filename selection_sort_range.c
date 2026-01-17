@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 22:57:27 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/16 23:03:54 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/17 11:33:38 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,17 @@ static t_stack	clone_current_values(t_list *list, size_t amount)
 static int	pop_lowest(t_stack *temp, char reverse)
 {
 	t_list		*popped_node;
-	int			popped_value;
-	int			popped_index;
+	t_point		popped_point;
 
 	if (reverse)
-		popped_index = get_highest_index(temp->start, INT_MAX);
+		popped_point = get_highest_point(temp->start, INT_MAX);
 	else
-		popped_index = get_lowest_index(temp->start, INT_MAX);
-	rotate_shorter_side(&temp->start, temp->name, popped_index);
+		popped_point = get_lowest_point(temp->start, INT_MAX);
+	rotate_shorter_side(&temp->start, temp->name, popped_point.index);
 	popped_node = ft_lst_pop_front(&temp->start);
-	popped_value = content(popped_node);
+	popped_point.value = content(popped_node);
 	ft_lst_clear_basic(&popped_node);
-	return (popped_value);
+	return (popped_point.value);
 }
 
 /**
