@@ -59,7 +59,7 @@ void	selection_sort_range(t_stack *from, t_stack *to,
  * @brief
  * Group
  */
-void	group_sort(t_stack *from, t_stack *to);
+void	group_sort(t_stack *from, t_stack *to, int group_size);
 
 // ----------------------------------------------------------------------------
 // ------------------------------------------------------------------ UTILS ---
@@ -70,8 +70,7 @@ void	group_sort(t_stack *from, t_stack *to);
  * @return
  * 1 if they are equal
  */
-int	are_equal(void *a, void *b);
-
+int		are_equal(void *a, void *b);
 
 /**
  * @brief

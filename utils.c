@@ -29,8 +29,9 @@ t_point	get_lowest_point(t_list *list, int nb_nodes_max, t_list *to_ignore)
 	lowest_point = (t_point){.index = 0, .value = INT_MAX};
 	while (current_node != NULL && index < nb_nodes_max)
 	{
-		if (content(current_node) < lowest_point.value &&
-			!ft_lst_contains_key(to_ignore, current_node->content, are_equal))
+		if (content(current_node) < lowest_point.value
+			&& !ft_lst_contains_key(to_ignore,
+				current_node->content, are_equal))
 		{
 			lowest_point.value = content(current_node);
 			lowest_point.index = index;
@@ -38,7 +39,6 @@ t_point	get_lowest_point(t_list *list, int nb_nodes_max, t_list *to_ignore)
 		current_node = current_node->next;
 		index++;
 	}
-			ft_printf("lowest found -> %d\n", lowest_point.value);
 	return (lowest_point);
 }
 
@@ -53,8 +53,9 @@ t_point	get_highest_point(t_list *list, int nb_nodes_max, t_list *to_ignore)
 	highest_point = (t_point){.index = 0, .value = INT_MIN};
 	while (current_node != NULL && index < nb_nodes_max)
 	{
-		if (content(current_node) > highest_point.value &&
-			!ft_lst_contains_key(to_ignore, current_node->content, are_equal))
+		if (content(current_node) > highest_point.value
+			&& !ft_lst_contains_key(to_ignore,
+				current_node->content, are_equal))
 		{
 			highest_point.value = content(current_node);
 			highest_point.index = index;

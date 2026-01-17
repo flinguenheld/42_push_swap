@@ -14,7 +14,6 @@ SRC = main.c \
       selection_sort.c \
       selection_sort_range.c \
       group_sort.c \
-      sort_ten.c \
       commands/push.c \
       commands/reverse_rotate.c \
       commands/rotate.c \
