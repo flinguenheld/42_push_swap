@@ -76,7 +76,7 @@ void	selection_sort(t_stack *from, t_stack *to)
 			break ;
 		}
 		lowest = get_lowest_point(from->start, INT_MAX, NULL);
-		rotate_shorter_side(&from->start, from->name, lowest.index);
+		rotate_shorter_side(from, to, lowest.index, NULL);
 		push(&from->start, &to->start, to->name);
 	}
 	while (to->start != NULL)

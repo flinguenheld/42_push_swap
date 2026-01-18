@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "push_swap.h"
 
 /**
@@ -30,30 +31,54 @@ static t_list	*get_only_values_to_sort(t_stack *stack, int amount)
 	values_gotten = NULL;
 	values_gotten_len = 0;
 	stack_len = ft_lst_size(stack->start);
-	while (amount > 0 && values_gotten_len <= stack_len)
+	while (values_gotten_len < amount && values_gotten_len <= stack_len)
 	{
 		lowest_found = get_lowest_point(stack->start, amount, values_gotten);
-		ft_lst_push_front(&values_gotten,
-			ft_lst_new(new_content(lowest_found.value)));
+		if (lowest_found.index >= 0)
+		{
+			// IS IT OK ????????????????????????????????????????????????????
+			ft_lst_push_front(&values_gotten,
+				ft_lst_new(new_content(lowest_found.value)));
+		}
 		values_gotten_len++;
-		amount--;
 	}
 	return (values_gotten);
 }
 
-static void	pop_back_temp_and_rotate(t_stack *stack, t_list *temp_stack,
-									int reverse)
+static void	pop_back_temp_and_rotate(t_stack *from, t_stack *to,
+										t_list *temp_stack, int reverse)
 {
 	t_list	*temp_node;
 	int		index;
 
-	if (reverse)
+	// if (reverse)
 		temp_node = ft_lst_pop_back(&temp_stack);
-	else
-		temp_node = ft_lst_pop_front(&temp_stack);
-	index = get_index(stack->start, content(temp_node));
+	// else
+	// 	temp_node = ft_lst_pop_front(&temp_stack);
+	index = get_index(from->start, content(temp_node));
 	ft_lst_delone(temp_node, free);
-	rotate_shorter_side(&stack->start, stack->name, index);
+	// rotate_shorter_side(from, to,  index, temp_stack->content);
+	// ft_printf("try with this value: %d\n", content(ft_lst_last(temp_stack)));
+	ft_printf("hello bibicheeeeeeee\n");
+	if (temp_stack != NULL && temp_stack->next != NULL)
+		rotate_shorter_side(from, to,  index, ft_lst_last(temp_stack)->content);
+	else
+		rotate_shorter_side(from, to,  index, NULL);
+	ft_printf("hello bibicheeeeeeeeeeeeeeeeeeeeeeeee\n");
+}
+
+static int check_and_swap_if_needed(t_stack *stack)
+{
+	if (stack->start != NULL && stack->start->next != NULL)
+	{
+		if (content(stack->start) < content(stack->start->next))
+		{
+			ft_printf("we swap!\n");
+			swap(stack->start, stack->name);
+			return (1);
+		}
+	}
+	return (0);
 }
 
 /**
@@ -79,11 +104,22 @@ static int	push_values_in_the_second_stack_in_order(t_stack *from,
 	temp = get_only_values_to_sort(from, amount);
 	while (temp->next != NULL)
 	{
-		pop_back_temp_and_rotate(from, temp, reverse);
+		print_ab(from->start, to->start, "blah !");
+		print_ab(temp, NULL, "temp");
+		pop_back_temp_and_rotate(from, to, temp, reverse);
 		push(&from->start, &to->start, to->name);
+		if (check_and_swap_if_needed(to) == 1)
+		{
+			ft_lst_delone(ft_lst_pop_back(&temp), free);
+			amount_pushed++;
+		}
+		// else
 		amount_pushed++;
+		
 	}
-	pop_back_temp_and_rotate(from, temp, reverse);
+	// if (temp->next != NULL)
+	pop_back_temp_and_rotate(from, to, temp, reverse);
+
 	return (amount_pushed);
 }
 

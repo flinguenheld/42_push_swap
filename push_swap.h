@@ -78,6 +78,7 @@ int		are_equal(void *a, void *b);
  * You can give a list to ignore values
  * @return
  * A point with index/value
+ * A point with index = -1 not enough values
  */
 t_point	get_lowest_point(t_list *list, int nb_nodes_max, t_list *to_ignore);
 
@@ -87,6 +88,7 @@ t_point	get_lowest_point(t_list *list, int nb_nodes_max, t_list *to_ignore);
  * You can give a list to ignore values
  * @return
  * A point with index/value
+ * A point with index = -1 not enough values
  */
 t_point	get_highest_point(t_list *list, int nb_nodes_max, t_list *to_ignore);
 
@@ -103,7 +105,8 @@ int		get_index(t_list *list, int to_find);
  * Rotate the given list with 'index' rotations
  * (According to the value of index and list length, use reverse rotation)
  */
-void	rotate_shorter_side(t_list **list, char who, int index);
+// void	rotate_shorter_side(t_list **list, char who, int index);
+void	rotate_shorter_side(t_stack *from, t_stack *to, int index, void *previous);
 
 // ----------------------------------------------------------------------------
 // ------------------------------------------------------------- UTILS LIST ---

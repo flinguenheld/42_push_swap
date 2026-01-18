@@ -10,13 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "commands/commands.h"
 #include "libft/libft.h"
 #include "push_swap.h"
 #include <limits.h>
 
 int	are_equal(void *a, void *b)
 {
-	return (*(int *)a == *(int *)b);
+	// return (*(int *)a == *(int *)b);
+	return (a != NULL && b != NULL && *(int *)a == *(int *)b);
 }
 
 t_point	get_lowest_point(t_list *list, int nb_nodes_max, t_list *to_ignore)
@@ -25,11 +27,15 @@ t_point	get_lowest_point(t_list *list, int nb_nodes_max, t_list *to_ignore)
 	t_point		lowest_point;
 	t_list		*current_node;
 
-	index = 0;
+	ft_printf("start --------------------------------------------------\n");
+	index = -1;
 	current_node = list;
 	lowest_point = (t_point){.index = 0, .value = INT_MAX};
-	while (current_node != NULL && index <= nb_nodes_max + 1)
+	while (current_node != NULL && index < nb_nodes_max)
 	{
+		ft_printf("check this one: %d\n", content(current_node));
+		ft_printf("nb node max: %d\n", nb_nodes_max);
+		// print_ab(to_ignore, NULL, "bord de mer");
 		if (content(current_node) < lowest_point.value
 			&& !ft_lst_contains_key(to_ignore,
 				current_node->content, are_equal))
@@ -49,7 +55,7 @@ t_point	get_highest_point(t_list *list, int nb_nodes_max, t_list *to_ignore)
 	t_point		highest_point;
 	t_list		*current_node;
 
-	index = 0;
+	index = -1;
 	current_node = list;
 	highest_point = (t_point){.index = 0, .value = INT_MIN};
 	while (current_node != NULL && index <= nb_nodes_max + 1)
@@ -84,20 +90,38 @@ int	get_index(t_list *list, int to_find)
 	return (-1);
 }
 
-void	rotate_shorter_side(t_list **list, char who, int index)
+void	rotate_shorter_side(t_stack *from, t_stack *to, int index, void *previous)
 {
 	int	size;
+	int	previous_pushed;
 
-	size = ft_lst_size(*list);
+	previous_pushed = 0;
+	size = ft_lst_size(from->start);
 	if (index > size / 2)
 	{
 		index = size - index;
 		while (index--)
-			reverse_rotate(list, who);
+		{
+			print_ab(from->start, to->start, "in rotate !");
+			if (are_equal(previous, from->start->content) == 1)
+			{
+				// ft_printf("here !!! with %d\n", content(from->start));
+				push(&from->start, &to->start, to->name);
+			}
+			reverse_rotate(&from->start, from->name);
+		}
 	}
 	else
 	{
 		while (index--)
-			rotate(list, who);
+		{
+			if (are_equal(previous, from->start->content) == 1)
+			{
+				// ft_printf("here !!!\n");
+				push(&from->start, &to->start, to->name);
+			}
+			else
+				rotate(&from->start, from->name);
+		}
 	}
 }
