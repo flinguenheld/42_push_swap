@@ -90,9 +90,10 @@ void	group_sort(t_stack *from, t_stack *to, int group_size)
 	while (from->start != NULL)
 	{
 		values_to_push = get_next_values_to_push(from, group_size);
-		print_ab(values_to_push, NULL, "VALUES TO DEAL WITH");
+		// print_ab(values_to_push, NULL, "VALUES TO DEAL WITH");
 		rotate_and_push_to_secondary(from, to, &values_to_push);
-		selection_sort_range(to, from, group_size, 1);
+		selection_sort_range(to, from, group_size);
+		print_ab(from->start, to->start, "HERE ??");
 	}
 	while (to->start != NULL)
 	{

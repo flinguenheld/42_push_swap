@@ -42,38 +42,32 @@ static t_list	*get_only_values_to_sort(t_stack *stack, int amount)
 		}
 		values_gotten_len++;
 	}
+	print_ab(values_gotten, NULL, "bord de mer");
 	return (values_gotten);
 }
 
 static void	pop_back_temp_and_rotate(t_stack *from, t_stack *to,
-										t_list *temp_stack, int reverse)
+										t_list *temp_stack)
 {
 	t_list	*temp_node;
 	int		index;
 
-	// if (reverse)
-		temp_node = ft_lst_pop_back(&temp_stack);
-	// else
-	// 	temp_node = ft_lst_pop_front(&temp_stack);
+	temp_node = ft_lst_pop_back(&temp_stack);
 	index = get_index(from->start, content(temp_node));
 	ft_lst_delone(temp_node, free);
-	// rotate_shorter_side(from, to,  index, temp_stack->content);
-	// ft_printf("try with this value: %d\n", content(ft_lst_last(temp_stack)));
-	ft_printf("hello bibicheeeeeeee\n");
 	if (temp_stack != NULL && temp_stack->next != NULL)
-		rotate_shorter_side(from, to,  index, ft_lst_last(temp_stack)->content);
+		rotate_shorter_side(from, to, index, ft_lst_last(temp_stack)->content);
 	else
-		rotate_shorter_side(from, to,  index, NULL);
-	ft_printf("hello bibicheeeeeeeeeeeeeeeeeeeeeeeee\n");
+		rotate_shorter_side(from, to, index, NULL);
 }
 
-static int check_and_swap_if_needed(t_stack *stack)
+static int	check_and_swap_if_needed(t_stack *stack)
 {
 	if (stack->start != NULL && stack->start->next != NULL)
 	{
 		if (content(stack->start) < content(stack->start->next))
 		{
-			ft_printf("we swap!\n");
+			// ft_printf("we swap!\n");
 			swap(stack->start, stack->name);
 			return (1);
 		}
@@ -95,7 +89,7 @@ static int check_and_swap_if_needed(t_stack *stack)
  * Amount of pushed values
  */
 static int	push_values_in_the_second_stack_in_order(t_stack *from,
-					t_stack *to, size_t amount, int reverse)
+					t_stack *to, size_t amount)
 {
 	t_list		*temp;
 	int			amount_pushed;
@@ -104,32 +98,29 @@ static int	push_values_in_the_second_stack_in_order(t_stack *from,
 	temp = get_only_values_to_sort(from, amount);
 	while (temp->next != NULL)
 	{
-		print_ab(from->start, to->start, "blah !");
-		print_ab(temp, NULL, "temp");
-		pop_back_temp_and_rotate(from, to, temp, reverse);
+		// print_ab(from->start, to->start, "blah !");
+		// print_ab(temp, NULL, "temp");
+		pop_back_temp_and_rotate(from, to, temp);
 		push(&from->start, &to->start, to->name);
 		if (check_and_swap_if_needed(to) == 1)
 		{
 			ft_lst_delone(ft_lst_pop_back(&temp), free);
 			amount_pushed++;
 		}
-		// else
 		amount_pushed++;
-		
 	}
 	// if (temp->next != NULL)
-	pop_back_temp_and_rotate(from, to, temp, reverse);
-
+	pop_back_temp_and_rotate(from, to, temp);
 	return (amount_pushed);
 }
 
 void	selection_sort_range(t_stack *from, t_stack *to,
-								size_t amount, int reverse)
+								size_t amount)
 {
 	int	nb_to_get_back;
 
 	nb_to_get_back = push_values_in_the_second_stack_in_order(
-			from, to, amount, reverse);
+			from, to, amount);
 	while (nb_to_get_back--)
 		push(&to->start, &from->start, from->name);
 }

@@ -50,8 +50,7 @@ void	selection_sort(t_stack *from, t_stack *to);
  * Same as selection sort but only on 0 to range values
  * (preserve the stack below)
  */
-void	selection_sort_range(t_stack *from, t_stack *to,
-			size_t amount, int rev);
+void	selection_sort_range(t_stack *from, t_stack *to, size_t amount);
 
 // ----------------------------------------------------------------------------
 // ------------------------------------------------------------- GROUP SORT ---
