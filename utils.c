@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "push_swap.h"
 #include <limits.h>
 
@@ -27,8 +28,9 @@ t_point	get_lowest_point(t_list *list, int nb_nodes_max, t_list *to_ignore)
 	index = 0;
 	current_node = list;
 	lowest_point = (t_point){.index = 0, .value = INT_MAX};
-	while (current_node != NULL && index < nb_nodes_max)
+	while (current_node != NULL && index <= nb_nodes_max + 1)
 	{
+		ft_printf("here we test: %d   ->  %d\n", content(current_node), index);
 		if (content(current_node) < lowest_point.value
 			&& !ft_lst_contains_key(to_ignore,
 				current_node->content, are_equal))
@@ -51,7 +53,7 @@ t_point	get_highest_point(t_list *list, int nb_nodes_max, t_list *to_ignore)
 	index = 0;
 	current_node = list;
 	highest_point = (t_point){.index = 0, .value = INT_MIN};
-	while (current_node != NULL && index < nb_nodes_max)
+	while (current_node != NULL && index <= nb_nodes_max + 1)
 	{
 		if (content(current_node) > highest_point.value
 			&& !ft_lst_contains_key(to_ignore,
