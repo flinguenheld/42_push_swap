@@ -30,7 +30,6 @@ t_point	get_lowest_point(t_list *list, int nb_nodes_max, t_list *to_ignore)
 	lowest_point = (t_point){.index = 0, .value = INT_MAX};
 	while (current_node != NULL && index <= nb_nodes_max + 1)
 	{
-		ft_printf("here we test: %d   ->  %d\n", content(current_node), index);
 		if (content(current_node) < lowest_point.value
 			&& !ft_lst_contains_key(to_ignore,
 				current_node->content, are_equal))
