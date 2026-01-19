@@ -44,7 +44,7 @@ static t_list	*get_next_group(t_stack *stack, int group_size)
 
 /**
  * @brief
- * Loop in 'values' and for each one:
+ * Loop in 'group' and for each value:
  *  - get the needed amount of steps
  *  - only save the shortest path
  *
@@ -52,7 +52,7 @@ static t_list	*get_next_group(t_stack *stack, int group_size)
  * @return
  * the point of the closet node in the stack
  */
-static t_point	closest_next(t_list *stack, t_list *values)
+static t_point	closest_next_value(t_list *stack, t_list *group)
 {
 	t_point	closest;
 	int		stack_size;
@@ -61,20 +61,20 @@ static t_point	closest_next(t_list *stack, t_list *values)
 
 	shortest_path_found = INT_MAX;
 	stack_size = ft_lst_size(stack);
-	closest = (t_point){.value = content(values),
-		.index = get_index(stack, content(values))};
-	while (values != NULL)
+	closest = (t_point){.value = content(group),
+		.index = get_index(stack, content(group))};
+	while (group != NULL)
 	{
-		current_index = get_index(stack, content(values));
+		current_index = get_index(stack, content(group));
 		if (current_index > stack_size / 2)
 			current_index = stack_size - current_index;
 		if (current_index < shortest_path_found)
 		{
-			closest.index = get_index(stack, content(values));
-			closest.value = content(values);
+			closest.index = get_index(stack, content(group));
+			closest.value = content(group);
 			shortest_path_found = current_index;
 		}
-		values = values->next;
+		group = group->next;
 	}
 	return (closest);
 }
@@ -86,7 +86,7 @@ static t_point	closest_next(t_list *stack, t_list *values)
  * to push.
  * Use rotatation and reverse rotation to do it.
  */
-static void	push_next_values(t_stack *from, t_stack *to, t_list **values)
+static void	push_group(t_stack *from, t_stack *to, t_list **values)
 {
 	t_point	next_value;
 
@@ -99,7 +99,7 @@ static void	push_next_values(t_stack *from, t_stack *to, t_list **values)
 		}
 		else
 		{
-			next_value = closest_next(from->start, *values);
+			next_value = closest_next_value(from->start, *values);
 			rotate_shortest_way(from, next_value.index);
 		}
 	}
@@ -126,7 +126,7 @@ void	group_sort(t_stack *from, t_stack *to, int group_size)
 	{
 		values_to_push = get_next_group(from, group_size);
 		print_ab(values_to_push, NULL, "Next group");
-		push_next_values(from, to, &values_to_push);
+		push_group(from, to, &values_to_push);
 		print_ab(from->start, to->start, "group pushed on the right");
 		// return;
 		// selection_sort_range(to, from, group_size);
