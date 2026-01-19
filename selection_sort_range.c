@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "commands/commands.h"
 #include "libft/libft.h"
 #include "push_swap.h"
 
@@ -21,106 +22,81 @@
  * @return
  * A list with the next values to deal with
  */
-static t_list	*get_only_values_to_sort(t_stack *stack, int amount)
+static t_list	*get_group(t_stack *stack, int group_size)
 {
 	int		stack_len;
-	t_point	lowest_found;
+	t_point	lowest_fnd;
 	t_list	*values_gotten;
 	int		values_gotten_len;
 
+	stack_len = ft_lst_size(stack->start);
 	values_gotten = NULL;
 	values_gotten_len = 0;
-	stack_len = ft_lst_size(stack->start);
-	while (values_gotten_len < amount && values_gotten_len <= stack_len)
+	while (values_gotten_len < group_size && values_gotten_len < stack_len)
 	{
-		lowest_found = get_lowest_point(stack->start, amount, values_gotten);
-		if (lowest_found.index >= 0)
+		lowest_fnd = get_lowest_point(stack->start, group_size, values_gotten);
+		if (lowest_fnd.index >= 0)
 		{
-			// IS IT OK ????????????????????????????????????????????????????
 			ft_lst_push_front(&values_gotten,
-				ft_lst_new(new_content(lowest_found.value)));
+				ft_lst_new(new_content(lowest_fnd.value)));
 		}
 		values_gotten_len++;
 	}
-	print_ab(values_gotten, NULL, "bord de mer");
 	return (values_gotten);
-}
-
-static void	pop_back_temp_and_rotate(t_stack *from, t_stack *to,
-										t_list *temp_stack)
-{
-	t_list	*temp_node;
-	int		index;
-
-	temp_node = ft_lst_pop_back(&temp_stack);
-	index = get_index(from->start, content(temp_node));
-	ft_lst_delone(temp_node, free);
-	if (temp_stack != NULL && temp_stack->next != NULL)
-		rotate_shorter_side(from, to, index, ft_lst_last(temp_stack)->content);
-	else
-		rotate_shorter_side(from, to, index, NULL);
-}
-
-static int	check_and_swap_if_needed(t_stack *stack)
-{
-	if (stack->start != NULL && stack->start->next != NULL)
-	{
-		if (content(stack->start) < content(stack->start->next))
-		{
-			// ft_printf("we swap!\n");
-			swap(stack->start, stack->name);
-			return (1);
-		}
-	}
-	return (0);
 }
 
 /**
  * @brief
- * Create a temporary stack with all values form index 0 to amount
- * Then in a loop until temp list size != 1
- *  - get the lowest value in the temp
- *  - find it in the real list
- *  - rotate to put first
- *  - push to the second list
- *
- * Then put the last value at the top of the first list
+ * Empties the group one by one
+ * Get the index of the popped group value in the stack from
+ * Smartly rotate the stack
+ * Push the value into the second stack
+ * Stops until the pantenultimate value
+ * Free the last group value
  * @return
- * Amount of pushed values
+ * The number of pushed values
  */
-static int	push_values_in_the_second_stack_in_order(t_stack *from,
-					t_stack *to, size_t amount)
+static int	push_group(t_stack *from, t_stack *to, t_list **group)
 {
-	t_list		*temp;
-	int			amount_pushed;
+	int		index;
+	int		counter;
+	t_list	*current_node;
 
-	amount_pushed = 0;
-	temp = get_only_values_to_sort(from, amount);
-	while (temp->next != NULL)
+	counter = 0;
+	while (*group != NULL)
 	{
-		// print_ab(from->start, to->start, "blah !");
-		// print_ab(temp, NULL, "temp");
-		pop_back_temp_and_rotate(from, to, temp);
-		push(&from->start, &to->start, to->name);
-		if (check_and_swap_if_needed(to) == 1)
+		current_node = ft_lst_pop_front(group);
+		index = get_index(from->start, content(current_node));
+		rotate_shortest_way(from, index);
+		if (*group != NULL)
 		{
-			ft_lst_delone(ft_lst_pop_back(&temp), free);
-			amount_pushed++;
+			push(&from->start, &to->start, to->name);
+			counter++;
 		}
-		amount_pushed++;
+		ft_lst_clear(&current_node, free);
 	}
-	// if (temp->next != NULL)
-	pop_back_temp_and_rotate(from, to, temp);
-	return (amount_pushed);
+	return (counter);
 }
 
-void	selection_sort_range(t_stack *from, t_stack *to,
-								size_t amount)
+/**
+ * @brief
+ * Steps:
+ *    - Clone the values in a temporary list and in order (high to low)
+ *    - Until the group list is empty:
+ *            - Pop front
+ *            - Push the value in the other list
+ *    - Once there only one left, push back values
+ */
+void	selection_sort_range(t_stack *from, t_stack *to, size_t range)
 {
-	int	nb_to_get_back;
+	t_list	*group;
+	int		nb_pushed_values;
 
-	nb_to_get_back = push_values_in_the_second_stack_in_order(
-			from, to, amount);
-	while (nb_to_get_back--)
+	group = get_group(from, range);
+	print_ab(from->start, to->start, "sort in range - group");
+	print_ab(NULL, group, "group to sort");
+	nb_pushed_values = push_group(from, to, &group);
+	print_ab(from->start, to->start, "sort in range");
+	while (nb_pushed_values--)
 		push(&to->start, &from->start, from->name);
 }

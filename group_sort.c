@@ -86,16 +86,19 @@ static t_point	closest_next_value(t_list *stack, t_list *group)
  * to push.
  * Use rotatation and reverse rotation to do it.
  */
-static void	push_group(t_stack *from, t_stack *to, t_list **values)
+static int	push_group(t_stack *from, t_stack *to, t_list **values)
 {
 	t_point	next_value;
+	int		amount_pushed;
 
+	amount_pushed = 0;
 	while (*values != NULL)
 	{
 		if (ft_lst_contains_key(*values, from->start->content, are_equal))
 		{
 			push(&from->start, &to->start, to->name);
 			ft_lst_remove_if(values, to->start->content, are_equal, free);
+			amount_pushed++;
 		}
 		else
 		{
@@ -103,6 +106,7 @@ static void	push_group(t_stack *from, t_stack *to, t_list **values)
 			rotate_shortest_way(from, next_value.index);
 		}
 	}
+	return (amount_pushed);
 }
 
 /**
@@ -114,26 +118,25 @@ static void	push_group(t_stack *from, t_stack *to, t_list **values)
  *           - Push the stack & empties the temporary list
  *
  *    - Sort the freshly pushed values in the secondary stack
- *    - Repeat until there's only one value in the first stack
+ *    - Repeat until the first stack is empty
  *
  *    - Push back all sorted values from the secondary stack
  */
 void	group_sort(t_stack *from, t_stack *to, int group_size)
 {
 	t_list	*values_to_push;
+	int		amount_pushed;
 
 	while (from->start != NULL)
 	{
 		values_to_push = get_next_group(from, group_size);
 		print_ab(values_to_push, NULL, "Next group");
-		push_group(from, to, &values_to_push);
+		amount_pushed = push_group(from, to, &values_to_push);
 		print_ab(from->start, to->start, "group pushed on the right");
-		// return;
-		// selection_sort_range(to, from, group_size);
-		// print_ab(from->start, to->start, "Then sorted ??");
+		selection_sort_range(to, from, amount_pushed);
 	}
-	// while (to->start != NULL)
-	// {
-	// 	push(&to->start, &from->start, to->name);
-	// }
+	while (to->start != NULL)
+	{
+		push(&to->start, &from->start, to->name);
+	}
 }
