@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:04:31 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/16 23:03:54 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/20 00:32:03 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,31 @@ int	main(int argc, char **argv)
 			return (1);
 		}
 	}
+	print_ab(a.start, b.start, "Original");
+
+	// ADD A MECHANISM TO TRY DIFFERENT GROUP SIZES
+	// AND COUNT STEPS TO ONLY GET THE BEST ONE --------------------------
+
 	if (is_sorted(a.start, 0))
 		return (0);
-	print_ab(a.start, b.start, "Original");
-	// selection_sort(&a, &b);
-	// selection_sort_range(&a, &b, 2);
-	group_sort(&a, &b, 40);
+	if (ft_lst_size(a.start) < 12)
+	{
+		selection_sort(&a, &b);
+		// return (0);
+	}
+	else
+	{
+		// selection_sort(&a, &b);
+		// selection_sort_range(&a, &b, 2);
+		group_sort(&a, &b, 30);
+		
+	}
 	print_ab(a.start, b.start, "Sorted");
+
+	if (!is_sorted(a.start, 0))
+	{
+		ft_printf_err("SORT FAIL!\n");
+	}
 
 	// --
 	ft_lst_clear(&a.start, free);

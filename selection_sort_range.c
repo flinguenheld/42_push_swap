@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 22:57:27 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/17 11:33:38 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/20 00:32:03 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,7 @@ void	selection_sort_range(t_stack *from, t_stack *to, size_t range)
 	int		nb_pushed_values;
 
 	group = get_group(from, range);
-	print_ab(from->start, to->start, "sort in range - group");
-	print_ab(NULL, group, "group to sort");
 	nb_pushed_values = push_group(from, to, &group);
-	print_ab(from->start, to->start, "sort in range");
 	while (nb_pushed_values--)
 		push(&to->start, &from->start, from->name);
 }

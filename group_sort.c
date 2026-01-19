@@ -6,11 +6,12 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 21:57:04 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/16 23:03:54 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/20 00:32:03 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <limits.h>
 
 /**
  * @brief
@@ -127,7 +128,8 @@ void	group_sort(t_stack *from, t_stack *to, int group_size)
 	t_list	*values_to_push;
 	int		amount_pushed;
 
-	while (from->start != NULL)
+	// while (from->start != NULL)
+	while (ft_lst_size(from->start) > group_size)
 	{
 		values_to_push = get_next_group(from, group_size);
 		print_ab(values_to_push, NULL, "Next group");
@@ -135,6 +137,12 @@ void	group_sort(t_stack *from, t_stack *to, int group_size)
 		print_ab(from->start, to->start, "group pushed on the right");
 		selection_sort_range(to, from, amount_pushed);
 	}
+	// FIND A WAY TO AVOID THE LAST GROUP AND SORT HERE
+	// print_ab(from->start, to->start, "Push on right done");
+	// REVERSE THE SORTING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	selection_sort_range(from, to, INT_MAX);
+	// print_ab(from->start, to->start, "sort in the left done ?");
+
 	while (to->start != NULL)
 	{
 		push(&to->start, &from->start, to->name);
