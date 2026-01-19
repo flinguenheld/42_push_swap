@@ -107,13 +107,6 @@ int		get_index(t_list *list, int to_find);
 // void	rotate_shorter_side(t_list **list, char who, int index);
 void	rotate_shorter_side(t_stack *from, t_stack *to, int index, void *previous);
 
-/**
- * @brief
- * Rotate the given stack up to having the 'index' at the top
- * Take care of the shortest way to do that (rotate or reverse rotate)
- */
-void	rotate_shortest_way(t_stack *stack, int index_to);
-
 // ----------------------------------------------------------------------------
 // ------------------------------------------------------------- UTILS LIST ---
 /**

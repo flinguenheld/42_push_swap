@@ -121,23 +121,3 @@ void	rotate_shorter_side(t_stack *from, t_stack *to, int index, void *previous)
 		}
 	}
 }
-
-void	rotate_shortest_way(t_stack *stack, int index_to)
-{
-	int	size;
-	int	previous_pushed;
-
-	previous_pushed = 0;
-	size = ft_lst_size(stack->start);
-	if (index_to > size / 2)
-	{
-		index_to = size - index_to;
-		while (index_to--)
-			reverse_rotate(&stack->start, stack->name);
-	}
-	else
-	{
-		while (index_to--)
-			rotate(&stack->start, stack->name);
-	}
-}

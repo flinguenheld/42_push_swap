@@ -54,8 +54,8 @@ int	main(int argc, char **argv)
 		return (0);
 	print_ab(a.start, b.start, "Original");
 	// selection_sort(&a, &b);
-	selection_sort_range(&a, &b, 2);
-	// group_sort(&a, &b, 50);
+	// selection_sort_range(&a, &b, 2);
+	group_sort(&a, &b, 20);
 	print_ab(a.start, b.start, "Sorted");
 
 	// --

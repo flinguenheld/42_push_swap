@@ -10,5 +10,5 @@ done
 TO_SORT=$(cat "$FILE" | sort -R | paste -sd ' ')
 rm "$FILE"
 
-# ./push_swap $TO_SORT
-valgrind --leak-check=yes ./push_swap $TO_SORT
+./push_swap $TO_SORT
+# valgrind --leak-check=yes ./push_swap $TO_SORT

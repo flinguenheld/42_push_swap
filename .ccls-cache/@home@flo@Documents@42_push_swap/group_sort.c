@@ -10,12 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "commands/commands.h"
+#include "libft/libft.h"
 #include "push_swap.h"
+#include <limits.h>
 
 /**
  * @brief
- * Create a list and loop in the stack to get the 'group_size' lowest values
- * Clone each nodes in the new list
+ * Create a list and loop in the stack to get the 'amount' lowest values
  * @return
  * A list with the next group of values to push
  */
@@ -26,10 +28,10 @@ static t_list	*get_next_group(t_stack *stack, int group_size)
 	t_list	*values_gotten;
 	int		values_gotten_len;
 
-	stack_len = ft_lst_size(stack->start);
 	values_gotten = NULL;
 	values_gotten_len = 0;
-	while (values_gotten_len < group_size && values_gotten_len < stack_len)
+	stack_len = ft_lst_size(stack->start);
+	while (values_gotten_len < group_size && values_gotten_len <= stack_len)
 	{
 		lowest_found = get_lowest_point(stack->start, INT_MAX, values_gotten);
 		if (lowest_found.index >= 0)
@@ -44,11 +46,8 @@ static t_list	*get_next_group(t_stack *stack, int group_size)
 
 /**
  * @brief
- * Loop in 'values' and for each one:
- *  - get the needed amount of steps
- *  - only save the shortest path
- *
- * It can be we rotation or reverse rotation
+ * Loop in 'values' for each one, get the needed amount of steps to find
+ * the shortest path
  * @return
  * the point of the closet node in the stack
  */
@@ -57,36 +56,67 @@ static t_point	closest_next(t_list *stack, t_list *values)
 	t_point	closest;
 	int		stack_size;
 	int		current_index;
-	int		shortest_path_found;
+	int		current_closet;
+	closest = (t_point){.value = INT_MAX, .index = 0};
 
-	shortest_path_found = INT_MAX;
+	if (values->next == NULL)
+	{
+		return ((t_point){.value = content(values), .index = get_index(stack, content(values))});
+	}
+
 	stack_size = ft_lst_size(stack);
-	closest = (t_point){.value = content(values),
-		.index = get_index(stack, content(values))};
 	while (values != NULL)
 	{
 		current_index = get_index(stack, content(values));
+		ft_printf("closet check this one: %d  value: %d\n", current_index, content(values));
 		if (current_index > stack_size / 2)
 			current_index = stack_size - current_index;
-		if (current_index < shortest_path_found)
+		if (current_index < current_closet)
 		{
 			closest.index = get_index(stack, content(values));
 			closest.value = content(values);
-			shortest_path_found = current_index;
+			current_closet = current_index;
 		}
 		values = values->next;
 	}
+
+	ft_printf("closest point found: %d  value: %d\n", closest.index, closest.value);
 	return (closest);
+}
+
+
+void	rotate_opti(t_stack *from, int index)
+{
+	int	size;
+	int	previous_pushed;
+
+	previous_pushed = 0;
+	size = ft_lst_size(from->start);
+	if (index > size / 2)
+	{
+		index = size - index;
+		while (index--)
+			reverse_rotate(&from->start, from->name);
+	}
+	else
+	{
+		while (index--)
+			rotate(&from->start, from->name);
+	}
 }
 
 /**
  * @brief
- * Empties the given group of values to push values from the real stack
- * Try to reduce the amount of steps by getting the closest next value
- * to push.
- * Use rotatation and reverse rotation to do it.
+ * Rotate to check the first node
+ * If 'values' contains the node, push it in the second stack and remove it
+ * from 'values'.
+ * Continue until 'values' is empty
+ *
+ * CAN BE OPTIMIZE BY CHECKING IF IT'S FASTER TO REVERSE_ROTATE !!!!!!!!!!!!!!
+ * CAN BE OPTIMIZE BY CHECKING IF IT'S FASTER TO REVERSE_ROTATE !!!!!!!!!!!!!!
  */
-static void	push_next_values(t_stack *from, t_stack *to, t_list **values)
+static void	rotate_and_push_to_secondary(t_stack *from, t_stack *to,
+											t_list **values)
 {
 	t_point	next_value;
 
@@ -94,29 +124,26 @@ static void	push_next_values(t_stack *from, t_stack *to, t_list **values)
 	{
 		if (ft_lst_contains_key(*values, from->start->content, are_equal))
 		{
+			// ft_printf("value to deal with: %d \n", next_value.value);
 			push(&from->start, &to->start, to->name);
 			ft_lst_remove_if(values, to->start->content, are_equal, free);
 		}
 		else
 		{
 			next_value = closest_next(from->start, *values);
-			rotate_shortest_way(from, next_value.index);
+			rotate_opti(from, next_value.index);
 		}
 	}
+
 }
 
 /**
- * @brief
- * Steps:
- *    - Clone the lowest values which are in the stack in a temporary list
- *    - Then push these values one by one in the second stack
- *           - Smartly rotate to reduce the amount of steps
- *           - Push the stack & empties the temporary list
+ * LOGIC
  *
- *    - Sort the freshly pushed values in the secondary stack
- *    - Repeat until there's only one value in the first stack
+ *    - GET NEXT VALUES TO DEAL WITH IN A TEMP LIST
+ *    - ROTATE THE STACK TO PUSH THESE VALUES IN THE SECOND STACK
+ *    - SORT THESE VALUES IN THE SECOND STACK
  *
- *    - Push back all sorted values from the secondary stack
  */
 void	group_sort(t_stack *from, t_stack *to, int group_size)
 {
@@ -126,7 +153,9 @@ void	group_sort(t_stack *from, t_stack *to, int group_size)
 	{
 		values_to_push = get_next_group(from, group_size);
 		print_ab(values_to_push, NULL, "Next group");
-		push_next_values(from, to, &values_to_push);
+
+		rotate_and_push_to_secondary(from, to, &values_to_push);
+
 		print_ab(from->start, to->start, "group pushed on the right");
 		// return;
 		// selection_sort_range(to, from, group_size);
