@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "push_swap.h"
 #include <limits.h>
 
@@ -35,7 +36,7 @@ static t_list	*get_next_group(t_stack *stack, int group_size)
 		lowest_found = get_lowest_point(stack->start, INT_MAX, values_gotten);
 		if (lowest_found.index >= 0)
 		{
-			ft_lst_push_front(&values_gotten,
+			ft_lst_push_back(&values_gotten,
 				ft_lst_new(new_content(lowest_found.value)));
 		}
 		values_gotten_len++;
@@ -119,15 +120,17 @@ static int	push_group(t_stack *from, t_stack *to, t_list **values)
  *           - Push the stack & empties the temporary list
  *
  *    - Sort the freshly pushed values in the secondary stack
- *    - Repeat until the first stack is empty
+ *    - Repeat until the first stack len is low
  *
- *    - Push back all sorted values from the secondary stack
+ *    - Then use the regular selection sort for the last group
+ *    - Finally push back all sorted values from the secondary stack
  */
 void	group_sort(t_stack *from, t_stack *to, int group_size)
 {
 	t_list	*values_to_push;
 	int		amount_pushed;
 
+	print_ab(from->start, to->start, "group sort");
 	// while (from->start != NULL)
 	while (ft_lst_size(from->start) > group_size)
 	{
@@ -137,14 +140,8 @@ void	group_sort(t_stack *from, t_stack *to, int group_size)
 		print_ab(from->start, to->start, "group pushed on the right");
 		selection_sort_range(to, from, amount_pushed);
 	}
-	// FIND A WAY TO AVOID THE LAST GROUP AND SORT HERE
-	// print_ab(from->start, to->start, "Push on right done");
-	// REVERSE THE SORTING !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	selection_sort_range(from, to, INT_MAX);
-	// print_ab(from->start, to->start, "sort in the left done ?");
-
+	print_ab(from->start, to->start, "last group ?");
+	selection_sort(from, to);
 	while (to->start != NULL)
-	{
 		push(&to->start, &from->start, to->name);
-	}
 }

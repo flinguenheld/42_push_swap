@@ -98,7 +98,7 @@ void	rotate_shorter_side(t_stack *from, t_stack *to, int index, void *previous)
 		index = size - index;
 		while (index--)
 		{
-			print_ab(from->start, to->start, "in rotate !");
+			// print_ab(from->start, to->start, "in rotate !");
 			if (are_equal(previous, from->start->content) == 1)
 			{
 				// ft_printf("here !!! with %d\n", content(from->start));

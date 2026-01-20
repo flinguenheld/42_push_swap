@@ -2,13 +2,31 @@
 
 FILE="file.txt"
 
-echo "" > "$FILE"
-for (( i=0; i < 100; i++ )); do
-  echo "$i " >> "$FILE"
-done
+new_random_list()
+{
+  echo "" > "$FILE"
+  for (( i=0; i < $1; i++ )); do
+    echo "$i " >> "$FILE"
+  done
 
-TO_SORT=$(cat "$FILE" | sort -R | paste -sd ' ')
-rm "$FILE"
+  echo "$(cat "$FILE" | sort -R | paste -sd ' ')"
+}
 
-./push_swap $TO_SORT
+if [[ "$1" == "all" ]]; then
+  echo "With 10  -> $(./push_swap $(new_random_list 10) | wc -l)"
+  echo "With 100 -> $(./push_swap $(new_random_list 100) | wc -l)"
+  echo "With 500 -> $(./push_swap $(new_random_list 500) | wc -l)"
+elif [[ "$1" == "20" ]]; then
+  ./push_swap $(new_random_list 20)
+elif [[ "$1" == "100" ]]; then
+  ./push_swap $(new_random_list 100)
+elif [[ "$1" == "500" ]]; then
+  ./push_swap $(new_random_list 500)
+else
+  echo "please use: all | 20 | 100 | 500"
+  exit 1
+fi
+
 # valgrind --leak-check=yes ./push_swap $TO_SORT
+
+rm "$FILE"
