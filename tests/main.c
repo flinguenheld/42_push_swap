@@ -18,7 +18,7 @@
 int	main(void)
 {
 	// Create and init a counter --
-	t_count	counter;
+	t_lu_counter	counter;
 
 	counter = counter_init();
 

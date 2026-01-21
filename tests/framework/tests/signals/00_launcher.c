@@ -12,9 +12,9 @@
 
 #include "signals.h"
 
-int	signal_launcher(t_count *final_count)
+int	signal_launcher(t_lu_counter *final_count)
 {
-	t_list	*list;
+	t_lu_list	*list;
 
 	list = NULL;
 	load_test(&list, "signal ok", &signal_ok_test);

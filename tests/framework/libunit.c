@@ -6,12 +6,12 @@
 /*   By: tghnassi <tghnassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 19:02:13 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/13 22:27:52 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/21 16:31:39 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libunit.h"
-#include "libft/libft.h"
+#include <stdio.h>
 
 /**
  * @brief
@@ -19,11 +19,11 @@
  * @return
  * unode struct ptr or NULL if malloc error
  */
-static t_unode	*new_content(char *name, int (*function)(void))
+static t_lu_unode	*new_content(char *name, int (*function)(void))
 {
-	t_unode	*content;
+	t_lu_unode	*content;
 
-	content = malloc(sizeof(t_unode));
+	content = malloc(sizeof(t_lu_unode));
 	if (content != NULL)
 	{
 		content->name = name;
@@ -79,7 +79,7 @@ static int	print_result(int status, char *name)
  * 1 if test is OK
  * 0 for all other cases
  */
-static int	fork_to_test(char *title, t_unode *test, t_list **list_to_free)
+static int	fork_n_test(char *title, t_lu_unode *test, t_lu_list **list_to_free)
 {
 	pid_t	id_fork;
 	int		status;
@@ -88,37 +88,37 @@ static int	fork_to_test(char *title, t_unode *test, t_list **list_to_free)
 	id_fork = fork();
 	if (id_fork < 0)
 	{
-		ft_printf_err("%s:\t%s:\tLaunch test error.\n", title, test->name);
-		ft_lst_clear_basic(list_to_free);
+		printf("%s:\t%s:\tLaunch test error.\n", title, test->name);
+		lu_lst_clear(list_to_free, free);
 		return (0);
 	}
 	else if (id_fork == 0)
 	{
 		function_to_test = test->function;
-		ft_lst_clear_basic(list_to_free);
+		lu_lst_clear(list_to_free, free);
 		exit(function_to_test());
 	}
 	wait(&status);
 	return (print_result(status, test->name));
 }
 
-int	launch_tests(char *title, t_list *start_list, t_count *final_count)
+int	launch_tests(char *title, t_lu_list *start_list, t_lu_counter *final_count)
 {
-	t_count	local_count;
-	t_unode	*content;
-	t_list	*current_node;
+	t_lu_counter	local_count;
+	t_lu_unode		*content;
+	t_lu_list		*current_node;
 
 	print_title(title);
 	local_count = counter_init();
 	current_node = start_list;
 	while (current_node != NULL)
 	{
-		content = (t_unode *)current_node->content;
-		local_count.success += fork_to_test(title, content, &start_list);
+		content = (t_lu_unode *)current_node->content;
+		local_count.success += fork_n_test(title, content, &start_list);
 		current_node = current_node->next;
 		(local_count.total)++;
 	}
-	ft_lst_clear_basic(&start_list);
+	lu_lst_clear(&start_list, free);
 	print_local_counter(local_count.success, local_count.total);
 	final_count->success += local_count.success;
 	final_count->total += local_count.total;
@@ -127,7 +127,7 @@ int	launch_tests(char *title, t_list *start_list, t_count *final_count)
 	return (-1);
 }
 
-void	load_test(t_list **list, char *name, int (*function)(void))
+void	load_test(t_lu_list **list, char *name, int (*function)(void))
 {
-	ft_lst_push_back(list, ft_lst_new(new_content(name, function)));
+	lu_lst_push_back(list, lu_lst_new(new_content(name, function)));
 }

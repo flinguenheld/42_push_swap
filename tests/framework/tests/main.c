@@ -6,7 +6,7 @@
 /*   By: tghnassi <tghnassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/11 16:59:07 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/12 03:46:06 by tghnassi         ###   ########.fr       */
+/*   Updated: 2026/01/21 16:38:15 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(void)
 {
-	t_count	s_count;
+	t_lu_counter	s_count;
 
 	s_count = counter_init();
 	signal_launcher(&s_count);

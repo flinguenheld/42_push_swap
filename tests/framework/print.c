@@ -10,26 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "libunit.h"
-#include <stdlib.h>
 
 void	print_test_line(char *name, char *msg, char *color)
 {
-	ft_printf("=====   [%s%s%s]  %s", color, msg, KNRM, name);
-	print_close_frame_right(8 + ft_strlen(msg) + ft_strlen(name));
+	printf("=====   [%s%s%s]  %s", color, msg, KNRM, name);
+	print_close_frame_right(8 + strlen(msg) + strlen(name));
 }
 
 void	print_title(char *title)
 {
 	int	i;
 
-	ft_printf("\n");
+	printf("\n");
 	print_frame_line(0);
-	i = 80 - (ft_strlen(title) + 10);
+	i = 80 - (strlen(title) + 10);
 	while (i--)
-		ft_printf("=");
-	ft_printf(" %s ========\n", title);
+		printf("=");
+	printf(" %s ========\n", title);
 	print_frame_line(1);
 }
 
@@ -46,11 +44,11 @@ void	print_local_counter(int counter, int total)
 		green = 255;
 	if (!counter)
 		red = 255;
-	red_str = ft_itoa(red);
-	green_str = ft_itoa(green);
+	red_str = lu_ltobase(red, "0123456789");
+	green_str = lu_ltobase(green, "0123456789");
 	print_frame_line(1);
-	ft_printf("=====           ");
-	ft_printf("%s%s;%s%s% 4i success      % 4i fails      % 4i total%s",
+	printf("=====           ");
+	printf("%s%s;%s%s% 4i success      % 4i fails      % 4i total%s",
 		KSTA, red_str, green_str, KEND, counter, total - counter, total, KNRM);
 	print_close_frame_right(8 + 48);
 	print_frame_line(0);
@@ -58,14 +56,14 @@ void	print_local_counter(int counter, int total)
 	free(green_str);
 }
 
-void	print_final_counter(t_count *s_count)
+void	print_final_counter(t_lu_counter *s_count)
 {
-	ft_printf("=========================================");
-	ft_printf("======================== ");
-	ft_printf("%s255;0%sT%s200;50%sO%s150;100%sT",
+	printf("=========================================");
+	printf("======================== ");
+	printf("%s255;0%sT%s200;50%sO%s150;100%sT",
 		KSTA, KEND, KSTA, KEND, KSTA, KEND);
-	ft_printf("%s100;150%sA%s50;200%sL%s0;255%s%s",
+	printf("%s100;150%sA%s50;200%sL%s0;255%s%s",
 		KSTA, KEND, KSTA, KEND, KSTA, KEND, KNRM);
-	ft_printf(" ========\n");
+	printf(" ========\n");
 	print_local_counter(s_count->success, s_count->total);
 }

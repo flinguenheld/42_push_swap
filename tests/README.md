@@ -96,7 +96,7 @@ Here an example:
 int	atol_launcher(t_count *final_count)
 {
 	// Create a list which will contain all your tests --
-	t_list	*list;
+	t_lu_list	*list;
 
 	list = NULL;
 
@@ -122,7 +122,7 @@ int	atol_launcher(t_count *final_count)
 int	main(void)
 {
 	// Create and init a counter --
-	t_count	s_count;
+	t_lu_counter	s_count;
 
 	s_count = counter_init();
 

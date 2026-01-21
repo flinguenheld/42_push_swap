@@ -18,8 +18,8 @@ void	print_close_frame_right(int already_printed)
 
 	len = 71 - already_printed;
 	while (len--)
-		ft_printf(" ");
-	ft_printf("=====\n");
+		printf(" ");
+	printf("=====\n");
 }
 
 void	print_frame_line(int empty)
@@ -28,11 +28,11 @@ void	print_frame_line(int empty)
 
 	length = 80;
 	if (empty == 1)
-		ft_printf("=====% 70c=====\n", ' ');
+		printf("=====%70c=====\n", ' ');
 	else
 	{
 		while (length--)
-			ft_printf("=");
-		ft_printf("\n");
+			printf("=");
+		printf("\n");
 	}
 }

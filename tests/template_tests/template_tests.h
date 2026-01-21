@@ -16,7 +16,7 @@
 #include "../framework/libunit.h"
 
 // Launcher used in main
-int	template_launcher(t_count *final_counter);
+int	template_launcher(t_lu_counter *final_counter);
 
 // Mandatory prototype for test functions
 int	template_test(void);

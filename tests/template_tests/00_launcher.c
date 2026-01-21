@@ -13,9 +13,9 @@
 #include "../framework/libunit.h"
 #include "template_tests.h"
 
-int	template_launcher(t_count *final_counter)
+int	template_launcher(t_lu_counter *final_counter)
 {
-	t_list	*list;
+	t_lu_list	*list;
 
 	list = NULL;
 	load_test(&list, "template name", &template_test);
