@@ -57,16 +57,17 @@ int	main(int argc, char **argv)
 
 	if (is_sorted(a.start, 0))
 		return (0);
-	if (ft_lst_size(a.start) < 12)
+	if (ft_lst_size(a.start) < 15)
 	{
 		selection_sort(&a, &b);
+		// group_sort(&a, &b, 10);
 		// return (0);
 	}
 	else
 	{
 		// selection_sort(&a, &b);
 		// selection_sort_range(&a, &b, 2);
-		group_sort(&a, &b, 40);
+		group_sort(&a, &b, 43);
 		// group_sort(&a, &b, 8);
 		
 	}
