@@ -1,32 +1,62 @@
 #! /usr/bin/env bash
 
-FILE="file.txt"
+VALUES="values.txt"
+RESULTS="results.txt"
 
-new_random_list()
+# -----------------------------------------------------------------------------
+# -------------------------------------------------- Only returns n values ----
+get_n_values()
 {
-  echo "" > "$FILE"
-  for (( i=0; i < $1; i++ )); do
-    echo "$i " >> "$FILE"
-  done
-
-  echo "$(cat "$FILE" | sort -R | paste -sd ' ')"
+  echo "$(cat "$VALUES" | sort -R | tail -n $1 | paste -sd ' ')"
 }
 
-if [[ "$1" == "all" ]]; then
-  echo "With 10  -> $(./push_swap $(new_random_list 10) | wc -l)"
-  echo "With 100 -> $(./push_swap $(new_random_list 100) | wc -l)"
-  echo "With 500 -> $(./push_swap $(new_random_list 500) | wc -l)"
-elif [[ "$1" == "20" ]]; then
-  ./push_swap $(new_random_list 20)
-elif [[ "$1" == "100" ]]; then
-  ./push_swap $(new_random_list 100)
-elif [[ "$1" == "500" ]]; then
-  ./push_swap $(new_random_list 500)
+# -----------------------------------------------------------------------------
+# --------------------------------------------------------------- Analysis ----
+analysis()
+{
+  echo "------------------------- $1 values ----"
+  echo " Total: $(cat $RESULTS | wc -l)"
+  echo "    r: $(cat $RESULTS | grep r | wc -l)"
+  echo "        ra : $(cat $RESULTS | grep ^ra | wc -l)"
+  echo "        rb : $(cat $RESULTS | grep ^rb | wc -l)"
+  echo "        rra: $(cat $RESULTS | grep rra | wc -l)"
+  echo "        rrb: $(cat $RESULTS | grep rrb | wc -l)"
+  echo "        rrr: $(cat $RESULTS | grep rrr | wc -l)"
+  echo "    p : $(cat $RESULTS | grep p | wc -l)"
+  echo "        pa : $(cat $RESULTS | grep pa | wc -l)"
+  echo "        pb : $(cat $RESULTS | grep pb | wc -l)"
+  echo "    s  : $(cat $RESULTS | grep s | wc -l)"
+  echo "        sa : $(cat $RESULTS | grep sa | wc -l)"
+  echo "        sb : $(cat $RESULTS | grep sb | wc -l)"
+  echo "        ss : $(cat $RESULTS | grep ss | wc -l)"
+  echo
+}
+
+# -----------------------------------------------------------------------------
+# ---------------------------------------------------- Generate new values ----
+echo "" > "$VALUES"
+# for (( i=0; i < $1; i++ )); do
+for (( i=-1000; i <= 1000; i++ )); do
+  echo "$i " >> "$VALUES"
+done
+
+# -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+if [[ -z "$1" ]]; then
+  for (( i = 5; i <= 30; i += 5)); do
+    ./push_swap $(get_n_values $i) > $RESULTS
+    analysis $i
+  done
+  for (( i = 100; i <= 500; i += 100)); do
+    ./push_swap $(get_n_values $i) > $RESULTS
+    analysis $i
+  done
 else
-  echo "please use: all | 20 | 100 | 500"
-  exit 1
+    ./push_swap $(get_n_values $1) > $RESULTS
+    analysis $1
 fi
 
-# valgrind --leak-check=yes ./push_swap $TO_SORT
+# valgrind --leak-check=yes ./push_swap
 
-rm "$FILE"
+rm "$VALUES"
+rm "$RESULTS"
