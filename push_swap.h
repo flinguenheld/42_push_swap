@@ -37,6 +37,10 @@ typedef struct s_point
 	int	index;
 }	t_point;
 
+
+void patrick(t_stack *a, t_stack *b);
+
+
 // ----------------------------------------------------------------------------
 // --------------------------------------------------------- SELECTION SORT ---
 /**
@@ -144,6 +148,17 @@ int		is_sorted(t_list *node, int reverse);
  */
 int		is_sorted_tolerance(t_list *node, char tolerance);
 
+// ----------------------------------------------------------------------------
+// --------------------------------------------------------------- SEQUENCE ---
+
+/**
+ * @brief
+ * Find the longest sequence of values in the list
+ * Clone these values, skip the other and add them in a new list
+ * @return
+ * A brand new list with the sequence
+ */
+t_list	*longest_sequence(t_list *list);
 
 // ----------------------------------------------------------------------------
 // ---------------------------------------------------------------- PARSING ---

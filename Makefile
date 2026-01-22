@@ -8,11 +8,13 @@ LIBFT_FILE = $(LIBFT_FOLDER)libft.a
 
 SRC = main.c \
       parsing.c \
+      patrick.c \
       print.c \
       utils.c \
       utils_list.c \
       selection_sort.c \
       selection_sort_range.c \
+      sequence.c \
       group_sort.c \
       commands/push.c \
       commands/reverse_rotate.c \
@@ -31,8 +33,8 @@ libft:
 
 debug: CFLAGS = -DDEBUG
 debug: all
-	# ./$(NAME) 65 5 2 3 451 81 54
-	./$(NAME) 10 2 6 8 19 1 0 9 15 5 7 55 33 124 -54
+	./$(NAME) 65 67 8 1 0 87 10 2 3 5 7 
+	# ./$(NAME) 10 2 6 8 19 1 0 9 15 5 7 55 33 124 -54
 
 test: all
 	@make -C tests/ --no-print-directory

@@ -52,8 +52,17 @@ int	main(int argc, char **argv)
 	}
 	print_ab(a.start, b.start, "Original");
 
-	// ADD A MECHANISM TO TRY DIFFERENT GROUP SIZES
-	// AND COUNT STEPS TO ONLY GET THE BEST ONE --------------------------
+	// --------------------------------------------------------- PATRICK ------
+	// --------------------------------------------------------- PATRICK ------
+
+	patrick(&a, &b);
+
+	// --
+	ft_lst_clear(&a.start, free);
+	return (0);
+
+	// --------------------------------------------------------- PATRICK ------
+	// --------------------------------------------------------- PATRICK ------
 
 	if (is_sorted(a.start, 0))
 		return (0);

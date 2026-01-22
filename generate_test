@@ -36,7 +36,8 @@ analysis()
 # ---------------------------------------------------- Generate new values ----
 echo "" > "$VALUES"
 # for (( i=0; i < $1; i++ )); do
-for (( i=-1000; i <= 1000; i++ )); do
+# for (( i=-1000; i <= 1000; i++ )); do
+for (( i=0; i <= 100; i++ )); do
   echo "$i " >> "$VALUES"
 done
 

@@ -10,12 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "push_swap.h"
 
 // Rotate the stack as long as it's not sorted
 
 
-void patrick(t_stack *a, t_stack *b)
+
+void	patrick(t_stack *a, t_stack *b)
 {
-	while ()
+	t_list	*test;
+
+	test = longest_sequence(a->start);
+	ft_printf("hello %d\n", ft_lst_size(test));
+	print_ab(test, NULL, "what the eck");
+	print_ab(a->start, b->start, "is it ok ?");
+
+	ft_lst_clear(&test, free);
 }
