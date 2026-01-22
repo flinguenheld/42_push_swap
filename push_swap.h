@@ -136,6 +136,15 @@ int		*new_content(int value);
  */
 int		is_sorted(t_list *node, int reverse);
 
+
+/**
+ * @brief
+ * Check if the given list is sorted but allow a 'tolerance'
+ * Check can continue if the next value is higher as long as tolerance > 0
+ */
+int		is_sorted_tolerance(t_list *node, char tolerance);
+
+
 // ----------------------------------------------------------------------------
 // ---------------------------------------------------------------- PARSING ---
 /**

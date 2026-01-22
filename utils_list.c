@@ -36,3 +36,16 @@ int	is_sorted(t_list *node, int reverse)
 		return (0);
 	return (is_sorted(node->next, reverse));
 }
+
+int	is_sorted_tolerance(t_list *node, char tolerance)
+{
+	if (node == NULL || node->next == NULL)
+		return (1);
+	if (*(int *)node->content > *(int *)(node->next->content))
+	{
+		if (tolerance == 0)
+			return (0);
+		tolerance--;
+	}
+	return (is_sorted(node->next, tolerance));
+}
