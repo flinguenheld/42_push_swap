@@ -22,9 +22,9 @@ void	patrick(t_stack *a, t_stack *b)
 	t_list	*test;
 
 	test = longest_sequence(a->start);
-	ft_printf("hello %d\n", ft_lst_size(test));
-	print_ab(test, NULL, "what the eck");
-	print_ab(a->start, b->start, "is it ok ?");
+	print_ab(test, NULL, "LAST FOUND");
+	ft_printf("size %d-------------------------------------------------------\n", ft_lst_size(test));
+	// print_ab(a->start, b->start, "is it ok ?");
 
 	ft_lst_clear(&test, free);
 }
