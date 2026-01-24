@@ -26,7 +26,7 @@ all: $(NAME)
 OBJS := $(SRC:%.c=%.o)
 
 $(NAME): libft $(OBJS)
-	$(CC) -o $(NAME) $(OBJS) $(LIBFT_FILE)
+	$(CC) -g -o $(NAME) $(OBJS) $(LIBFT_FILE)
 
 libft:
 	@make -C $(LIBFT_FOLDER) --no-print-directory

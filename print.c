@@ -50,3 +50,16 @@ void	print_ab(t_list *a, t_list *b, char *title)
 	ft_printf("┗━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━┛\n");
 # endif
 }
+
+void print_list(t_list *list, char *separator)
+{
+	ft_printf("\n--\n");
+	while (list != NULL)
+	{
+		ft_printf("%d", *(int *)(list->content));
+		if (list->next != NULL)
+			ft_printf("%s", separator);
+		list = list->next;
+	}
+	ft_printf("\n--\n");
+}

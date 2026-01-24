@@ -162,6 +162,7 @@ t_list	*longest_sequence(t_list *list);
 
 // ----------------------------------------------------------------------------
 // ---------------------------------------------------------------- PARSING ---
+
 /**
  * @brief
  * Convert str into an int and push it at the end of 'a'
@@ -176,10 +177,17 @@ int		check_and_push_argv(t_list **a, char *str);
 
 // ----------------------------------------------------------------------------
 // ------------------------------------------------------------------ PRINT ---
+
 /**
  * @brief
  * Print a beautiful table with all values
  */
 void	print_ab(t_list *a, t_list *b, char *title);
+
+/**
+ * @brief
+ * Print the list and add the separator between each values
+ */
+void print_list(t_list *list, char *separator);
 
 #endif

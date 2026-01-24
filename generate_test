@@ -62,4 +62,4 @@ fi
 # valgrind --leak-check=yes ./push_swap
 
 rm -f "$VALUES"
-rm -f "$RESULTS"
+# rm -f "$RESULTS"

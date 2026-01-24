@@ -6,195 +6,124 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 20:29:02 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/22 20:29:02 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/24 21:20:20 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "push_swap.h"
+#include <limits.h>
 #include <stdlib.h>
 
 /**
  * @brief
- * Loop in the list and clone all nodes which are in order
- * -> 5 7 15 22 100 ...
- * -> 54 33 5 2 ...
- * @return
- * The list with cloned values
+ * Malloc a int and set it to one
  */
-static t_list	*get_sequence(t_list *list)
+static void	*init_one(void)
 {
-	t_list	*ordered_values;
-
-	ordered_values = NULL;
-	while (list != NULL)
-	{
-		if (ordered_values == NULL || (content(list) > content(ordered_values)))
-		{
-			ft_lst_push_front(&ordered_values,
-				ft_lst_new(new_content(content(list))));
-		}
-		list = list->next;
-	}
-	return (ordered_values);
-}
-
-/**
- * @brief
- * With the given list (which has been rotated),
- *  - get the current sequence
- *  - compare with the max and update if needed
- */
-static void	get_n_compare(t_list *list, t_list **current_max)
-{
-	t_list	*current;
-
-	current = get_sequence(list);
-	if (ft_lst_size(current) > ft_lst_size(*current_max))
-	{
-		ft_lst_clear(current_max, free);
-		*current_max = current;
-	}
-	else
-		ft_lst_clear(&current, free);
-}
-
-static void *clone_content(void *content)
-{
-	int	*blah = malloc(sizeof(int));
-	*blah = *(int *)content;
-	return (blah);
-}
-
-static void blah(t_list *list, t_list *current, t_list **max)
-{
-	t_list *new_branch;
-
-		print_ab(current, *max, "blah");
-	if (list != NULL)
-		ft_printf("now we check %d\n", content(list));
-
-	if (list == NULL)
-	{
-		print_ab(current, *max, "this one");
-		ft_printf("end\n");
-		if (ft_lst_size(current) > ft_lst_size(*max))
-		{
-			ft_lst_clear(max, free);
-			*max = current;
-		}
-		else
-			ft_lst_clear(&current, free);
-		return;
-	}
-
-	new_branch = NULL;
-	// if (current == NULL)
-	// {
-	// 	t_list *raaaa = NULL;
-	// 	ft_lst_push_front(&raaaa,
-	// 		ft_lst_new(new_content(content(list))));
-	// 	blah(list->next, raaaa, max);
-	// }
-		ft_printf("compare that: %d > %d \n", content(list) , content(current));
-	if (current != NULL && content(list) > content(current))
-	{
-		new_branch = ft_lst_clone(current, clone_content);
-		ft_lst_push_front(&new_branch,
-			ft_lst_new(new_content(content(list))));
-		blah(list->next, new_branch, max);
-	}
-
-	ft_printf("hello now we try with and without %d  -------------------------------------------\n", content(list));
-	// new_branch = ft_lst_clone(current, clone_content);
-	// blah(list->next, new_branch, max);
-	blah(list->next, current, max);
-
-}
-
-static void *init_one(void)
-{
-	int *content;
+	int	*content;
 
 	content = malloc(sizeof(int));
 	*content = 1;
 	return (content);
 }
 
-static void print_that(t_list *list)
+/**
+ * @brief
+ * From the given list and the lis values, extract one of the subsequences.
+ * (list and lis have to have the same size)
+ *   - Get the maximum lis
+ *   - Then get the maximum lis - 1 until the end of the list
+ *
+ * Empties lis and set it to NULL
+ * @return
+ * A brand new list with the longest increasing subsequence
+ */
+static t_list	*extract_subsequence(t_list **list, t_list **lis)
 {
-	ft_printf("\n--\n");
-	while (list != NULL)
+	t_list	*values;
+	t_list	*current_lis;
+	int		current_lis_value;
+
+	values = NULL;
+	current_lis_value = get_highest_point(*lis, INT_MAX, NULL).value;
+	while (*lis != NULL)
 	{
-		ft_printf("%d ", *(int*)list->content);
-		list = list->next;
+		current_lis = ft_lst_pop_back(lis);
+		ft_lst_rotate_right(list);
+		if (content(current_lis) == current_lis_value)
+		{
+			ft_lst_push_front(&values, ft_lst_new(new_content(content(*list))));
+			current_lis_value--;
+		}
+		ft_lst_clear(&current_lis, free);
 	}
-	ft_printf("\n--\n");
+	return (values);
 }
 
-static void blahblah(t_list *list, t_list *sequence, t_list *seq_node_to_reach, int current_value)
+/**
+ * @brief
+ * Loop from the start to the *_node_to_reach to update its value
+ *
+ * Then for each couple of values (list & list):
+ *    Add one to the 'lis_to_reach' if
+ *       - current checked value is lower than the to_reach one
+ *       - lis value is equal or higher than the lis to reach
+ */
+static void	up_lis_value(t_list *list, t_list *list_node_to_reach,
+						t_list *lis, t_list *lis_node_to_reach)
 {
-	while (sequence != seq_node_to_reach)
+	while (lis != lis_node_to_reach)
 	{
-		if (current_value > content(list)
-			&& content(sequence) == content(seq_node_to_reach))
-			(*(int *)seq_node_to_reach->content) += 1;
-		sequence = sequence->next;
+		if (content(list_node_to_reach) > content(list)
+			// && content(lis) == content(lis_node_to_reach))
+			&& content(lis) >= content(lis_node_to_reach))
+			(*(int *)lis_node_to_reach->content) += 1;
+		lis = lis->next;
 		list = list->next;
 	}
 }
 
-static t_list *extract_longest(t_list *list, t_list *sequences)
-{
-	t_list *sub;
-	
-	sub = NULL;
-	while (list != NULL)
-	{
-
-		
-
-		sequences = sequences->next;
-		list = list->next;
-	}
-
-	return sub;
-}
-
+/**
+ * @brief
+ * Find the longest increasing subsequence (lis) in list
+ * Performs that with the dynamic programming algorithm
+ *
+ *   - Init another list named 'lis' and set all values to one
+ *   - Loop both in the list & the list
+ *   - For each value set the 'lis' value corresponding
+ *       -> this lis value is the longest subsequence possible
+ *
+ * Once all lis values are set, extract one subsequence in a
+ * new list and return it.
+ */
 t_list	*longest_subsequence(t_list *list)
 {
-	t_list *sequences;
-	t_list *sequences_iter;
-	t_list *list_iter;
+	t_list	*list_iter;
+	t_list	*result;
+	t_list	*lis_iter;
+	t_list	*lis;
 
-	sequences = ft_lst_init(ft_lst_size(list), &init_one);
-	sequences_iter = sequences;
+	lis = ft_lst_init(ft_lst_size(list), &init_one);
+	lis_iter = lis;
+	result = NULL;
 	list_iter = list;
-
-	while (sequences_iter != NULL)
+	while (lis_iter != NULL)
 	{
-		blahblah(list, sequences, sequences_iter, content(list_iter));
-		sequences_iter = sequences_iter->next;
+		up_lis_value(list, list_iter, lis, lis_iter);
+		lis_iter = lis_iter->next;
 		list_iter = list_iter->next;
 	}
-	print_ab(list, sequences, "Dynamic prog");
-	ft_lst_clear(&sequences, free);
-	return (NULL);
+	print_ab(list, lis, "LIS");
+	result = extract_subsequence(&list, &lis);
+	return (result);
 }
 
 t_list	*longest_sequence(t_list *list)
 {
-	int		len;
-	t_list	*current;
-	t_list	*current_max;
+	t_list	*subsequence;
 
-	current = NULL;
-	current_max = NULL;
-	len = ft_lst_size(list);
-
-	longest_subsequence(list);
-
-	
+	subsequence = longest_subsequence(list);
 	// while (len--)
 	// {
 		// get_n_compare(list, &current_max);
@@ -205,5 +134,5 @@ t_list	*longest_sequence(t_list *list)
 
 		ft_printf("bye\n");
 	// }
-	return (current_max);
+	return (subsequence);
 }
