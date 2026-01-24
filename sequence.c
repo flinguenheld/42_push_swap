@@ -116,7 +116,7 @@ static t_list	*longest_increasing_subsequence(t_list *list)
 		lis_iter = lis_iter->next;
 		list_iter = list_iter->next;
 	}
-	print_ab(list, lis, "LIS");
+	// print_ab(list, lis, "LIS");
 	result = extract_subsequence(&list, &lis);
 	return (result);
 }
@@ -142,7 +142,7 @@ t_list	*longest_sequence(t_list *list)
 	len = ft_lst_size(list);
 	while (len--)
 	{
-		print_ab(list, subsequence, "we rotate");
+		// print_ab(list, subsequence, "we rotate");
 		temp = longest_increasing_subsequence(list);
 		temp_len = ft_lst_size(temp);
 		if (temp_len > subsequence_len)
