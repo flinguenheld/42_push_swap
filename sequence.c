@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 20:29:02 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/24 21:20:20 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/22 20:29:02 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,10 @@ static void	up_lis_value(t_list *list, t_list *list_node_to_reach,
  *
  * Once all lis values are set, extract one subsequence in a
  * new list and return it.
+ * @return
+ * A new list with the longest subsequence
  */
-t_list	*longest_subsequence(t_list *list)
+static t_list	*longest_increasing_subsequence(t_list *list)
 {
 	t_list	*list_iter;
 	t_list	*result;
@@ -119,20 +121,37 @@ t_list	*longest_subsequence(t_list *list)
 	return (result);
 }
 
+/**
+ * @brief
+ * Apply the longest increasing subsequence on the list
+ * Rotate the list entirely (dry run, do not print actions) to apply the lis
+ * on all possibilites
+ * @return
+ * A new list with the longest subsequence
+ */
 t_list	*longest_sequence(t_list *list)
 {
+	int		len;
+	t_list	*temp;
+	int		temp_len;
 	t_list	*subsequence;
+	int		subsequence_len;
 
-	subsequence = longest_subsequence(list);
-	// while (len--)
-	// {
-		// get_n_compare(list, &current_max);
-		// ft_lst_push_front(&current,
-		// 	ft_lst_new(new_content(content(list))));
-		// blah(list, current, &current_max);
-		// ft_lst_rotate_right(&list);
-
-		ft_printf("bye\n");
-	// }
+	subsequence = NULL;
+	subsequence_len = 0;
+	len = ft_lst_size(list);
+	while (len--)
+	{
+		print_ab(list, subsequence, "we rotate");
+		temp = longest_increasing_subsequence(list);
+		temp_len = ft_lst_size(temp);
+		if (temp_len > subsequence_len)
+		{
+			ft_lst_clear(&subsequence, free);
+			subsequence = temp;
+			subsequence_len = temp_len;
+		}
+		ft_lst_rotate_right(&list);
+	}
 	return (subsequence);
 }
