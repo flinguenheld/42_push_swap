@@ -138,7 +138,7 @@ void	group_sort(t_stack *from, t_stack *to, int group_size)
 		print_ab(values_to_push, NULL, "Next group");
 		amount_pushed = push_group(from, to, &values_to_push);
 		print_ab(from->start, to->start, "group pushed on the right");
-		selection_sort_range(to, from, amount_pushed);
+		selection_sort_range(to, from, amount_pushed, 0);
 	}
 	print_ab(from->start, to->start, "last group ?");
 	selection_sort(from, to);

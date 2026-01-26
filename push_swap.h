@@ -54,7 +54,8 @@ void	selection_sort(t_stack *from, t_stack *to);
  * Same as selection sort but only on 0 to range values
  * (preserve the stack below)
  */
-void	selection_sort_range(t_stack *from, t_stack *to, size_t amount);
+void	selection_sort_range(t_stack *from, t_stack *to,
+							size_t range, char reverse);
 
 // ----------------------------------------------------------------------------
 // ------------------------------------------------------------- GROUP SORT ---
@@ -140,7 +141,30 @@ int		*new_content(int value);
  */
 int		is_sorted(t_list *node, int reverse);
 
+/**
+ * @brief
+ * Loop in the list to find the lowest value stored
+ * @return
+ * The lowest node pointer
+ */t_list	*lowest_node(t_list *lst);
 
+/**
+ * @brief
+ * Check if the given list is sorted
+ * The lower value does not need to be the first one
+ * For example, all of these lists are sorted:
+ *     15 16 0 2 4 10 3
+ *     15 16 3 1
+ *     5 6
+ *     6 5
+ * @return
+ * 1 if the list is sorted
+ */
+int	is_sorted_circular(t_list *lst);
+
+// TODO REMOVE THAT !!!!!!!!
+// TODO REMOVE THAT !!!!!!!!
+// TODO REMOVE THAT !!!!!!!!
 /**
  * @brief
  * Check if the given list is sorted but allow a 'tolerance'

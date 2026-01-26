@@ -49,3 +49,41 @@ int	is_sorted_tolerance(t_list *node, char tolerance)
 	}
 	return (is_sorted(node->next, tolerance));
 }
+
+t_list	*lowest_node(t_list *lst)
+{
+	t_list	*lowest;
+
+	lowest = lst;
+	while (lst != NULL)
+	{
+		if (content(lst) < content(lowest))
+			lowest = lst;
+		lst = lst->next;
+	}
+	return (lowest);
+}
+
+int	is_sorted_circular(t_list *lst)
+{
+	t_list	*lowest;
+	t_list	*current;
+	t_list	*next;
+
+	if (lst == NULL || lst->next == NULL)
+		return (1);
+	lowest = lowest_node(lst);
+	current = lowest;
+	while (1)
+	{
+		next = current->next;
+		if (next == NULL)
+			next = lst;
+		if (next == lowest)
+			return (1);
+		if (content(current) > content(next))
+			return (0);
+		current = next;
+	}
+	return (1);
+}

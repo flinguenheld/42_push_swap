@@ -56,7 +56,7 @@ static t_list	*get_group(t_stack *stack, int group_size)
  * @return
  * The number of pushed values
  */
-static int	push_group(t_stack *from, t_stack *to, t_list **group)
+static int	push_group(t_stack *from, t_stack *to, t_list **group, char reverse)
 {
 	int		index;
 	int		counter;
@@ -65,7 +65,10 @@ static int	push_group(t_stack *from, t_stack *to, t_list **group)
 	counter = 0;
 	while (*group != NULL)
 	{
-		current_node = ft_lst_pop_front(group);
+		if (reverse)
+			current_node = ft_lst_pop_back(group);
+		else
+			current_node = ft_lst_pop_front(group);
 		index = get_index(from->start, content(current_node));
 		rotate_shortest_way(from, index);
 		if (*group != NULL)
@@ -87,13 +90,13 @@ static int	push_group(t_stack *from, t_stack *to, t_list **group)
  *            - Push the value in the other list
  *    - Once there only one left, push back values
  */
-void	selection_sort_range(t_stack *from, t_stack *to, size_t range)
+void	selection_sort_range(t_stack *from, t_stack *to, size_t range, char reverse)
 {
 	t_list	*group;
 	int		nb_pushed_values;
 
 	group = get_group(from, range);
-	nb_pushed_values = push_group(from, to, &group);
+	nb_pushed_values = push_group(from, to, &group, reverse);
 	while (nb_pushed_values--)
 		push(&to->start, &from->start, from->name);
 }

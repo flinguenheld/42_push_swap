@@ -58,7 +58,7 @@ t_list *list_values_to_keep(t_stack *a, t_list *subsequences)
 	left = get_next_sub(a->start, subsequences);
 	if (left != NULL)
 	{
-		ft_printf("next pair is: %d\n", content(left));
+		// ft_printf("next pair is: %d\n", content(left));
 		right = get_next_sub(left->next, subsequences);
 		while (iter != left)
 		{
@@ -71,6 +71,11 @@ t_list *list_values_to_keep(t_stack *a, t_list *subsequences)
 			iter = iter->next;
 		}
 	}
+	if (brand_new_list != NULL )
+	{
+		// ft_printf("HERE THERE ARE %d values !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n", ft_lst_size(brand_new_list));
+		// print_list(brand_new_list, "  ");
+	}
 	return (brand_new_list);
 }
 
@@ -79,19 +84,27 @@ void	blah(t_stack *a, t_stack *b, t_list *subsequence, t_list *keeplist)
 	
 }
 
+
+
 void	only_keep_subsequence(t_stack *a, t_stack *b, t_list *subsequence, t_list *keeplist, char keeplist_status)
 {
 	int	keeplist_len;
 	int	to_loop;
 
-	ft_printf("here we are to analyse %d\n", content(a->start));
-	print_ab(a->start, b->start, "in progress");
-	print_list(subsequence, " ");
+	// if (is_sorted_tolerance(a->start, 1))
+	if (is_sorted_circular(a->start) == 1)
+	{
+		return ;
+	}
+
+	// ft_printf("here we are to analyse %d\n", content(a->start));
+	// print_ab(a->start, b->start, "in progress");
+	// print_list(subsequence, " ");
 
 	keeplist_len = ft_lst_size(keeplist);
 	if (ft_lst_contains_key(subsequence, a->start->content, are_equal))
 	{
-		ft_printf("Yep it is in subsequence\n");
+		// ft_printf("Yep it is in subsequence\n");
 		if (keeplist_len == 0)
 			rotate(&a->start, a->name);
 		else
@@ -101,9 +114,9 @@ void	only_keep_subsequence(t_stack *a, t_stack *b, t_list *subsequence, t_list *
 				to_loop = keeplist_len - 1;
 				while (to_loop--)
 					reverse_rotate(&a->start, a->name);
-				selection_sort_range(a, b, keeplist_len + 1);
+				selection_sort_range(a, b, keeplist_len + 1, 1);
 			}
-			if (is_sorted_tolerance(a->start, 1))
+			if (is_sorted_circular(a->start))
 				return ;
 			to_loop = keeplist_len + 1;
 			while (to_loop--)
@@ -145,7 +158,7 @@ void	patrick(t_stack *a, t_stack *b)
 
 	sub = longest_sequence(a->start);
 	print_ab(sub, NULL, "LONGEST SUB");
-	ft_printf("size %d-------------------------------------------------------\n", ft_lst_size(sub));
+	// ft_printf("size %d-------------------------------------------------------\n", ft_lst_size(sub));
 	// print_ab(a->start, b->start, "is it ok ?");
 
 	only_keep_subsequence(a, b, sub, keeplist, 0);

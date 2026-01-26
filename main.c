@@ -55,8 +55,11 @@ int	main(int argc, char **argv)
 	// --------------------------------------------------------- PATRICK ------
 	// --------------------------------------------------------- PATRICK ------
 
+		// selection_sort_range(&a, &b, 10, 1);
+
 	patrick(&a, &b);
 
+	print_ab(a.start, b.start, "Sorted");
 	// --
 	ft_lst_clear(&a.start, free);
 	return (0);
@@ -75,8 +78,8 @@ int	main(int argc, char **argv)
 	else
 	{
 		// selection_sort(&a, &b);
-		// selection_sort_range(&a, &b, 2);
-		group_sort(&a, &b, 43);
+		selection_sort_range(&a, &b, 10, 0);
+		// group_sort(&a, &b, 43);
 		// group_sort(&a, &b, 8);
 		
 	}
