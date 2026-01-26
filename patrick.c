@@ -74,80 +74,81 @@ t_list *list_values_to_keep(t_stack *a, t_list *subsequences)
 	return (brand_new_list);
 }
 
-void	special_to_rename(t_stack *a, t_stack *b, t_list *subsequence, t_list *to_keep)
+void	blah(t_stack *a, t_stack *b, t_list *subsequence, t_list *keeplist)
 {
 	
-
 }
 
-void	only_keep_subsequence(t_stack *a, t_stack *b, t_list *subsequence)
+void	only_keep_subsequence(t_stack *a, t_stack *b, t_list *subsequence, t_list *keeplist, char keeplist_status)
 {
-	// --- Look a the first node
-	// --- Is it in the subsequence ?
-	// ---   Yes -> rotate
-	// ---   No -> get the price to swap it ?
-	//          -> push b
-	// --- Rotate
-	// --- Is list sorted ?
-	// --- Clear subsequence
-	t_list *values_to_keep;
-	values_to_keep = NULL;
-	// Rotate the stack as long as it's not sorted
-	while (!is_sorted_tolerance(a->start, 1))
+	int	keeplist_len;
+	int	to_loop;
+
+	ft_printf("here we are to analyse %d\n", content(a->start));
+	print_ab(a->start, b->start, "in progress");
+	print_list(subsequence, " ");
+
+	keeplist_len = ft_lst_size(keeplist);
+	if (ft_lst_contains_key(subsequence, a->start->content, are_equal))
 	{
-
-		while (values_to_keep != NULL)
+		ft_printf("Yep it is in subsequence\n");
+		if (keeplist_len == 0)
+			rotate(&a->start, a->name);
+		else
 		{
-			if (!ft_lst_contains_key(subsequence, a->start, are_equal)
-			&& !ft_lst_contains_key(values_to_keep, a->start, are_equal))
+			if (keeplist_len > 1)
 			{
-				push(&a->start, &b->start, b->name);
+				to_loop = keeplist_len - 1;
+				while (to_loop--)
+					reverse_rotate(&a->start, a->name);
+				selection_sort_range(a, b, keeplist_len + 1);
 			}
-
+			if (is_sorted_tolerance(a->start, 1))
+				return ;
+			to_loop = keeplist_len + 1;
+			while (to_loop--)
+				rotate(&a->start, a->name);
+			ft_lst_clear(&keeplist, free);
 		}
-		
-		if (!ft_lst_contains_key(subsequence, a->start->content, &are_equal))
+		return only_keep_subsequence(a, b, subsequence, keeplist, 0);
+	}
+
+	if (keeplist_status == 0)
+	{
+		keeplist = list_values_to_keep(a, subsequence);
+	}
+	else
+	{
+		if (ft_lst_contains_key(keeplist, a->start->content, are_equal))
 		{
-			// Get the next pair
-			// Now loop util the next pair
-			// Create a new list with the values that can be in the pair
-			// And move to this pair
-			// Then empty the list by putting them in the order
-			values_to_keep = list_values_to_keep(a, subsequence);
-			if (values_to_keep != NULL)
+			if (ft_lst_contains_key(keeplist, a->start->next->content, are_equal))
 			{
-				ft_printf("values to keep !!\n");
-				print_list(values_to_keep, " | ");
+				rotate(&a->start, a->name);
 			}
 			else
 			{
-				ft_printf("nothing to keep\n");
+				swap(a->start, a->name);
 			}
-
-			ft_lst_clear(&values_to_keep, free);
-
-			// push_or_swap(a, b, subsequence);
-			push(&a->start, &b->start, b->name);
+			
 		}
 		else
-		{
-			rotate(&a->start, a->name);
-		}
+			push(&a->start, &b->start, b->name);
 	}
-	
+	only_keep_subsequence(a, b, subsequence, keeplist, 1);
 }
 
 
 void	patrick(t_stack *a, t_stack *b)
 {
 	t_list	*sub;
+	t_list	*keeplist;
 
 	sub = longest_sequence(a->start);
 	print_ab(sub, NULL, "LONGEST SUB");
 	ft_printf("size %d-------------------------------------------------------\n", ft_lst_size(sub));
 	// print_ab(a->start, b->start, "is it ok ?");
 
-	only_keep_subsequence(a, b, sub);
+	only_keep_subsequence(a, b, sub, keeplist, 0);
 	print_ab(a->start, b->start, "PUSH DONE");
 
 	ft_lst_clear(&sub, free);
