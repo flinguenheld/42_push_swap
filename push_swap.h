@@ -40,11 +40,6 @@ typedef struct s_point
 
 void patrick(t_stack *a, t_stack *b);
 
-void	only_keep_subsequence_blah(t_stack *a, t_stack *b, t_list *subsequence, t_list **keeplist);
-
-void	only_keep_subsequence(t_stack *a, t_stack *b, t_list *subsequence, t_list **keeplist, char keeplist_status);
-
-
 // ----------------------------------------------------------------------------
 // --------------------------------------------------------- SELECTION SORT ---
 /**
@@ -175,18 +170,6 @@ int	is_sorted_circular(t_list *lst);
  * Check can continue if the next value is higher as long as tolerance > 0
  */
 int		is_sorted_tolerance(t_list *node, char tolerance);
-
-// ----------------------------------------------------------------------------
-// --------------------------------------------------------------- SEQUENCE ---
-
-/**
- * @brief
- * Find the longest sequence of values in the list
- * Clone these values, skip the other and add them in a new list
- * @return
- * A brand new list with the sequence
- */
-t_list	*longest_sequence(t_list *list);
 
 // ----------------------------------------------------------------------------
 // ---------------------------------------------------------------- PARSING ---

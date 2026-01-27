@@ -14,7 +14,9 @@ SRC = main.c \
       utils_list.c \
       selection_sort.c \
       selection_sort_range.c \
-      sequence.c \
+      lis/lis.c \
+      lis/keep_list.c \
+      lis/only_keep_lis.c \
       group_sort.c \
       commands/push.c \
       commands/reverse_rotate.c \
