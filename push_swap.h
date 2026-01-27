@@ -40,6 +40,10 @@ typedef struct s_point
 
 void patrick(t_stack *a, t_stack *b);
 
+void	only_keep_subsequence_blah(t_stack *a, t_stack *b, t_list *subsequence, t_list **keeplist);
+
+void	only_keep_subsequence(t_stack *a, t_stack *b, t_list *subsequence, t_list **keeplist, char keeplist_status);
+
 
 // ----------------------------------------------------------------------------
 // --------------------------------------------------------- SELECTION SORT ---

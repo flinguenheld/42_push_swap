@@ -66,14 +66,40 @@ static void	list_values_to_keep(t_stack *a, t_list *subseq, t_list **keeplist)
 	}
 }
 
+static void	rot_swap_push(t_stack *a, t_stack *b, t_list **keeplist)
+{
+	if (ft_lst_contains_key(*keeplist, a->start->content, are_equal))
+	{
+		if (ft_lst_contains_key(*keeplist, a->start->next->content, are_equal))
+			rotate(&a->start, a->name);
+		else
+			swap(a->start, a->name);
+	}
+	else
+		push(&a->start, &b->start, b->name);
+}
+
+static void rot_sort(t_stack *a, t_stack *b, int to_loop, int to_sort)
+{
+	while (to_loop--)
+		reverse_rotate(&a->start, a->name);
+	selection_sort_range(a, b, to_sort, 1);
+}
+
+static void rot_clear(t_stack *a, t_list **keeplist, int to_loop)
+{
+	// to_loop = keeplist_len + 1;
+	while (to_loop--)
+		rotate(&a->start, a->name);
+	ft_lst_clear(keeplist, free);
+}
+
 void	only_keep_subsequence(t_stack *a, t_stack *b, t_list *subsequence, t_list **keeplist, char keeplist_status)
 {
 	int	keeplist_len;
-	int	to_loop;
 
 	if (is_sorted_circular(a->start) == 1)
 		return ;
-
 	keeplist_len = ft_lst_size(*keeplist);
 	if (ft_lst_contains_key(subsequence, a->start->content, are_equal))
 	{
@@ -82,36 +108,17 @@ void	only_keep_subsequence(t_stack *a, t_stack *b, t_list *subsequence, t_list *
 		else
 		{
 			if (keeplist_len > 1)
-			{
-				to_loop = keeplist_len - 1;
-				while (to_loop--)
-					reverse_rotate(&a->start, a->name);
-				selection_sort_range(a, b, keeplist_len + 1, 1);
-			}
+				rot_sort(a, b, keeplist_len - 1, keeplist_len + 1);
 			if (is_sorted_circular(a->start))
 				return ;
-			to_loop = keeplist_len + 1;
-			while (to_loop--)
-				rotate(&a->start, a->name);
-			ft_lst_clear(keeplist, free);
+			rot_clear(a, keeplist, keeplist_len + 1);
 		}
 		return only_keep_subsequence(a, b, subsequence, keeplist, 0);
 	}
-
 	if (keeplist_status == 0)
 		list_values_to_keep(a, subsequence, keeplist);
 	else
-	{
-		if (ft_lst_contains_key(*keeplist, a->start->content, are_equal))
-		{
-			if (ft_lst_contains_key(*keeplist, a->start->next->content, are_equal))
-				rotate(&a->start, a->name);
-			else
-				swap(a->start, a->name);
-		}
-		else
-			push(&a->start, &b->start, b->name);
-	}
+		rot_swap_push(a, b, keeplist);
 	only_keep_subsequence(a, b, subsequence, keeplist, 1);
 }
 
