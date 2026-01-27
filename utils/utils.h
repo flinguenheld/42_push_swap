@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 14:06:11 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/27 16:19:56 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/27 20:22:27 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int		get_index(t_list *list, int to_find);
  * (According to the value of index and list length, use reverse rotation)
  */
 // void	rotate_shorter_side(t_list **list, char who, int index);
+// TODO: CHECK IF THIS ONE IS USEFULL OR NOT ----------------------------------
 void	rotate_shorter_side(t_stack *from, t_stack *to,
 			int index, void *previous);
 
@@ -91,7 +92,7 @@ int		*new_content(int value);
  * @return
  * The lowest node pointer
  */
-t_list	*lowest_node(t_list *lst);
+t_list	*lowest_node(t_list *lst, char reverse);
 
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------- SORTED ---

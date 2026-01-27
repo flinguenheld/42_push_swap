@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 16:12:41 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/27 16:13:39 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/27 20:22:27 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	is_sorted_circular(t_list *lst)
 
 	if (lst == NULL || lst->next == NULL)
 		return (1);
-	lowest = lowest_node(lst);
+	lowest = lowest_node(lst, 0);
 	current = lowest;
 	while (1)
 	{
