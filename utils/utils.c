@@ -6,20 +6,11 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 11:32:25 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/17 11:33:38 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/27 16:13:39 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "commands/commands.h"
-#include "libft/libft.h"
-#include "push_swap.h"
-#include <limits.h>
-
-int	are_equal(void *a, void *b)
-{
-	// return (*(int *)a == *(int *)b);
-	return (a != NULL && b != NULL && *(int *)a == *(int *)b);
-}
+#include "utils.h"
 
 t_point	get_lowest_point(t_list *list, int nb_nodes_max, t_list *to_ignore)
 {
@@ -86,7 +77,8 @@ int	get_index(t_list *list, int to_find)
 	return (-1);
 }
 
-void	rotate_shorter_side(t_stack *from, t_stack *to, int index, void *previous)
+void	rotate_shorter_side(t_stack *from, t_stack *to,
+			int index, void *previous)
 {
 	int	size;
 	int	previous_pushed;
@@ -98,12 +90,8 @@ void	rotate_shorter_side(t_stack *from, t_stack *to, int index, void *previous)
 		index = size - index;
 		while (index--)
 		{
-			// print_ab(from->start, to->start, "in rotate !");
 			if (are_equal(previous, from->start->content) == 1)
-			{
-				// ft_printf("here !!! with %d\n", content(from->start));
 				push(&from->start, &to->start, to->name);
-			}
 			reverse_rotate(&from->start, from->name);
 		}
 	}
@@ -112,10 +100,7 @@ void	rotate_shorter_side(t_stack *from, t_stack *to, int index, void *previous)
 		while (index--)
 		{
 			if (are_equal(previous, from->start->content) == 1)
-			{
-				// ft_printf("here !!!\n");
 				push(&from->start, &to->start, to->name);
-			}
 			else
 				rotate(&from->start, from->name);
 		}

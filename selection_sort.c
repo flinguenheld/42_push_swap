@@ -6,12 +6,12 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 22:57:27 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/17 11:33:38 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/27 16:13:36 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <limits.h>
+#include "utils/utils.h"
 
 /**
  * @brief

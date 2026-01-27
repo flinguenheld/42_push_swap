@@ -6,13 +6,12 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 21:57:04 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/20 00:32:03 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/27 16:13:36 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "push_swap.h"
-#include <limits.h>
+#include "utils/utils.h"
 
 /**
  * @brief

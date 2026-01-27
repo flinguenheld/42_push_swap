@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 14:06:11 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/27 14:06:12 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/27 16:21:29 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIS_H
 
 # include "../push_swap.h"
+# include "../utils/utils.h"
 
 /**
  * @brief

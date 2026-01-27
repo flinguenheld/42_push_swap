@@ -1,30 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                       :::      ::::::::    */
-/*   utils_list.c                                       :+:      :+:    :+:   */
+/*   utils_sorted.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/15 21:20:32 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/17 11:33:39 by flinguen         ###   ########.fr       */
+/*   Created: 2026/01/27 16:12:41 by flinguen          #+#    #+#             */
+/*   Updated: 2026/01/27 16:13:39 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-int	content(t_list *node)
-{
-	return (*(int *)node->content);
-}
-
-int	*new_content(int value)
-{
-	int	*new_content;
-
-	new_content = malloc(sizeof(int));
-	*new_content = value;
-	return (new_content);
-}
+#include "utils.h"
 
 int	is_sorted(t_list *node, int reverse)
 {
@@ -35,33 +21,6 @@ int	is_sorted(t_list *node, int reverse)
 	if (reverse && *(int *)node->content < *(int *)(node->next->content))
 		return (0);
 	return (is_sorted(node->next, reverse));
-}
-
-int	is_sorted_tolerance(t_list *node, char tolerance)
-{
-	if (node == NULL || node->next == NULL)
-		return (1);
-	if (*(int *)node->content > *(int *)(node->next->content))
-	{
-		if (tolerance == 0)
-			return (0);
-		tolerance--;
-	}
-	return (is_sorted(node->next, tolerance));
-}
-
-t_list	*lowest_node(t_list *lst)
-{
-	t_list	*lowest;
-
-	lowest = lst;
-	while (lst != NULL)
-	{
-		if (content(lst) < content(lowest))
-			lowest = lst;
-		lst = lst->next;
-	}
-	return (lowest);
 }
 
 int	is_sorted_circular(t_list *lst)

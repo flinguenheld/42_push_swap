@@ -7,21 +7,22 @@ LIBFT_FOLDER = ./libft/
 LIBFT_FILE = $(LIBFT_FOLDER)libft.a
 
 SRC = main.c \
-      parsing.c \
-      patrick.c \
-      print.c \
-      utils.c \
-      utils_list.c \
-      selection_sort.c \
-      selection_sort_range.c \
-      lis/lis.c \
-      lis/keep_list.c \
-      lis/only_keep_lis.c \
-      group_sort.c \
       commands/push.c \
       commands/reverse_rotate.c \
       commands/rotate.c \
       commands/swap.c \
+      group_sort.c \
+      lis/lis.c \
+      lis/keep_list.c \
+      lis/only_keep_lis.c \
+      parsing.c \
+      patrick.c \
+      print.c \
+      selection_sort.c \
+      selection_sort_range.c \
+      utils/utils.c \
+      utils/utils_list.c \
+      utils/utils_sorted.c \
 
 all: $(NAME)
 
