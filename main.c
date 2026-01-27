@@ -62,6 +62,7 @@ int	main(int argc, char **argv)
 	print_ab(a.start, b.start, "Sorted");
 	// --
 	ft_lst_clear(&a.start, free);
+	ft_lst_clear(&b.start, free);
 	return (0);
 
 	// --------------------------------------------------------- PATRICK ------

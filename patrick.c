@@ -17,18 +17,19 @@
 
 void	patrick(t_stack *a, t_stack *b)
 {
-	t_list	*sub;
+	t_list		*lis;
 	t_keeplist	keeplist;
 
 	keeplist = (t_keeplist){.list = NULL, .status = 0};
-	sub = get_lis(a->start);
-	print_ab(sub, NULL, "LONGEST SUB");
-	// ft_printf("size %d-------------------------------------------------------\n", ft_lst_size(sub));
-	// print_ab(a->start, b->start, "is it ok ?");
+	lis = get_lis(a->start);
+	print_ab(lis, NULL, "L I S");
 
-	only_keep_subsequence(a, b, sub, &keeplist);
+	only_keep_lis(a, b, lis, &keeplist);
 	print_ab(a->start, b->start, "PUSH DONE");
-	ft_lst_clear(&keeplist.list, free);
 
-	ft_lst_clear(&sub, free);
+	ft_lst_clear(&keeplist.list, free);
+	
+	print_ab(lis, NULL, "L I S before clean");
+	ft_lst_clear(&lis, free);
+	print_ab(lis, NULL, "L I S before clean");
 }

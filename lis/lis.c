@@ -62,7 +62,7 @@ static t_list	*extract_subsequence(t_list **list, t_list **lis)
  * @brief
  * Loop from the start to the *_node_to_reach to update its value
  *
- * Then for each couple of values (list & list):
+ * Then for each couple of values (list & lis):
  *    Add one to the 'lis_to_reach' if
  *       - current checked value is lower than the to_reach one
  *       - lis value is equal or higher than the lis to reach
@@ -73,7 +73,6 @@ static void	up_lis_value(t_list *list, t_list *list_node_to_reach,
 	while (lis != lis_node_to_reach)
 	{
 		if (content(list_node_to_reach) > content(list)
-			// && content(lis) == content(lis_node_to_reach))
 			&& content(lis) >= content(lis_node_to_reach))
 			(*(int *)lis_node_to_reach->content) += 1;
 		lis = lis->next;
@@ -146,6 +145,8 @@ t_list	*get_lis(t_list *list)
 			subsequence = temp;
 			subsequence_len = temp_len;
 		}
+		else
+			ft_lst_clear(&temp, free);
 		ft_lst_rotate_right(&list);
 	}
 	return (subsequence);

@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 14:06:11 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/27 14:06:12 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/27 15:12:56 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,14 @@ static void	rot_clear(t_stack *a, t_keeplist *keeplist, int to_loop)
 	keeplist->status = 1;
 }
 
-void	only_keep_subsequence(t_stack *a, t_stack *b, t_list *subsequence,
-						t_keeplist *keeplist)
+void	only_keep_lis(t_stack *a, t_stack *b, t_list *lis, t_keeplist *keeplist)
 {
 	int	keeplist_len;
 
 	if (is_sorted_circular(a->start) == 1)
 		return ;
 	keeplist_len = ft_lst_size(keeplist->list);
-	if (ft_lst_contains_key(subsequence, a->start->content, are_equal))
+	if (ft_lst_contains_key(lis, a->start->content, are_equal))
 	{
 		if (keeplist_len == 0)
 			rotate(&a->start, a->name);
@@ -61,11 +60,11 @@ void	only_keep_subsequence(t_stack *a, t_stack *b, t_list *subsequence,
 				return ;
 			rot_clear(a, keeplist, keeplist_len + 1);
 		}
-		return (only_keep_subsequence(a, b, subsequence, keeplist));
+		return (only_keep_lis(a, b, lis, keeplist));
 	}
 	if (keeplist->status == 0)
-		up_keep_list(a, subsequence, keeplist);
+		up_keep_list(a, lis, keeplist);
 	else
 		rot_swap_push(a, b, keeplist);
-	only_keep_subsequence(a, b, subsequence, keeplist);
+	only_keep_lis(a, b, lis, keeplist);
 }
