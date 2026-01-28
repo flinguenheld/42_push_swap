@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 11:32:25 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/27 20:22:27 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/28 10:26:43 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,36 +75,6 @@ int	get_index(t_list *list, int to_find)
 		index++;
 	}
 	return (-1);
-}
-
-void	rotate_shorter_side(t_stack *from, t_stack *to,
-			int index, void *previous)
-{
-	int	size;
-	int	previous_pushed;
-
-	previous_pushed = 0;
-	size = ft_lst_size(from->start);
-	if (index > size / 2)
-	{
-		index = size - index;
-		while (index--)
-		{
-			if (are_equal(previous, from->start->content) == 1)
-				push(&from->start, &to->start, to->name);
-			reverse_rotate(&from->start, from->name);
-		}
-	}
-	else
-	{
-		while (index--)
-		{
-			if (are_equal(previous, from->start->content) == 1)
-				push(&from->start, &to->start, to->name);
-			else
-				rotate(&from->start, from->name);
-		}
-	}
 }
 
 void	rotate_shortest_way(t_stack *stack, int index_to)

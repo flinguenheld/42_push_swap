@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 22:57:27 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/28 07:51:53 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/28 10:26:43 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	selection_sort(t_stack *from, t_stack *to)
 			break ;
 		}
 		lowest = get_lowest_point(from->start, INT_MAX, NULL);
-		rotate_shorter_side(from, to, lowest.index, NULL);
+		rotate_shortest_way(from,lowest.index);
 		push(&from->start, &to->start, to->name);
 	}
 	while (to->start != NULL)

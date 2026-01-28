@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 14:06:11 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/27 20:22:27 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/28 10:26:43 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,6 @@ t_point	get_highest_point(t_list *list, int nb_nodes_max, t_list *to_ignore);
  * The index or -1 if not found
  */
 int		get_index(t_list *list, int to_find);
-
-/**
- * @brief
- * Rotate the given list with 'index' rotations
- * (According to the value of index and list length, use reverse rotation)
- */
-// void	rotate_shorter_side(t_list **list, char who, int index);
-// TODO: CHECK IF THIS ONE IS USEFULL OR NOT ----------------------------------
-void	rotate_shorter_side(t_stack *from, t_stack *to,
-			int index, void *previous);
 
 /**
  * @brief

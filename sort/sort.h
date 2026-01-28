@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 07:54:05 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/28 07:56:23 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/28 10:11:53 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,22 @@
 # include "../push_swap.h"
 # include "../commands/commands.h"
 # include "../utils/utils.h"
+
+// ----------------------------------------------------------------------------
+// -------------------------------------------------------- GREEDY LIS SORT ---
+
+/**
+ * @brief
+ * Sort discovered thanks to Patrick in 3 steps
+ *   - Get longest Increasing Subsequence
+ *   - Push values in B and only keep lis values in the stack A
+ *        Optimisation
+ *           - With keeplist to try to increase the lis
+ *           - With a median to separate values in two parts in the stack B
+ *   - Push back all values in A with a greed alorithm
+ *           - Before each action, compute all possibilites to do the cheapest
+ */
+void	greedy_lis_sort(t_stack *a, t_stack *b);
 
 // ----------------------------------------------------------------------------
 // --------------------------------------------------------- SELECTION SORT ---

@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 19:34:30 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/28 07:51:53 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/28 10:11:54 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #pragma GCC diagnostic ignored "-Wall"

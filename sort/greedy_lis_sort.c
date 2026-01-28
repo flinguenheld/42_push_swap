@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:38:22 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/28 07:56:23 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/28 10:11:53 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	get_median(t_list *lst)
 	return (current);
 }
 
-void	greedy_lis(t_stack *a, t_stack *b)
+void	greedy_lis_sort(t_stack *a, t_stack *b)
 {
 	t_list		*lis;
 	t_lis_utils	utils;

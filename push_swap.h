@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:04:31 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/28 07:51:50 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/28 10:12:53 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PUSH_SWAP_H
 
 # include "commands/commands.h"
-# include "libft/libft.h"
 # include "limits.h"
 
 /**
@@ -36,19 +35,6 @@ typedef struct s_point
 	int	value;
 	int	index;
 }	t_point;
-
-/**
- * @brief
- * Sort discovered thanks to Patrick in 3 steps
- *   - Get longest Increasing Subsequence
- *   - Push values in B and only keep lis values in the stack A
- *        Optimisation
- *           - With keeplist to try to increase the lis
- *           - With a median to separate values in two parts in the stack B
- *   - Push back all values in A with a greed alorithm
- *           - Before each action, compute all possibilites to do the cheapest
- */
-void	greedy_lis(t_stack *a, t_stack *b);
 
 // ----------------------------------------------------------------------------
 // ---------------------------------------------------------------- PARSING ---
@@ -78,6 +64,6 @@ void	print_ab(t_list *a, t_list *b, char *title);
  * @brief
  * Print the list and add the separator between each values
  */
-void print_list(t_list *list, char *separator);
+void	print_list(t_list *list, char *separator);
 
 #endif
