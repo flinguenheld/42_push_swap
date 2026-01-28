@@ -6,90 +6,54 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 16:30:48 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/27 20:29:10 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/28 01:25:28 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "greedy_push.h"
 
-/**
- * @brief
- * Find the value on 'a' which should be on the top for the given value in b
- * @return
- * The pivot in a
- */
-static int	find_pivot(t_list *start, int value)
+static void	two_side_rotation(t_stack *a, t_stack *b, t_greed greed)
 {
-	int		lower;
-	int		higher;
-	t_list	*current;
-	t_list	*next;
+	int	to_loop;
 
-	lower = content(lowest_node(start, 0));
-	higher = content(lowest_node(start, 1));
-	if (value < lower || value > higher)
-		return (lower);
-	current = start;
-	while (1)
+	to_loop = ft_min(greed.price_a.times, greed.price_b.times);
+	while (to_loop--)
 	{
-		next = current->next;
-		if (next == NULL)
-			next = start;
-		if (content(current) != higher
-			&& content(current) < value && content(next) > value)
-			break ;
-		current = next;
+		if (greed.price_a.reverse)
+			reverse_rotate_ab(&a->start, &b->start);
+		else
+			rotate_ab(&a->start, &b->start);
 	}
-	return (content(next));
 }
 
-/**
- * @brief
- * You want to rotate?
- * Here the price
- * @return
- * The amount of commands needed (r or rr)
- */
-static int	price_rotation(t_stack *stack, int value, int stack_len)
+static void	one_side_rotation(t_stack *stack, int to_loop, char reverse)
 {
-	int	index;
-
-	index = get_index(stack->start, value);
-	if (index > stack_len / 2)
-		return (stack_len - index);
-	return (index);
+	while (to_loop--)
+	{
+		if (reverse)
+			reverse_rotate(&stack->start, stack->name);
+		else
+			rotate(&stack->start, stack->name);
+	}
 }
 
-/**
- * @brief
- * Calculate the cost of all value to be pushed in 'a'
- * @return
- * The cheapest
- */
-static t_greed	current_lowest_price(t_stack *a, t_stack *b,
-								int len_a, int len_b)
+static void	greedy_rotation(t_stack *a, t_stack *b, t_greed	greed)
 {
-	t_greed	current;
-	t_greed	lowest;
-	t_list	*current_node;
-
-	lowest.price = INT_MAX;
-	current_node = b->start;
-	while (current_node != NULL)
+	if (greed.price_a.reverse == greed.price_b.reverse)
 	{
-		current.price = price_rotation(b, content(current_node), len_b);
-		current.pivot = find_pivot(a->start, content(current_node));
-		current.price += price_rotation(a, current.pivot, len_a);
-		if (current.price < lowest.price)
-		{
-			lowest.value = content(current_node);
-			lowest.price = current.price;
-			lowest.pivot = current.pivot;
-		}
-		current_node = current_node->next;
+		two_side_rotation(a, b, greed);
+		if (greed.price_a.times > greed.price_b.times)
+			one_side_rotation(a, ft_sub_abs(greed.price_a.times,
+					greed.price_b.times), greed.price_a.reverse);
+		else
+			one_side_rotation(b, ft_sub_abs(greed.price_a.times,
+					greed.price_b.times), greed.price_b.reverse);
 	}
-	// ft_printf("cheapest: value: %d, pivot: %d, price: %d\n", lowest.value, lowest.pivot, lowest.price);
-	return (lowest);
+	else
+	{
+		one_side_rotation(a, greed.price_a.times, greed.price_a.reverse);
+		one_side_rotation(b, greed.price_b.times, greed.price_b.reverse);
+	}
 }
 
 void	greedy_push(t_stack *a, t_stack *b)
@@ -102,9 +66,8 @@ void	greedy_push(t_stack *a, t_stack *b)
 	len_b = ft_lst_size(b->start);
 	while (b->start != NULL)
 	{
-		current = current_lowest_price(a, b, len_a, len_b);
-		rotate_shortest_way(b, get_index(b->start, current.value));
-		rotate_shortest_way(a, get_index(a->start, current.pivot));
+		current = get_lowest_price(a, b, len_a, len_b);
+		greedy_rotation(a, b, current);
 		push(&b->start, &a->start, a->name);
 		len_a++;
 		len_b--;

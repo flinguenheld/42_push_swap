@@ -11,6 +11,7 @@ SRC = main.c \
       commands/reverse_rotate.c \
       commands/rotate.c \
       commands/swap.c \
+      greedy_push/greedy_price.c \
       greedy_push/greedy_push.c \
       group_sort.c \
       lis/lis.c \

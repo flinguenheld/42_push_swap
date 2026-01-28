@@ -56,3 +56,5 @@ dkms.conf
 
 push_swap
 *.txt
+checker_linux
+testeur.sh
