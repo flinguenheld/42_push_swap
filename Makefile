@@ -3,6 +3,7 @@ CC = cc
 CFLAGS =
 
 NAME = push_swap
+BONUS = checker
 LIBFT_FOLDER = ./libft/
 LIBFT_FILE = $(LIBFT_FOLDER)libft.a
 
@@ -30,12 +31,29 @@ SRC = main.c \
       utils/print.c \
       utils/parsing.c \
 
+SRC_BONUS = bonus/bonus.c \
+      \
+      commands/push.c \
+      commands/reverse_rotate.c \
+      commands/rotate.c \
+      commands/swap.c \
+      \
+      utils/utils.c \
+      utils/utils_list.c \
+      utils/utils_sorted.c \
+      utils/print.c \
+      utils/parsing.c \
+
 all: $(NAME)
 
 OBJS := $(SRC:%.c=%.o)
+OBJS_BONUS := $(SRC_BONUS:%.c=%.o)
 
 $(NAME): libft $(OBJS)
 	$(CC) -g -o $(NAME) $(OBJS) $(LIBFT_FILE)
+
+bonus: libft $(OBJS_BONUS)
+	$(CC) -g -o $(BONUS) $(OBJS_BONUS) $(LIBFT_FILE)
 
 libft:
 	@make -C $(LIBFT_FOLDER) --no-print-directory
@@ -47,6 +65,7 @@ debug: all
 	# ./$(NAME) 1 10 5 2 3 8
 	# ./$(NAME) 65 67 8 1 0 87 10 2 3 5 7 
 	# ./$(NAME) 10 2 6 8 19 1 0 9 15 5 7 55 33 124 -54
+
 
 test: all
 	@make -C tests/ --no-print-directory
@@ -65,4 +84,4 @@ fclean: clean
 re: fclean all
 
 .SILENT: $(NAME)
-.PHONY: all libft debug test test_dev test_no_flag clean fclean re
+.PHONY: all libft debug test test_dev test_no_flag clean fclean re bonus

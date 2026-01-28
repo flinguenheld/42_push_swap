@@ -4,8 +4,7 @@
 
 ### Description
 The purpose of this project is to discover some algorithms.  
-However, since it's a 42 there are some rules which prevent us to use famous algorithms.
-Here the rules:
+However, since it's a 42 there are some rules which prevent us to use famous algorithms:  
 - There are two stacks a & b
 - The first one is filled on startup
 - The only authorised movements are:
@@ -166,7 +165,7 @@ Beyond 40, the amount start to increase, so it's better but still not optimised.
 #### Greedy LIS sort
 
 Thanks to my teammates Patrick & Raphaël, I tried another approach:  
- - Push all values from a in b
+ - Push all values from a to b
  - Leave the maximum of sorted values in b
  - Push back values with the minimum of commands
 
