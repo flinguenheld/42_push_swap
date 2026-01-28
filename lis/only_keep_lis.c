@@ -12,7 +12,7 @@
 
 #include "lis.h"
 
-static void	rot_swap_push(t_stack *a, t_stack *b, t_keeplist *keeplist)
+static void	rot_swap_push(t_stack *a, t_stack *b, t_keeplist *keeplist, int median)
 {
 	if (ft_lst_contains_key(keeplist->list, a->start->content, are_equal))
 	{
@@ -23,7 +23,11 @@ static void	rot_swap_push(t_stack *a, t_stack *b, t_keeplist *keeplist)
 			swap(a->start, a->name);
 	}
 	else
+	{
 		push(&a->start, &b->start, b->name);
+		if (b->start != NULL && content(b->start) >= median)
+			rotate(&b->start, b->name);
+	}
 }
 
 static void	rot_sort(t_stack *a, t_stack *b, int to_loop, int to_sort)
@@ -41,7 +45,7 @@ static void	rot_clear(t_stack *a, t_keeplist *keeplist, int to_loop)
 	keeplist->status = 1;
 }
 
-void	only_keep_lis(t_stack *a, t_stack *b, t_list *lis, t_keeplist *keeplist)
+void	only_keep_lis(t_stack *a, t_stack *b, t_list *lis, t_keeplist *keeplist, int median)
 {
 	int	keeplist_len;
 
@@ -60,11 +64,11 @@ void	only_keep_lis(t_stack *a, t_stack *b, t_list *lis, t_keeplist *keeplist)
 				return ;
 			rot_clear(a, keeplist, keeplist_len + 1);
 		}
-		return (only_keep_lis(a, b, lis, keeplist));
+		return (only_keep_lis(a, b, lis, keeplist, median));
 	}
 	if (keeplist->status == 0)
 		up_keep_list(a, lis, keeplist);
 	else
-		rot_swap_push(a, b, keeplist);
-	only_keep_lis(a, b, lis, keeplist);
+		rot_swap_push(a, b, keeplist, median);
+	only_keep_lis(a, b, lis, keeplist, median);
 }

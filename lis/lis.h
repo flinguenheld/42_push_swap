@@ -54,6 +54,6 @@ void	up_keep_list(t_stack *a, t_list *subseq, t_keeplist *keeplist);
  * Diagram: https://github.com/flinguenheld/42_push_swap
  */
 void	only_keep_lis(t_stack *a, t_stack *b, t_list *lis,
-			t_keeplist *keeplist);
+			t_keeplist *keeplist, int median);
 
 #endif
