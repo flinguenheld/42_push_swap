@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:04:31 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/28 01:25:25 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/28 07:51:50 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,35 +37,18 @@ typedef struct s_point
 	int	index;
 }	t_point;
 
-
-void patrick(t_stack *a, t_stack *b);
-
-void	greedy_push(t_stack *a, t_stack *b);
-
-
-// ----------------------------------------------------------------------------
-// --------------------------------------------------------- SELECTION SORT ---
 /**
  * @brief
- * Selection sort O(n²)
- * Great with a small amount of data
+ * Sort discovered thanks to Patrick in 3 steps
+ *   - Get longest Increasing Subsequence
+ *   - Push values in B and only keep lis values in the stack A
+ *        Optimisation
+ *           - With keeplist to try to increase the lis
+ *           - With a median to separate values in two parts in the stack B
+ *   - Push back all values in A with a greed alorithm
+ *           - Before each action, compute all possibilites to do the cheapest
  */
-void	selection_sort(t_stack *from, t_stack *to);
-/**
- * @brief
- * Same as selection sort but only on 0 to range values
- * (preserve the stack below)
- */
-void	selection_sort_range(t_stack *from, t_stack *to,
-							size_t range, char reverse);
-
-// ----------------------------------------------------------------------------
-// ------------------------------------------------------------- GROUP SORT ---
-/**
- * @brief
- * Group
- */
-void	group_sort(t_stack *from, t_stack *to, int group_size);
+void	greedy_lis(t_stack *a, t_stack *b);
 
 // ----------------------------------------------------------------------------
 // ---------------------------------------------------------------- PARSING ---

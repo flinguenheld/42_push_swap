@@ -6,13 +6,11 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 22:57:27 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/27 16:13:36 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/28 07:56:23 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "commands/commands.h"
-#include "utils/utils.h"
-#include "push_swap.h"
+#include "sort.h"
 
 /**
  * @brief
@@ -90,7 +88,8 @@ static int	push_group(t_stack *from, t_stack *to, t_list **group, char reverse)
  *            - Push the value in the other list
  *    - Once there only one left, push back values
  */
-void	selection_sort_range(t_stack *from, t_stack *to, size_t range, char reverse)
+void	selection_sort_range(t_stack *from, t_stack *to,
+				size_t range, char reverse)
 {
 	t_list	*group;
 	int		nb_pushed_values;

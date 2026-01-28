@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 14:14:46 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/27 15:12:56 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/28 07:51:53 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ static t_list	*get_next_lis_value(t_list *list, t_list *subseq)
 	return (NULL);
 }
 
-void	up_keep_list(t_stack *a, t_list *subseq, t_keeplist *keeplist)
+void	up_keep_list(t_stack *a, t_list *subseq, t_lis_utils *utils)
 {
 	t_list	*iter;
 	t_list	*left;
 	t_list	*right;
 
 	iter = a->start;
-	ft_lst_clear(&keeplist->list, free);
+	ft_lst_clear(&utils->keeplist, free);
 	left = get_next_lis_value(a->start, subseq);
 	if (left != NULL)
 	{
@@ -47,11 +47,11 @@ void	up_keep_list(t_stack *a, t_list *subseq, t_keeplist *keeplist)
 			if (content(iter) > content(left)
 				&& (right == NULL || content(iter) < content(right)))
 			{
-				ft_lst_push_front(&keeplist->list,
+				ft_lst_push_front(&utils->keeplist,
 					ft_lst_new(new_content(content(iter))));
 			}
 			iter = iter->next;
 		}
 	}
-	keeplist->status = 1;
+	utils->keeplist_status = 1;
 }

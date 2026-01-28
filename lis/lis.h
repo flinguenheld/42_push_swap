@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 14:06:11 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/27 16:21:29 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/28 07:51:53 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../push_swap.h"
 # include "../utils/utils.h"
+# include "../sort/sort.h"
 
 /**
  * @brief
@@ -26,6 +27,13 @@ typedef struct s_keeplist
 	t_list	*list;
 	char	status;
 }	t_keeplist;
+
+typedef struct s_lis_utils
+{
+	t_list	*keeplist;
+	char	keeplist_status;
+	int		median;
+}	t_lis_utils;
 
 /**
  * @brief
@@ -45,7 +53,7 @@ t_list	*get_lis(t_list *list);
  *   - loop in the stack until the 'left'
  *       - save values which can fit in the pair
  */
-void	up_keep_list(t_stack *a, t_list *subseq, t_keeplist *keeplist);
+void	up_keep_list(t_stack *a, t_list *subseq, t_lis_utils *utils);
 
 /**
  * @brief
@@ -53,7 +61,6 @@ void	up_keep_list(t_stack *a, t_list *subseq, t_keeplist *keeplist);
  * those which are not but close to the next 'lis' value.
  * Diagram: https://github.com/flinguenheld/42_push_swap
  */
-void	only_keep_lis(t_stack *a, t_stack *b, t_list *lis,
-			t_keeplist *keeplist, int median);
+void	only_keep_lis(t_stack *a, t_stack *b, t_list *lis, t_lis_utils *utils);
 
 #endif

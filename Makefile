@@ -1,6 +1,6 @@
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror
-CFLAGS =
+CFLAGS = -Wall -Wextra -Werror
+# CFLAGS =
 
 NAME = push_swap
 LIBFT_FOLDER = ./libft/
@@ -11,20 +11,24 @@ SRC = main.c \
       commands/reverse_rotate.c \
       commands/rotate.c \
       commands/swap.c \
-      greedy_push/greedy_price.c \
-      greedy_push/greedy_push.c \
-      group_sort.c \
+      \
+      greedy/greedy_price.c \
+      greedy/greedy_push.c \
+      \
       lis/lis.c \
       lis/keep_list.c \
       lis/only_keep_lis.c \
-      parsing.c \
-      patrick.c \
-      print.c \
-      selection_sort.c \
-      selection_sort_range.c \
+      \
+      sort/greedy_lis_sort.c \
+      sort/group_sort.c \
+      sort/selection_sort.c \
+      sort/selection_sort_range.c \
+      \
       utils/utils.c \
       utils/utils_list.c \
       utils/utils_sorted.c \
+      utils/print.c \
+      utils/parsing.c \
 
 all: $(NAME)
 

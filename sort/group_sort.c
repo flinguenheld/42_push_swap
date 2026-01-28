@@ -6,12 +6,11 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 21:57:04 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/27 16:13:36 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/28 07:56:23 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-#include "utils/utils.h"
+#include "sort.h"
 
 /**
  * @brief
@@ -130,7 +129,6 @@ void	group_sort(t_stack *from, t_stack *to, int group_size)
 	int		amount_pushed;
 
 	print_ab(from->start, to->start, "group sort");
-	// while (from->start != NULL)
 	while (ft_lst_size(from->start) > group_size)
 	{
 		values_to_push = get_next_group(from, group_size);

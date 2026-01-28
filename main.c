@@ -6,12 +6,14 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:04:31 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/27 15:56:09 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/28 07:51:50 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "push_swap.h"
+#include "utils/utils.h"
+#include "sort/sort.h"
 
 int	main(int argc, char **argv)
 {
@@ -57,7 +59,7 @@ int	main(int argc, char **argv)
 
 		// selection_sort_range(&a, &b, 10, 1);
 
-	patrick(&a, &b);
+	greedy_lis(&a, &b);
 
 	print_ab(a.start, b.start, "Sorted");
 	// --

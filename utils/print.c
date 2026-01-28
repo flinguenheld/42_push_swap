@@ -6,11 +6,13 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 19:34:30 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/09 19:03:59 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/28 07:51:53 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#pragma GCC diagnostic ignored "-Wall"
+#pragma GCC diagnostic ignored "-Wextra"
 
-#include "libft/libft.h"
+#include "../libft/libft.h"
 
 static int	print_one_line(t_list **a, t_list **b)
 {
