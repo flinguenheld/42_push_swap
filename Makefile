@@ -1,6 +1,5 @@
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror
-CFLAGS =
+CFLAGS = -Wall -Wextra -Werror
 
 NAME = push_swap
 BONUS = checker
@@ -84,4 +83,4 @@ fclean: clean
 re: fclean all
 
 .SILENT: $(NAME)
-.PHONY: all libft debug test test_dev test_no_flag clean fclean re bonus
+.PHONY: all libft debug test clean fclean re bonus

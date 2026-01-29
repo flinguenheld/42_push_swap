@@ -12,7 +12,7 @@
 
 #include "commands.h"
 
-void	push(t_list **from, t_list **to, char to_print)
+int	push(t_list **from, t_list **to, char to_print)
 {
 	if (*from != NULL)
 	{
@@ -22,5 +22,7 @@ void	push(t_list **from, t_list **to, char to_print)
 			ft_printf("p");
 			ft_printf("%c\n", to_print);
 		}
+		return (1);
 	}
+	return (0);
 }
