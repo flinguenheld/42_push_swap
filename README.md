@@ -229,4 +229,43 @@ Thanks to that logic, the alogrithm *(is slow -_-, but)* needs less commands.
     
 ```
 
-Mixed with a selection sort for list shorter than ~12 elements, it's enough to validate the project 🌞
+<div align="center">
+    <img src="./images/20_sort.webp">
+</div>
+
+Mixed with a selection sort for list shorter than ~12 elements, it's enough to validate the project.
+
+### Checker
+
+The [checker](https://github.com/flinguenheld/42_push_swap/tree/master/bonus) is a program which allows to test your sorting.  
+Compile it with the command:
+
+``` Bash
+make bonus
+```
+
+Display usage:
+``` Bash
+./checker --help
+```
+
+Example:
+``` Bash
+./checker --verbose 3 5 42
+./push_swap 5 2 6 8 1 | ./checker -v 5 2 6 8 1
+```
+
+### Tester
+
+You can use the *generate_test* script to launch a serie of tests, it will generate random values to use it with push_swap and
+print a summary for 10 to 500 values.  
+
+``` Bash
+./generate_test
+
+# Just a test:
+./generate_test 100
+
+# A test with the checker & summary
+./generate_test debug 50
+```

@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 19:34:30 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/28 10:11:54 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/30 16:15:41 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #pragma GCC diagnostic ignored "-Wall"
@@ -38,22 +38,27 @@ static int	print_one_line(t_list **a, t_list **b)
 	return (still_one);
 }
 
-void	print_ab(t_list *a, t_list *b, char *title)
+void	print_ab(t_list *a, t_list *b, char *title, char simple)
 {
-# ifdef DEBUG
-	ft_printf("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n");
-	ft_printf("┃% 25s    ┃\n", title);
-	ft_printf("┣━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┫\n");
-	ft_printf("┃      a       ┃      b       ┃\n");
-	ft_printf("┣━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━┫\n");
+	if (simple)
+	{
+		ft_printf("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n");
+		ft_printf("┃% 25s    ┃\n", title);
+		ft_printf("┣━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┫\n");
+	}
+	else
+	{
+		ft_printf("┏━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓\n");
+		ft_printf("┃      a       ┃      b       ┃\n");
+		ft_printf("┣━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━┫\n");
+	}
 	while (print_one_line(&a, &b))
 		ft_printf("\n");
 	ft_printf("\n");
 	ft_printf("┗━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━┛\n");
-# endif
 }
 
-void print_list(t_list *list, char *separator)
+void	print_list(t_list *list, char *separator)
 {
 	ft_printf("\n--\n");
 	while (list != NULL)

@@ -34,9 +34,21 @@ analysis()
 }
 
 # -----------------------------------------------------------------------------
+# ------------------------------------------------------------------ Check ----
+check()
+{
+  TMP=$(get_n_values $1)
+  ./push_swap $TMP > $RESULTS
+  if [[ $(cat $RESULTS | ./checker $TMP) != "OK" ]]; then
+    echo "^^^^^^^^^^^^^^^^^^ FAIL ^^^^^^^^^^^^^^^^^^"
+    echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+    echo
+  fi
+}
+
+# -----------------------------------------------------------------------------
 # ---------------------------------------------------- Generate new values ----
 echo "" > "$VALUES"
-# for (( i=0; i < $1; i++ )); do
 # for (( i=-1000; i <= 1000; i++ )); do
 for (( i=0; i <= 500; i++ )); do
   echo "$i " >> "$VALUES"
@@ -44,26 +56,24 @@ done
 
 # -----------------------------------------------------------------------------
 # -----------------------------------------------------------------------------
-if [[ "$2" == "debug" ]]; then
-  ./push_swap $(get_n_values $i)
-  # VALUESSSSSS=$(get_n_values $1)
-  
-  #   ./push_swap $VALUESSSSSS | ./checker_linux $VALUESSSSSS
+if [[ "$1" == "debug" ]]; then
+  TMP=$(get_n_values $2)
+  ./push_swap $TMP > $RESULTS
+  cat $RESULTS | ./checker --verbose $TMP
+  analysis $1
 elif [[ -z "$1" ]]; then
   for (( i = 5; i <= 30; i += 5)); do
-    ./push_swap $(get_n_values $i) > $RESULTS
+    check $i
     analysis $i
   done
   for (( i = 100; i <= 500; i += 100)); do
-    ./push_swap $(get_n_values $i) > $RESULTS
+    check $i
     analysis $i
   done
 else
-    ./push_swap $(get_n_values $1) > $RESULTS
+    check $i
     analysis $1
 fi
 
-# valgrind --leak-check=yes ./push_swap
-
 rm -f "$VALUES"
-# rm -f "$RESULTS"
+rm -f "$RESULTS"

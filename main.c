@@ -6,7 +6,7 @@
 /*   By: flinguen <florent@linguenheld.net>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 21:04:31 by flinguen          #+#    #+#             */
-/*   Updated: 2026/01/28 10:26:40 by flinguen         ###   ########.fr       */
+/*   Updated: 2026/01/30 14:09:02 by flinguen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@ static void	sort(t_stack *a, t_stack *b)
 	int	len_a;
 
 	len_a = ft_lst_size(a->start);
-	print_ab(a->start, b->start, "Original");
 	if (!is_sorted(a->start, 0))
 	{
 		if (len_a < 10)
 			selection_sort(a, b);
 		else
 			greedy_lis_sort(a, b);
-		print_ab(a->start, b->start, "Sorted");
 		if (!is_sorted(a->start, 0))
 			ft_printf_err("SORT FAIL!\n");
 	}
